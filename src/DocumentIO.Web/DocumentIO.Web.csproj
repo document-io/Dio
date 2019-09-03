@@ -3,10 +3,11 @@
 	<PropertyGroup>
 		<TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
 		<TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
-		<IsPackable>false</IsPackable>
-		<SpaRoot>Client</SpaRoot>
 		<TargetFramework>netcoreapp3.0</TargetFramework>
 		<Nullable>enable</Nullable>
+		<IsPackable>false</IsPackable>
+
+		<SpaRoot>DocumentIO</SpaRoot>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -21,11 +22,10 @@
 		<None Remove="$(SpaRoot)\node_modules\**" />
 		<Compile Remove="$(SpaRoot)\node_modules\**" />
 		<Content Remove="$(SpaRoot)\node_modules\**" />
-		<EmbeddedResource Remove="$(SpaRoot)\node_modules\**" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\DocumentIo\DocumentIo.csproj" />
+	  <ProjectReference Include="..\DocumentIO\DocumentIO.csproj" />
 	</ItemGroup>
 
 </Project>

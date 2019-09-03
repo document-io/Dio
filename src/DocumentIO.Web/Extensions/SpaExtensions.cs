@@ -12,7 +12,7 @@ namespace DocumentIO.Web
 		{
 			services.AddSpaStaticFiles(configuration =>
 			{
-				configuration.RootPath = "Client/build";
+				configuration.RootPath = "DocumentIO/build";
 			});
 
 			return services;
@@ -23,7 +23,7 @@ namespace DocumentIO.Web
 			app.UseSpaStaticFiles();
 			app.UseSpa(spa =>
 			{
-				spa.Options.SourcePath = "Client";
+				spa.Options.SourcePath = "DocumentIO";
 
 				if (environment.IsDevelopment())
 				{
