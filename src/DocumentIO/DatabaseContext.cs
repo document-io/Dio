@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 
-namespace Dio
+namespace DocumentIO
 {
 	public class DatabaseContext : DbContext
 	{

@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Authentication.Cookies;
 
-namespace Dio.Web
+namespace DocumentIO.Web
 {
 	public static class AuthenticationExtensions
 	{

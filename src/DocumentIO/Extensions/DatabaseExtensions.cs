@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Dio
+namespace DocumentIO
 {
 	public static class DatabaseExtensions
 	{

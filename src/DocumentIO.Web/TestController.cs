@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Dio.Web
+namespace DocumentIO.Web
 {
 	[Route("test")]
 	public class TestController : ControllerBase
