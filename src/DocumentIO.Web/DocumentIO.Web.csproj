@@ -24,7 +24,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\Dio\Dio.csproj" />
+	  <ProjectReference Include="..\DocumentIo\DocumentIo.csproj" />
 	</ItemGroup>
 
 </Project>
