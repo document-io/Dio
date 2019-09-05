@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace DocumentIO
 {
@@ -77,6 +78,7 @@ namespace DocumentIO
 	public class DocumentVersion
 	{
 		public int Id { get; set; }
+		public string Description { get; set; }
 		public string Content { get; set; }
 		public DateTime EditedAt { get; set; }
 
