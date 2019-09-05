@@ -19,11 +19,11 @@ namespace DocumentIO.Web
 			services.AddDatabaseContext(configuration.GetConnectionString("postgresql"));
 
 			services.AddAuthorization()
-				.AddDioAuthentication()
+				.AddDocumentIOAuthentication()
 				.AddControllers();
 
-			services.AddDioSpa()
-				.AddDioSwagger();
+			services.AddDocumentIOSpa()
+				.AddDocumentIOSwagger();
 		}
 
 		public void Configure(IApplicationBuilder app, IWebHostEnvironment environment)
@@ -34,10 +34,10 @@ namespace DocumentIO.Web
 			app.UseAuthentication();
 			app.UseAuthorization();
 
-			app.UseDioSwagger();
+			app.UseDocumentIOSwagger();
 			app.UseEndpoints(endpoints => endpoints.MapControllers());
 
-			app.UseDioSpa(environment);
+			app.UseDocumentIOSpa(environment);
 		}
 	}
 }
