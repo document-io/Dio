@@ -8,7 +8,7 @@ namespace DocumentIO.Web
 {
 	public static class AuthenticationExtensions
 	{
-		public static IServiceCollection AddDioAuthentication(this IServiceCollection services)
+		public static IServiceCollection AddDocumentIOAuthentication(this IServiceCollection services)
 		{
 			services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
 				.AddCookie(options =>

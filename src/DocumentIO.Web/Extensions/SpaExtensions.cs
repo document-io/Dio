@@ -8,7 +8,7 @@ namespace DocumentIO.Web
 {
 	public static class SpaExtensions
 	{
-		public static IServiceCollection AddDioSpa(this IServiceCollection services)
+		public static IServiceCollection AddDocumentIOSpa(this IServiceCollection services)
 		{
 			services.AddSpaStaticFiles(configuration =>
 			{
@@ -18,7 +18,7 @@ namespace DocumentIO.Web
 			return services;
 		}
 
-		public static void UseDioSpa(this IApplicationBuilder app, IWebHostEnvironment environment)
+		public static void UseDocumentIOSpa(this IApplicationBuilder app, IWebHostEnvironment environment)
 		{
 			app.UseSpaStaticFiles();
 			app.UseSpa(spa =>

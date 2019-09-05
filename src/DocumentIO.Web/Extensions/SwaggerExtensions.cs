@@ -6,20 +6,20 @@ namespace DocumentIO.Web
 {
 	public static class SwaggerExtensions
 	{
-		public static IServiceCollection AddDioSwagger(this IServiceCollection services)
+		public static IServiceCollection AddDocumentIOSwagger(this IServiceCollection services)
 		{
 			return services.AddSwaggerGen(options =>
 			{
-				options.SwaggerDoc("v1", new OpenApiInfo { Title = "DIO Api v1", Version = "v1" });
+				options.SwaggerDoc("v1", new OpenApiInfo { Title = "DocumentIO Api v1", Version = "v1" });
 			});
 		}
 
-		public static void UseDioSwagger(this IApplicationBuilder app)
+		public static void UseDocumentIOSwagger(this IApplicationBuilder app)
 		{
 			app.UseSwagger();
 			app.UseSwaggerUI(options =>
 			{
-				options.SwaggerEndpoint("/swagger/v1/swagger.json", "DIO Api v1");
+				options.SwaggerEndpoint("/swagger/v1/swagger.json", "DocumentIO Api v1");
 			});
 		}
 	}
