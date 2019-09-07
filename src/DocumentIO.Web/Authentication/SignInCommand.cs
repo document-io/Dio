@@ -37,9 +37,9 @@ namespace DocumentIO.Web
 				.IsNullOrWhitespace()
 				.AddError("Пароль не задан");
 
-			if (validationContext.IsValid())
+			if (validationContext.IsValid(this, c => c.Email, c => c.Password))
 			{
-				validationContext.When("")
+				validationContext.When()
 					.Is(() => employee == null
 						|| passwordHasher.VerifyHashedPassword(employee, employee.PasswordHash, Password)
 							!= PasswordVerificationResult.Success)
