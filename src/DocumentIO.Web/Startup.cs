@@ -24,8 +24,8 @@ namespace DocumentIO.Web
 				.AddValidation(options => options.ValidationPartResolver = ValidationPartResolvers.CamelCase)
 				.AddControllers();
 
-			services.AddDioSpa()
-				.AddDioSwagger();
+			services.AddDocumentIOSpa()
+				.AddDocumentIOSwagger();
 		}
 
 		public void Configure(IApplicationBuilder app, IWebHostEnvironment environment)
@@ -36,10 +36,10 @@ namespace DocumentIO.Web
 			app.UseAuthentication();
 			app.UseAuthorization();
 
-			app.UseDioSwagger();
+			app.UseDocumentIOSwagger();
 			app.UseEndpoints(endpoints => endpoints.MapControllers());
 
-			app.UseDioSpa(environment);
+			app.UseDocumentIOSpa(environment);
 		}
 	}
 }
