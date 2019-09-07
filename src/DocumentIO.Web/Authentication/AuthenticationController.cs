@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
-
+using Microsoft.AspNetCore.Authorization;
 using Phema.Validation;
 
 namespace DocumentIO.Web
@@ -62,6 +62,7 @@ namespace DocumentIO.Web
 			return BadRequest(new ValidationProblemDetails(validationContext.FormatValidationDetails()));
 		}
 
+		[Authorize]
 		[HttpPost("signout")]
 		public async Task SignOut()
 		{
