@@ -3,12 +3,13 @@ using System.Threading.Tasks;
 
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Identity;
 
 namespace DocumentIO.Web
 {
 	public static class AuthenticationExtensions
 	{
-		public static IServiceCollection AddDioAuthentication(this IServiceCollection services)
+		public static IServiceCollection AddDocumentIOAuthentication(this IServiceCollection services)
 		{
 			services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
 				.AddCookie(options =>
@@ -23,6 +24,8 @@ namespace DocumentIO.Web
 					options.SlidingExpiration = true;
 					options.Cookie.HttpOnly = true;
 				});
+
+			services.AddSingleton<IPasswordHasher<Employee>, PasswordHasher<Employee>>();
 
 			return services;
 		}
