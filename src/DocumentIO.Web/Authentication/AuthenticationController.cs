@@ -27,7 +27,7 @@ namespace DocumentIO.Web
 		}
 
 		[HttpPost("signup")]
-		public async Task<ActionResult<ProblemDetails>> SignUp([FromBody] SignUpCommand command)
+		public async Task<ActionResult<DocumentIOResponse>> SignUp([FromBody] SignUpCommand command)
 		{
 			await command.Execute(databaseContext, validationContext, passwordHasher);
 
@@ -38,11 +38,11 @@ namespace DocumentIO.Web
 				return Ok();
 			}
 
-			return BadRequest(new ValidationProblemDetails(validationContext.FormatValidationDetails()));
+			return BadRequest(DocumentIOResponse.From(validationContext));
 		}
 
 		[HttpPost("signin")]
-		public async Task<ActionResult<ProblemDetails>> SignIn([FromBody] SignInCommand command)
+		public async Task<ActionResult<DocumentIOResponse>> SignIn([FromBody] SignInCommand command)
 		{
 			var employee = await command.Execute(databaseContext, validationContext, passwordHasher);
 
@@ -50,16 +50,14 @@ namespace DocumentIO.Web
 			{
 				await HttpContext.SignInAsync(
 					new ClaimsPrincipal(
-						new ClaimsIdentity(new[]
-							{
-								new Claim(ClaimTypes.Name, employee.Id.ToString())
-							},
+						new ClaimsIdentity(
+							new[] { new Claim(ClaimTypes.Name, employee.Id.ToString()) },
 							CookieAuthenticationDefaults.AuthenticationScheme)));
 
 				return Ok();
 			}
 
-			return BadRequest(new ValidationProblemDetails(validationContext.FormatValidationDetails()));
+			return BadRequest(DocumentIOResponse.From(validationContext));
 		}
 
 		[Authorize]

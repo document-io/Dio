@@ -22,7 +22,8 @@ namespace DocumentIO.Web
 			services.AddAuthorization()
 				.AddDocumentIOAuthentication()
 				.AddValidation(options => options.ValidationPartResolver = ValidationPartResolvers.CamelCase)
-				.AddControllers();
+				.AddControllers()
+				.AddJsonOptions(options => options.JsonSerializerOptions.IgnoreNullValues = true);
 
 			services.AddDocumentIOSpa()
 				.AddDocumentIOSwagger();
