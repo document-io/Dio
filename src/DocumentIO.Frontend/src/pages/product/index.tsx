@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Button, Grid, Header, Image } from 'semantic-ui-react'
+import { Link } from 'react-router-dom'
 
 class Product extends Component {
   render() {
@@ -11,19 +12,21 @@ class Product extends Component {
         <Header as="h3" icon textAlign="center">
           <Header.Content>
             Bitbucket is more than just Git code management. Bitbucket gives
-            teams one place to plan <br/> projects, collaborate on code, test,
+            teams one place to plan <br /> projects, collaborate on code, test,
             and deploy.
           </Header.Content>
         </Header>
         <Header as="h3" icon textAlign="center">
           <Header.Content>
-            <Button primary>Get started for free</Button>
+            <Button as={Link} to={'/registration'} primary>
+              Get started for free
+            </Button>
           </Header.Content>
         </Header>
         <Header as="h4" icon textAlign="center">
           <Header.Content>
             Or host it yourself with
-            <div className={'component__link'} style={{}}>
+            <Link to={'/product'} className={'component__link'}>
               <a href=""> Bitbucket Enterprise</a>
               <Image
                 width={12}
@@ -31,7 +34,7 @@ class Product extends Component {
                 style={{}}
                 src={'https://pixy.org/src/476/4766814.png'}
               />
-            </div>
+            </Link>
           </Header.Content>
         </Header>
         <Image

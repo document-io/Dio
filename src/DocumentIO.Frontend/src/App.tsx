@@ -5,6 +5,7 @@ import { Container } from 'semantic-ui-react'
 import { Redirect, Route, Switch } from 'react-router-dom'
 import Login from './pages/login'
 import Product from './pages/product'
+import Registration from './pages/registration'
 
 const App: React.FC = () => {
   return (
@@ -12,6 +13,11 @@ const App: React.FC = () => {
       <Container>
         <CustomMenu/>
         <Route exact path="/login" render={(props) => <Login {...props} />}/>
+        <Route
+          exact
+          path="/registration"
+          render={(props) => <Registration {...props} />}
+        />
         <Route
           exact
           path="/product"

@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import { Input, Menu, MenuItemProps } from 'semantic-ui-react'
+import { Input, ItemImage, Menu, MenuItemProps } from 'semantic-ui-react'
+import { Link } from 'react-router-dom'
 
 interface IHeaderState {
   activeItem: string
@@ -19,27 +20,35 @@ class CustomMenu extends Component<{}, IHeaderState> {
     return (
       <Menu secondary size={'huge'}>
         <Menu.Item
-          name="home"
-          active={activeItem === 'home'}
+          as={Link}
+          to={'/product'}
+          name={'product'}
+          active={activeItem === 'product'}
           onClick={this.handleItemClick}
-        />
-        <Menu.Item
-          name="messages"
-          active={activeItem === 'messages'}
-          onClick={this.handleItemClick}
-        />
-        <Menu.Item
-          name="friends"
-          active={activeItem === 'friends'}
-          onClick={this.handleItemClick}
-        />
+        >
+          <ItemImage
+            size={'tiny'}
+            src={
+              'https://icon-library.net/images/bitbucket-icon/bitbucket-icon-10.jpg'
+            }
+          />
+        </Menu.Item>
         <Menu.Menu position="right">
           <Menu.Item>
             <Input icon="search" placeholder="Search..."/>
           </Menu.Item>
           <Menu.Item
-            name="login_in"
-            active={activeItem === 'login_in'}
+            as={Link}
+            to={'/login'}
+            name="sign_in"
+            active={activeItem === 'sign_in'}
+            onClick={this.handleItemClick}
+          />
+          <Menu.Item
+            as={Link}
+            to={'/registration'}
+            name="sign_up"
+            active={activeItem === 'sign_up'}
             onClick={this.handleItemClick}
           />
         </Menu.Menu>
