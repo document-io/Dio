@@ -1,26 +1,26 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import './App.scss'
+import CustomMenu from './components/customMenu'
+import { Container } from 'semantic-ui-react'
+import { Redirect, Route, Switch } from 'react-router-dom'
+import Login from './pages/login'
+import Product from './pages/product'
 
 const App: React.FC = () => {
-    return (
-        <div className="App">
-            <header className="App-header">
-                <img src={logo} className="App-logo" alt="logo"/>
-                <p>
-                    Edit <code>src/App.tsx</code> and save to reload.
-                </p>
-                <a
-                    className="App-link"
-                    href="https://reactjs.org"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    Learn React
-                </a>
-            </header>
-        </div>
-    );
+  return (
+    <Switch>
+      <Container>
+        <CustomMenu/>
+        <Route exact path="/login" render={(props) => <Login {...props} />}/>
+        <Route
+          exact
+          path="/product"
+          render={(props) => <Product {...props} />}
+        />
+        <Redirect to="/product"/>
+      </Container>
+    </Switch>
+  )
 }
 
-export default App;
+export default App
