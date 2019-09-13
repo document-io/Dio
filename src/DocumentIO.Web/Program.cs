@@ -16,7 +16,7 @@ namespace DocumentIO.Web
 			new HostBuilder()
 				.ConfigureLogging(builder => builder.AddConsole())
 				.ConfigureAppConfiguration(builder =>
-					builder.AddJsonFile("appsettings.json")
+					builder.AddJsonFile("appsettings.json", optional: true)
 						.AddEnvironmentVariables("DocumentIO:"))
 				.ConfigureWebHost(builder => builder
 					.UseKestrel()
