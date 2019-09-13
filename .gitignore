@@ -3,4 +3,5 @@
 **/node_modules
 **/*.d.ts
 **/build
+**/appsettings.json
 .idea

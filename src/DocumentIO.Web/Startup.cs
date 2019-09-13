@@ -21,9 +21,9 @@ namespace DocumentIO.Web
 
 			services.AddAuthorization()
 				.AddDocumentIOAuthentication();
-				
+
 			services.AddValidation(options => options.ValidationPartResolver = ValidationPartResolvers.CamelCase);
-				
+
 			services.AddControllers()
 				.AddJsonOptions(options => options.JsonSerializerOptions.IgnoreNullValues = true);
 
@@ -33,6 +33,8 @@ namespace DocumentIO.Web
 
 		public void Configure(IApplicationBuilder app, IWebHostEnvironment environment)
 		{
+			app.UseDocumentIOMigrations();
+
 			app.UseHttpsRedirection();
 
 			app.UseRouting();

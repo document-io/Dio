@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 
 namespace DocumentIO.Web
 {
@@ -11,8 +13,13 @@ namespace DocumentIO.Web
 		}
 
 		public static IHostBuilder CreateWebHostBuilder(string[] args) =>
-			Host.CreateDefaultBuilder(args)
-				.ConfigureWebHostDefaults(webHost =>
-					webHost.UseStartup<Startup>());
+			new HostBuilder()
+				.ConfigureLogging(builder => builder.AddConsole())
+				.ConfigureAppConfiguration(builder =>
+					builder.AddJsonFile("appsettings.json")
+						.AddEnvironmentVariables("DocumentIO:"))
+				.ConfigureWebHost(builder => builder
+					.UseKestrel()
+					.UseStartup<Startup>());
 	}
 }
