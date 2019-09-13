@@ -1,0 +1,16 @@
+os: linux
+dist: trusty
+cache: false
+sudo: required
+language: bash
+services: docker
+
+addons:
+  apt:
+    packages:
+    - sshpass
+    
+script:
+- docker build -t documentio/web:1.0.${TRAVIS_BUILD_NUMBER} .
+- docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWORD
+- docker push documentio/web:1.0.$TRAVIS_BUILD_NUMBER
