@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
 namespace DocumentIO.Web
 {
@@ -10,6 +12,12 @@ namespace DocumentIO.Web
 		{
 			using (var scope = app.ApplicationServices.CreateScope())
 			{
+				var connectionString  = scope.ServiceProvider.GetRequiredService<IConfiguration>()
+					.GetConnectionString("PostgreSQL");
+
+				scope.ServiceProvider.GetRequiredService<ILogger<DatabaseContext>>()
+					.LogError("CONNECTIONSTRING: " + connectionString);
+				
 				var databaseContext = scope.ServiceProvider.GetRequiredService<DatabaseContext>();
 
 				databaseContext.Database.Migrate();
