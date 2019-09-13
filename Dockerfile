@@ -1,6 +1,7 @@
 FROM node:12 as frontend
 COPY ./src/DocumentIO.Frontend /documentio/frontend
 WORKDIR /documentio/frontend
+RUN npm i
 RUN npm run build
 
 FROM mcr.microsoft.com/dotnet/core/sdk:3.0.100-preview9-alpine3.9 AS backend
