@@ -14,10 +14,9 @@ script:
 - docker build -t sergeyshaykhullin/documentio:1.0.$TRAVIS_BUILD_NUMBER .
 - docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWORD
 - docker push sergeyshaykhullin/documentio:1.0.$TRAVIS_BUILD_NUMBER
-
 - sudo sshpass -p $DOCUMENTIO_PASSWORD ssh -o StrictHostKeyChecking=no $DOCUMENTIO_CONNECTION \
-    "docker rm -f $(docker ps -a) \
-     && docker rmi $(docker images -a) \
-     && docker pull sergeyshaykhullin/documentio:1.0.$TRAVIS_BUILD_NUMBER \
-     && docker run -p 80:80 sergeyshaykhullin/documentio:1.0.$TRAVIS_BUILD_NUMBER"
+    "docker pull sergeyshaykhullin/documentio:1.0.$TRAVIS_BUILD_NUMBER \
+     && docker rm -f $(docker ps -aq) \
+     && docker rmi $(docker images -aq) \
+     && docker run -d -p 80:80 sergeyshaykhullin/documentio:1.0.$TRAVIS_BUILD_NUMBER"
 
