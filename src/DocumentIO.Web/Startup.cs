@@ -20,9 +20,11 @@ namespace DocumentIO.Web
 			services.AddDatabaseContext(configuration.GetConnectionString("PostgreSQL"));
 
 			services.AddAuthorization()
-				.AddDocumentIOAuthentication()
-				.AddValidation(options => options.ValidationPartResolver = ValidationPartResolvers.CamelCase)
-				.AddControllers()
+				.AddDocumentIOAuthentication();
+				
+			services.AddValidation(options => options.ValidationPartResolver = ValidationPartResolvers.CamelCase);
+				
+			services.AddControllers()
 				.AddJsonOptions(options => options.JsonSerializerOptions.IgnoreNullValues = true);
 
 			services.AddDocumentIOSpa()

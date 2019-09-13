@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace DocumentIO.Web
 {
@@ -12,7 +12,7 @@ namespace DocumentIO.Web
 		{
 			services.AddSpaStaticFiles(configuration =>
 			{
-				configuration.RootPath = "DocumentIO/build";
+				configuration.RootPath = "frontend";
 			});
 
 			return services;
@@ -23,11 +23,11 @@ namespace DocumentIO.Web
 			app.UseSpaStaticFiles();
 			app.UseSpa(spa =>
 			{
-				spa.Options.SourcePath = "DocumentIO";
+				spa.Options.SourcePath = "../DocumentIO.Frontend";
 
 				if (environment.IsDevelopment())
 				{
-					spa.UseReactDevelopmentServer(npmScript: "start");
+					spa.UseReactDevelopmentServer("dev");
 				}
 			});
 		}

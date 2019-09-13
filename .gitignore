@@ -2,4 +2,5 @@
 **/obj
 **/node_modules
 **/*.d.ts
+**/build
 .idea

@@ -28,4 +28,10 @@
 	  <ProjectReference Include="..\DocumentIO\DocumentIO.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <_ContentIncludedByDefault Remove="DocumentIO\package.json" />
+	  <_ContentIncludedByDefault Remove="DocumentIO\public\manifest.json" />
+	  <_ContentIncludedByDefault Remove="DocumentIO\tsconfig.json" />
+	</ItemGroup>
+
 </Project>
