@@ -35,7 +35,7 @@ namespace DocumentIO.Web
 			}
 		}
 
-		public async Task Login(DatabaseContext databaseContext, HttpContext httpContext)
+		public async Task SignIn(DatabaseContext databaseContext, HttpContext httpContext)
 		{
 			var account = await databaseContext.Accounts.FirstAsync(a => a.Email == Email);
 			

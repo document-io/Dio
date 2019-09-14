@@ -46,7 +46,7 @@ namespace DocumentIO.Web
 				return BadRequest(validationContext.Into());
 			}
 
-			await command.Login(databaseContext, HttpContext);
+			await command.SignIn(databaseContext, HttpContext);
 
 			return Ok();
 		}
