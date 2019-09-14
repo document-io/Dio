@@ -4,4 +4,7 @@
 **/*.d.ts
 **/build
 **/appsettings.json
+**/.vs
+**/*.user
+**/Properties
 .idea
