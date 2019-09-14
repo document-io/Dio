@@ -21,7 +21,7 @@ namespace DocumentIO.Web
 			this.validationContext = validationContext;
 		}
 
-		[HttpGet]
+		[HttpGet] 
 		public async Task<IEnumerable<InviteItemModel>> Invites()
 		{
 			var accountId = int.Parse(User.Identity.Name);

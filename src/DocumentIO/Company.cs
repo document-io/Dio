@@ -52,4 +52,13 @@ namespace DocumentIO
 		public int InviteId { get; set; }
 		public Invite Invite { get; set; }
 	}
+	public class Board
+	{
+		public int Id { get; set; }
+		public string Name { get; set; }
+
+
+		public int CompanyId { get; set; }
+		public Company Company { get; set; }
+	}
 }
