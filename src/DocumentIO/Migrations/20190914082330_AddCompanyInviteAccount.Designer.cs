@@ -3,15 +3,17 @@ using System;
 using DocumentIO;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace DocumentIO.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20190914082330_AddCompanyInviteAccount")]
+    partial class AddCompanyInviteAccount
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -25,9 +27,6 @@ namespace DocumentIO.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -57,8 +56,7 @@ namespace DocumentIO.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("InviteId")
-                        .IsUnique();
+                    b.HasIndex("InviteId");
 
                     b.ToTable("Accounts");
                 });
@@ -96,7 +94,7 @@ namespace DocumentIO.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<DateTime?>("DueDate")
+                    b.Property<DateTime>("DueDate")
                         .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("Email")
@@ -117,8 +115,8 @@ namespace DocumentIO.Migrations
             modelBuilder.Entity("DocumentIO.Account", b =>
                 {
                     b.HasOne("DocumentIO.Invite", "Invite")
-                        .WithOne("Account")
-                        .HasForeignKey("DocumentIO.Account", "InviteId")
+                        .WithMany()
+                        .HasForeignKey("InviteId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

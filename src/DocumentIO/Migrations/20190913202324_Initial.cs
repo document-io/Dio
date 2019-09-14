@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿// ReSharper disable All
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace DocumentIO.Migrations
 {
