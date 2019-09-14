@@ -5,6 +5,10 @@ sudo: required
 language: bash
 services: docker
 
+branches:
+  only:
+  - master
+
 addons:
   apt:
     packages:
