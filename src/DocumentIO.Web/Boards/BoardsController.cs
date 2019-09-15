@@ -36,6 +36,17 @@ namespace DocumentIO.Web
 					.ToListAsync());
 		}
 
+		[HttpGet("{boardId}")]
+		public async Task<DocumentIOResponse<BoardModel>> Board(int boardId)
+		{
+			var board = await databaseContext.Boards
+				.Include(b => b.Columns)
+				.ThenInclude(c => c.Cards)
+				.SingleAsync(b => b.Id == boardId);
+
+			return DocumentIOResponse.From(new BoardModel(board));
+		}
+
 		[HttpPost]
 		public async Task<ActionResult<DocumentIOResponse>> Create([FromBody] CreateBoardCommand command)
 		{

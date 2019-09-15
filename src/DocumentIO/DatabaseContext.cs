@@ -12,6 +12,8 @@ namespace DocumentIO
 		public DbSet<Invite> Invites { get; set; }
 		public DbSet<Account> Accounts { get; set; }
 		public DbSet<Board> Boards{ get; set; }
+		public DbSet<Column> Columns{ get; set; }
+		public DbSet<Card> Cards{ get; set; }
 
 	}
 }

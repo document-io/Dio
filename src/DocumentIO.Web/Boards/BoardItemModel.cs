@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace DocumentIO.Web
+﻿namespace DocumentIO.Web
 {
 	public class BoardItemModel
 	{
