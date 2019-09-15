@@ -1,6 +1,4 @@
 ﻿using Phema.Validation;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Phema.Validation.Conditions;
@@ -16,6 +14,7 @@ namespace DocumentIO.Web
 			validationContext.When(this, c => c.Name)
 				.IsNullOrWhitespace()
 				.AddError("Имя доски не задано");
+
 			validationContext.When(this, c => c.Name)
 				.Is(() => databaseContext.Boards.Where(board => board.Company == company).Any(board => board.Name == Name))
 				.AddError("Доска с таким именем ужде существует");

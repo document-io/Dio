@@ -27,8 +27,8 @@ namespace DocumentIO.Web
 			services.AddControllers()
 				.AddJsonOptions(options => options.JsonSerializerOptions.IgnoreNullValues = true);
 
-			services.AddDocumentIOSpa()
-				.AddDocumentIOSwagger();
+			services.AddDocumentIOSwagger()
+				.AddDocumentIOSpa();
 		}
 
 		public void Configure(IApplicationBuilder app, IWebHostEnvironment environment)

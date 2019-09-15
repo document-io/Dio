@@ -17,13 +17,13 @@ namespace DocumentIO.Web
 		}
 
 		[HttpPost]
-		public async Task<ActionResult> Create([FromBody] CreateCompanyCommand command)
+		public async Task<ActionResult<DocumentIOResponse>> Create([FromBody] CreateCompanyCommand command)
 		{
 			command.Validate(databaseContext, validationContext);
 
 			if (!validationContext.IsValid())
 			{
-				return BadRequest(validationContext.Into());
+				return BadRequest(DocumentIOResponse.From(validationContext));
 			}
 
 			await command.Create(databaseContext);

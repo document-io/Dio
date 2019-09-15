@@ -22,22 +22,23 @@ namespace DocumentIO.Web
 		}
 
 		[HttpGet] 
-		public async Task<IEnumerable<InviteItemModel>> Invites()
+		public async Task<DocumentIOResponse<List<InviteItemModel>>> Invites()
 		{
 			var accountId = int.Parse(User.Identity.Name);
 
 			var company = await databaseContext.Companies
 				.SingleAsync(c => c.Invites.Any(invite => invite.Account.Id == accountId));
 
-			return await databaseContext.Invites
-				.Where(invite => invite.Company == company)
-				.OrderByDescending(invite => invite.CreatedAt)
-				.Select(invite => new InviteItemModel(invite))
-				.ToListAsync();
+			return DocumentIOResponse.From(
+				await databaseContext.Invites
+					.Where(invite => invite.Company == company)
+					.OrderByDescending(invite => invite.CreatedAt)
+					.Select(invite => new InviteItemModel(invite))
+					.ToListAsync());
 		}
 
 		[HttpPost]
-		public async Task<ActionResult> Create([FromBody] CreateInviteCommand command)
+		public async Task<ActionResult<DocumentIOResponse>> Create([FromBody] CreateInviteCommand command)
 		{
 			var accountId = int.Parse(User.Identity.Name);
 
@@ -48,7 +49,7 @@ namespace DocumentIO.Web
 
 			if (!validationContext.IsValid())
 			{
-				return BadRequest(validationContext.Into());
+				return BadRequest(DocumentIOResponse.From(validationContext));
 			}
 
 			await command.Create(databaseContext, company);
@@ -59,7 +60,7 @@ namespace DocumentIO.Web
 		}
 
 		[HttpDelete("{inviteId}")]
-		public async Task<ActionResult> Delete([FromRoute] DeleteInviteCommand command)
+		public async Task<ActionResult<DocumentIOResponse>> Delete([FromRoute] DeleteInviteCommand command)
 		{
 			var accountId = int.Parse(User.Identity.Name);
 
@@ -70,7 +71,7 @@ namespace DocumentIO.Web
 
 			if (!validationContext.IsValid())
 			{
-				return BadRequest(validationContext.Into());
+				return BadRequest(DocumentIOResponse.From(validationContext));
 			}
 
 			await command.Delete(databaseContext);

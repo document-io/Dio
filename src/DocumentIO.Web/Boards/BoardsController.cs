@@ -8,8 +8,8 @@ using System.Linq;
 
 namespace DocumentIO.Web
 {
-	[Route("boards")]
 	[Authorize]
+	[Route("boards")]
 	public class BoardsController : ControllerBase
 	{
 		private readonly DatabaseContext databaseContext;
@@ -22,23 +22,23 @@ namespace DocumentIO.Web
 		}
 
 		[HttpGet]
-		public async Task<IEnumerable<BoardItemModel>> Boards()
+		public async Task<DocumentIOResponse<IEnumerable<BoardItemModel>>> Boards()
 		{
 			var accountId = int.Parse(User.Identity.Name);
 
 			var company = await databaseContext.Companies
 				.SingleAsync(c => c.Invites.Any(invite => invite.Account.Id == accountId));
 
-			return await databaseContext.Boards
-				.Where(board => board.Company == company)
-				.Select(board => new BoardItemModel(board))
-				.ToListAsync();
+			return DocumentIOResponse.From<IEnumerable<BoardItemModel>>(
+				await databaseContext.Boards
+					.Where(board => board.Company == company)
+					.Select(board => new BoardItemModel(board))
+					.ToListAsync());
 		}
 
 		[HttpPost]
-		public async Task<ActionResult> Create([FromBody] CreateBoardCommand command)
+		public async Task<ActionResult<DocumentIOResponse>> Create([FromBody] CreateBoardCommand command)
 		{
-
 			var accountId = int.Parse(User.Identity.Name);
 
 			var company = await databaseContext.Companies
@@ -48,7 +48,7 @@ namespace DocumentIO.Web
 
 			if (!validationContext.IsValid())
 			{
-				return BadRequest(validationContext.Into());
+				return BadRequest(DocumentIOResponse.From(validationContext));
 			}
 
 			await command.Create(databaseContext, company);

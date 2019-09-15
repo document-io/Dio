@@ -20,13 +20,13 @@ namespace DocumentIO.Web
 		}
 
 		[HttpPost("signup")]
-		public async Task<ActionResult> SignUp([FromBody] SignUpAccountCommand command)
+		public async Task<ActionResult<DocumentIOResponse>> SignUp([FromBody] SignUpAccountCommand command)
 		{
 			command.Validate(databaseContext, validationContext);
 
 			if (!validationContext.IsValid())
 			{
-				return BadRequest(validationContext.Into());
+				return BadRequest(DocumentIOResponse.From(validationContext));
 			}
 
 			await command.SignUp(databaseContext);
@@ -37,13 +37,13 @@ namespace DocumentIO.Web
 		}
 
 		[HttpPost("signin")]
-		public async Task<ActionResult> SignIn([FromBody] SignInAccountCommand command)
+		public async Task<ActionResult<DocumentIOResponse>> SignIn([FromBody] SignInAccountCommand command)
 		{
 			command.Validate(databaseContext, validationContext);
 
 			if (!validationContext.IsValid())
 			{
-				return BadRequest(validationContext.Into());
+				return BadRequest(DocumentIOResponse.From(validationContext));
 			}
 
 			await command.SignIn(databaseContext, HttpContext);
