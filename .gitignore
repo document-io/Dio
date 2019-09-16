@@ -3,7 +3,7 @@
 **/node_modules
 **/*.d.ts
 **/build
-**/appsettings.json
+**/appsettings.Development.json
 **/.vs
 **/*.user
 **/Properties

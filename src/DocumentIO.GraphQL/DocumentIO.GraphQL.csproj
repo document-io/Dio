@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>netcoreapp3.0</TargetFramework>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\DocumentIO\DocumentIO.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="GraphQL.Authorization" Version="3.0.35-preview-35" />
+	  <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.0.0-preview9.19423.4" />
+	</ItemGroup>
+
+</Project>

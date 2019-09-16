@@ -1,8 +1,14 @@
+using System;
+using System.Threading.Tasks;
+using GraphQL.Server.Ui.Voyager;
+using GraphQL.Types;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Phema.Validation;
+using Microsoft.Extensions.Hosting;
 
 namespace DocumentIO.Web
 {
@@ -17,34 +23,58 @@ namespace DocumentIO.Web
 
 		public void ConfigureServices(IServiceCollection services)
 		{
-			services.AddDatabaseContext(configuration.GetConnectionString("PostgreSQL"));
+			services.AddDatabaseContext();
+
+			services.AddDocumentIOGraphQL();
+			services.AddDocumentIOGraphQLAuthorization();
+
+			services.AddControllers();
 
 			services.AddAuthorization()
-				.AddDocumentIOAuthentication();
+				.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+				.AddCookie(options =>
+				{
+					options.Events.OnRedirectToLogin = context =>
+					{
+						context.Response.StatusCode = 401;
+						return Task.CompletedTask;
+					};
 
-			services.AddValidation(options => options.ValidationPartResolver = ValidationPartResolvers.CamelCase);
+					options.Cookie.HttpOnly = true;
+					options.SlidingExpiration = true;
+					options.ExpireTimeSpan = TimeSpan.FromDays(7);
+				});
 
-			services.AddControllers()
-				.AddJsonOptions(options => options.JsonSerializerOptions.IgnoreNullValues = true);
-
-			services.AddDocumentIOSwagger()
-				.AddDocumentIOSpa();
+			services.AddSpaStaticFiles(options =>
+			{
+				options.RootPath = configuration.GetValue<string>("Spa:RootPath");
+			});
 		}
 
 		public void Configure(IApplicationBuilder app, IWebHostEnvironment environment)
 		{
-			app.UseDocumentIOMigrations();
-
 			app.UseHttpsRedirection();
 
 			app.UseRouting();
 			app.UseAuthentication();
 			app.UseAuthorization();
 
-			app.UseDocumentIOSwagger();
-			app.UseEndpoints(endpoints => endpoints.MapControllers());
+			app.UseGraphQL<ISchema>();
+			app.UseGraphiQLServer();
+			app.UseGraphQLVoyager();
 
-			app.UseDocumentIOSpa(environment);
+			app.UseEndpoints(e => e.MapControllers());
+
+			app.UseSpaStaticFiles();
+			app.UseSpa(spa =>
+			{
+				spa.Options.SourcePath = configuration.GetValue<string>("Spa:SourcePath");
+
+				if (environment.IsDevelopment())
+				{
+					spa.UseReactDevelopmentServer(configuration.GetValue<string>("Spa:NpmScript"));
+				}
+			});
 		}
 	}
 }
