@@ -1,3 +1,5 @@
+using System;
+
 namespace DocumentIO
 {
 	public class Account
@@ -8,5 +10,11 @@ namespace DocumentIO
 		public string FirstName { get; set; }
 		public string MiddleName { get; set; }
 		public string LastName { get; set; }
+		public DateTime CreatedAt { get; set; }
+
+		public Invite Invite { get; set; }
+
+		public int OrganizationId { get; set; }
+		public Organization Organization { get; set; }
 	}
 }

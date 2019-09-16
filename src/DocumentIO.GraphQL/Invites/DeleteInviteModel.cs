@@ -1,6 +1,6 @@
 namespace DocumentIO
 {
-	public class DeleteAccountDto
+	public class DeleteInviteModel
 	{
 		public int Id { get; set; }
 	}

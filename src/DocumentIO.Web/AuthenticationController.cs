@@ -17,8 +17,8 @@ namespace DocumentIO.Web
 					new ClaimsIdentity(
 						new[]
 						{
-							new Claim(ClaimTypes.Name, "test"),
-							new Claim(ClaimTypes.Role, "user")
+							new Claim(ClaimTypes.Name, "1"),
+							new Claim(ClaimTypes.Role, Roles.Admin)
 						},
 						CookieAuthenticationDefaults.AuthenticationScheme)));
 
