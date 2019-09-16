@@ -3,6 +3,7 @@
 **/node_modules
 **/*.d.ts
 **/build
+**/package-lock.json
 **/appsettings.Development.json
 **/.vs
 **/*.user
