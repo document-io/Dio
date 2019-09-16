@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+	<PropertyGroup>
+		<TargetFramework>netcoreapp3.0</TargetFramework>
+		<OutputType>Library</OutputType>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\DocumentIO\DocumentIO.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="GraphQL.Authorization" Version="3.0.35-preview-35" />
+	</ItemGroup>
+
+</Project>

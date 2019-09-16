@@ -1,33 +1,18 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
 	<PropertyGroup>
-		<TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
-		<TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
 		<TargetFramework>netcoreapp3.0</TargetFramework>
-		<Nullable>enable</Nullable>
-		<IsPackable>false</IsPackable>
-		<SpaRoot>DocumentIO</SpaRoot>
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.AspNetCore.Authorization" Version="3.0.0-preview9.19424.4" />
-		<PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="3.0.0-preview9.19424.4" />
-		<PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="5.0.0-rc2" />
-		<PackageReference Include="Swashbuckle.AspNetCore.SwaggerUi" Version="5.0.0-rc2" />
+		<PackageReference Include="GraphQL.Server.Transports.AspNetCore" Version="3.5.0-alpha0020" />
+		<PackageReference Include="GraphQL.Server.Ui.GraphiQL" Version="3.5.0-alpha0020" />
+		<PackageReference Include="GraphQL.Server.Ui.Voyager" Version="3.5.0-alpha0020" />
+		<PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="3.0.0-rc1.19457.4" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Phema.Validation" Version="3.1.6" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<None Remove="$(SpaRoot)\node_modules\**" />
-		<Compile Remove="$(SpaRoot)\node_modules\**" />
-		<Content Remove="$(SpaRoot)\node_modules\**" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <ProjectReference Include="..\DocumentIO\DocumentIO.csproj" />
+	  <ProjectReference Include="..\DocumentIO.GraphQL\DocumentIO.GraphQL.csproj" />
 	</ItemGroup>
 
 </Project>

@@ -4,16 +4,13 @@ namespace DocumentIO
 {
 	public class DatabaseContext : DbContext
 	{
-		public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options)
+		public DatabaseContext(DbContextOptions<DatabaseContext> options)
+			: base(options)
 		{
 		}
-
-		public DbSet<Company> Companies { get; set; }
-		public DbSet<Invite> Invites { get; set; }
+		
 		public DbSet<Account> Accounts { get; set; }
-		public DbSet<Board> Boards{ get; set; }
-		public DbSet<Column> Columns{ get; set; }
-		public DbSet<Card> Cards{ get; set; }
-
+		public DbSet<Organization> Organizations { get; set; }
+		public DbSet<Invite> Invites { get; set; }
 	}
 }
