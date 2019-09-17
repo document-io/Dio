@@ -1,4 +1,5 @@
 using GraphQL.Types;
+using Microsoft.AspNetCore.Http;
 
 namespace DocumentIO
 {
@@ -17,6 +18,11 @@ namespace DocumentIO
 		public static DatabaseContext GetDatabaseContext<TSource>(this ResolveFieldContext<TSource> context)
 		{
 			return context.GetUserContext().DatabaseContext;
+		}
+
+		public static HttpContext GetHttpContext<TSource>(this ResolveFieldContext<TSource> context)
+		{
+			return context.GetUserContext().HttpContext;
 		}
 	}
 }

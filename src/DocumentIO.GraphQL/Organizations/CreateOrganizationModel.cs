@@ -28,6 +28,7 @@ namespace DocumentIO
 				MiddleName = MiddleName,
 				LastName = LastName,
 				CreatedAt = DateTime.UtcNow,
+				Role = Roles.Admin,
 				Organization = organization
 			};
 

@@ -44,6 +44,7 @@ class Product extends Component {
           size={'huge'}
           centered
         />
+        
         <Grid columns={3} style={{ marginTop: 30 }}>
           <Grid.Row>
             <Grid.Column>

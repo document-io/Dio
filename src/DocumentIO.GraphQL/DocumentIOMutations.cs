@@ -10,6 +10,7 @@ namespace DocumentIO
 
 			this.AddOrganizationMutations();
 			this.AddInviteMutations();
+			this.AddAccountMutations();
 		}
 	}
 }

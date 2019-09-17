@@ -28,8 +28,6 @@ namespace DocumentIO.Web
 			services.AddDocumentIOGraphQL();
 			services.AddDocumentIOGraphQLAuthorization();
 
-			services.AddControllers();
-
 			services.AddAuthorization()
 				.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
 				.AddCookie(options =>
@@ -55,15 +53,12 @@ namespace DocumentIO.Web
 		{
 			app.UseHttpsRedirection();
 
-			app.UseRouting();
 			app.UseAuthentication();
 			app.UseAuthorization();
 
 			app.UseGraphQL<ISchema>();
 			app.UseGraphiQLServer();
 			app.UseGraphQLVoyager();
-
-			app.UseEndpoints(e => e.MapControllers());
 
 			app.UseSpaStaticFiles();
 			app.UseSpa(spa =>
