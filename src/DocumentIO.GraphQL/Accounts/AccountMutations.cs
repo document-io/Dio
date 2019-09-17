@@ -1,3 +1,5 @@
+using GraphQL.Authorization;
+
 namespace DocumentIO
 {
     public static class AccountMutations
@@ -41,6 +43,32 @@ namespace DocumentIO
                         Email = account.Email,
                         Id = account.Id,
                         CreatedAt = account.CreatedAt,
+                        FirstName = account.FirstName,
+                        LastName = account.LastName,
+                        MiddleName = account.MiddleName
+                    };
+                });
+
+            mutations.Field<ReadAccountGraphType, ReadAccountModel>()
+                .Name("updateAccount")
+                .AuthorizeWith(Roles.User)
+                .Argument<UpdateAccountGraphType>("payload")
+                .ResolveAsync(async context =>
+                {
+                    var accountId = context.GetAccountId();
+                    var databaseContext = context.GetDatabaseContext();
+
+                    var model = context.GetArgument<UpdateAccountModel>("payload");
+
+                    var account = await model.Update(databaseContext, accountId);
+
+                    await databaseContext.SaveChangesAsync();
+
+                    return new ReadAccountModel
+                    {
+                        Email = account.Email,
+                        CreatedAt = account.CreatedAt,
+                        Id = account.Id,
                         FirstName = account.FirstName,
                         LastName = account.LastName,
                         MiddleName = account.MiddleName
