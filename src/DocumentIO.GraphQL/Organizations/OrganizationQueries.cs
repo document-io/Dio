@@ -1,4 +1,3 @@
-using System.Linq;
 using GraphQL.Authorization;
 using Microsoft.EntityFrameworkCore;
 
@@ -16,8 +15,11 @@ namespace DocumentIO
 					var accountId = context.GetAccountId();
 					var databaseContext = context.GetDatabaseContext();
 
-					var organization = await databaseContext.Organizations
-						.SingleAsync(x => x.Accounts.Any(a => a.Id == accountId));
+					var account = await databaseContext.Accounts
+						.Include(x => x.Organization)
+						.SingleAsync(x => x.Id == accountId);
+
+					var organization = account.Organization;
 
 					return new ReadOrganizationModel
 					{

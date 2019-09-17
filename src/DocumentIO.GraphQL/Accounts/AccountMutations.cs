@@ -12,7 +12,7 @@ namespace DocumentIO
 			mutations.Field<ReadAccountGraphType, ReadAccountModel>()
 				.Name("createAccount")
 				.Argument<CreateAccountGraphType>("payload")
-				.ResolveAsync(async context =>
+				.ResolveWithValidation(async context =>
 				{
 					var databaseContext = context.GetDatabaseContext();
 					var model = context.GetArgument<CreateAccountModel>("payload");
@@ -34,7 +34,7 @@ namespace DocumentIO
 				.Name("updateAccount")
 				.AuthorizeWith(Roles.User)
 				.Argument<UpdateAccountGraphType>("payload")
-				.ResolveAsync(async context =>
+				.ResolveWithValidation(async context =>
 				{
 					var accountId = context.GetAccountId();
 					var databaseContext = context.GetDatabaseContext();
@@ -59,7 +59,7 @@ namespace DocumentIO
 			mutations.Field<ReadAccountGraphType, ReadAccountModel>()
 				.Name("loginAccount")
 				.Argument<LoginAccountGraphType>("payload")
-				.ResolveAsync(async context =>
+				.ResolveWithValidation(async context =>
 				{
 					var httpContext = context.GetHttpContext();
 					var databaseContext = context.GetDatabaseContext();
@@ -80,6 +80,7 @@ namespace DocumentIO
 
 			mutations.Field<ReadAccountGraphType, ReadAccountModel>()
 				.Name("logoutAccount")
+				.AuthorizeWith(Roles.User)
 				.ResolveAsync(async context =>
 				{
 					var accountId = context.GetAccountId();

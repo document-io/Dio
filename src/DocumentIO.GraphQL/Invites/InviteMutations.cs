@@ -1,3 +1,4 @@
+using System.Linq;
 using GraphQL.Authorization;
 using GraphQL.Types;
 using Microsoft.EntityFrameworkCore;
@@ -12,7 +13,7 @@ namespace DocumentIO
 				.Name("createInvite")
 				.AuthorizeWith(Roles.Admin)
 				.Argument<NonNullGraphType<CreateInviteGraphType>>("payload")
-				.ResolveAsync(async context =>
+				.ResolveWithValidation(async context =>
 				{
 					var accountId = context.GetAccountId();
 					var databaseContext = context.GetDatabaseContext();
@@ -22,7 +23,7 @@ namespace DocumentIO
 						.Include(x => x.Organization)
 						.SingleAsync(x => x.Id == accountId);
 
-					var invite = await model.Create(databaseContext, account, account.Organization);
+					var invite = await model.Create(databaseContext, account.Organization);
 
 					await databaseContext.SaveChangesAsync();
 
@@ -44,10 +45,17 @@ namespace DocumentIO
 				.AuthorizeWith(Roles.Admin)
 				.ResolveAsync(async context =>
 				{
+					var accountId = context.GetAccountId();
 					var databaseContext = context.GetDatabaseContext();
 					var inviteId = context.GetArgument<int>("id");
 
-					var invite = await databaseContext.Invites.SingleAsync(x => x.Id == inviteId);
+					var account = await databaseContext.Accounts
+						.Include(x => x.Organization)
+						.SingleAsync(x => x.Id == accountId);
+
+					var invite = await databaseContext.Invites
+						.Where(x => x.Organization == account.Organization)
+						.SingleAsync(x => x.Id == inviteId);
 
 					databaseContext.Invites.Remove(invite);
 

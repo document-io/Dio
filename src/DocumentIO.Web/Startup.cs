@@ -33,6 +33,10 @@ namespace DocumentIO.Web
 				options.ValidationPartResolver = ValidationPartResolvers.CamelCase);
 
 			services.AddGraphQLValidation<CreateOrganizationModel, CreateOrganizationModelValidation>();
+			services.AddGraphQLValidation<CreateAccountModel, CreateAccountModelValidation>();
+			services.AddGraphQLValidation<LoginAccountModel, LoginAccountModelValidation>();
+			services.AddGraphQLValidation<UpdateAccountModel, UpdateAccountModelValidation>();
+			services.AddGraphQLValidation<CreateInviteModel, CreateInviteModelValidation>();
 
 			services.AddSpaStaticFiles(options =>
 			{

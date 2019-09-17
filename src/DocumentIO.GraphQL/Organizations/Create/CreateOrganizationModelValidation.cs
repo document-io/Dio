@@ -43,6 +43,15 @@ namespace DocumentIO
 			validationContext.When(model, x => x.LastName)
 				.IsNullOrWhitespace()
 				.AddError("Фамилия не задана");
+
+			if (validationContext.IsValid(model, m => m.Email))
+			{
+				var accountExists = await databaseContext.Accounts.AnyAsync(x => x.Email == model.Email);
+
+				validationContext.When(model, m => m.Email)
+					.Is(() => accountExists)
+					.AddError("Email уже используется");
+			}
 		}
 	}
 }

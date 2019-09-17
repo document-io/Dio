@@ -10,11 +10,10 @@ namespace DocumentIO
 		public string Description { get; set; }
 		public DateTime? DueDate { get; set; }
 
-		public async Task<Invite> Create(DatabaseContext databaseContext, Account account, Organization organization)
+		public async Task<Invite> Create(DatabaseContext databaseContext, Organization organization)
 		{
 			var invite = new Invite
 			{
-				Account = account,
 				Organization = organization,
 				Description = Description,
 				Email = Email,
