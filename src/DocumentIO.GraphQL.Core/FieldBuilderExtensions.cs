@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using GraphQL;
@@ -12,25 +13,31 @@ namespace DocumentIO
 {
 	public static class FieldBuilderExtensions
 	{
-		public static FieldBuilder<object, TReturnType> ResolveWithValidation<TArgumentType, TReturnType>(
-			this FieldBuilder<object, TReturnType> builder,
-			Func<ResolveFieldContext<object>, Task<TReturnType>> resolve)
+		public static FieldBuilder<TSourceType, TReturnType> ResolveWithValidation<TSourceType, TReturnType>(
+			this FieldBuilder<TSourceType, TReturnType> builder,
+			Func<ResolveFieldContext<TSourceType>, Task<TReturnType>> resolve)
 		{
 			return builder.ResolveAsync(async context =>
 			{
 				var serviceProvider = context.GetServiceProvider();
 				var validationContext = context.GetValidationContext();
 
-				foreach (var arguments in context.Arguments)
+				for (var index = 0; index < context.Arguments.Count; index++)
 				{
-					var value = arguments.Value as Dictionary<string, object>;
-					var model = value.ToObject(typeof(TArgumentType));
+					var argument = context.Arguments.Values.ElementAt(index) as Dictionary<string, object>;
+					var type = builder.FieldType.Arguments[index].ResolvedType switch
+					{
+						NonNullGraphType nngt => nngt.Type.BaseType.GetGenericArguments().Single(),
+						GraphType gt => gt.GetType().BaseType.GetGenericArguments().Single(),
+						_ => throw new InvalidOperationException()
+					};
 
+					var model = argument.ToObject(type);
 					var validationType = typeof(IGraphQLValidation<>).MakeGenericType(model.GetType());
 
 					var validation = serviceProvider.GetService(validationType);
 
-					validationType.GetMethod("Validate", BindingFlags.Instance | BindingFlags.Public)
+					await (Task)validationType.GetMethod("Validate", BindingFlags.Instance | BindingFlags.Public)
 						.Invoke(validation, new[] {validationContext, model});
 				}
 

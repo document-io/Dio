@@ -13,7 +13,7 @@ namespace DocumentIO
 		{
 			this.databaseContext = databaseContext;
 		}
-		
+
 		public async Task Validate(IValidationContext validationContext, CreateOrganizationModel model)
 		{
 			validationContext.When(model, x => x.Name)
@@ -23,7 +23,7 @@ namespace DocumentIO
 			var organizationNameUsed = await databaseContext
 				.Organizations
 				.AnyAsync(x => x.Name == model.Name);
-			
+
 			validationContext.When(model, x => x.Name)
 				.Is(() => organizationNameUsed)
 				.AddError("Организация с таким именем уже занята");

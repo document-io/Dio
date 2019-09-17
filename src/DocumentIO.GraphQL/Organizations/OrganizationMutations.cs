@@ -9,7 +9,7 @@ namespace DocumentIO
 			mutations.Field<ReadOrganizationGraphType, ReadOrganizationModel>()
 				.Name("createOrganization")
 				.Argument<NonNullGraphType<CreateOrganizationGraphType>>("payload")
-				.ResolveWithValidation<CreateOrganizationModel, ReadOrganizationModel>(async context =>
+				.ResolveWithValidation(async context =>
 				{
 					var databaseContext = context.GetDatabaseContext();
 					var model = context.GetArgument<CreateOrganizationModel>("payload");
