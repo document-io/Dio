@@ -5,6 +5,6 @@ namespace DocumentIO
 		public const string Admin = "admin";
 		public const string User = "user";
 
-		public static string[] All { get; } = { Admin, User };
+		public static string[] All { get; } = {Admin, User};
 	}
 }

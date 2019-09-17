@@ -8,7 +8,7 @@ namespace DocumentIO
 			: base(options)
 		{
 		}
-		
+
 		public DbSet<Account> Accounts { get; set; }
 		public DbSet<Organization> Organizations { get; set; }
 		public DbSet<Invite> Invites { get; set; }

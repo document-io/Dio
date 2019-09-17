@@ -1,79 +1,105 @@
 using GraphQL.Authorization;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.EntityFrameworkCore;
 
 namespace DocumentIO
 {
-    public static class AccountMutations
-    {
-        public static void AddAccountMutations(this DocumentIOMutations mutations)
-        {
-            mutations.Field<ReadAccountGraphType, ReadAccountModel>()
-                .Name("loginAccount")
-                .Argument<LoginAccountGraphType>("payload")
-                .ResolveAsync(async context =>
-                {
-                    var httpContext = context.GetHttpContext();
-                    var databaseContext = context.GetDatabaseContext();
-                    var model = context.GetArgument<LoginAccountModel>("payload");
+	public static class AccountMutations
+	{
+		public static void AddAccountMutations(this DocumentIOMutations mutations)
+		{
+			mutations.Field<ReadAccountGraphType, ReadAccountModel>()
+				.Name("createAccount")
+				.Argument<CreateAccountGraphType>("payload")
+				.ResolveAsync(async context =>
+				{
+					var databaseContext = context.GetDatabaseContext();
+					var model = context.GetArgument<CreateAccountModel>("payload");
 
-                    var account = await model.Login(databaseContext, httpContext);
+					var account = await model.Create(databaseContext);
 
-                    return new ReadAccountModel
-                    {
-                        Email = account.Email,
-                        Id = account.Id,
-                        CreatedAt = account.CreatedAt,
-                        FirstName = account.FirstName,
-                        LastName = account.LastName,
-                        MiddleName = account.MiddleName
-                    };
-                });
+					return new ReadAccountModel
+					{
+						Email = account.Email,
+						Id = account.Id,
+						CreatedAt = account.CreatedAt,
+						FirstName = account.FirstName,
+						LastName = account.LastName,
+						MiddleName = account.MiddleName
+					};
+				});
 
-            mutations.Field<ReadAccountGraphType, ReadAccountModel>()
-                .Name("createAccount")
-                .Argument<CreateAccountGraphType>("payload")
-                .ResolveAsync(async context =>
-                {
-                    var databaseContext = context.GetDatabaseContext();
-                    var model = context.GetArgument<CreateAccountModel>("payload");
+			mutations.Field<ReadAccountGraphType, ReadAccountModel>()
+				.Name("updateAccount")
+				.AuthorizeWith(Roles.User)
+				.Argument<UpdateAccountGraphType>("payload")
+				.ResolveAsync(async context =>
+				{
+					var accountId = context.GetAccountId();
+					var databaseContext = context.GetDatabaseContext();
 
-                    var account = await model.Create(databaseContext);
+					var model = context.GetArgument<UpdateAccountModel>("payload");
 
-                    return new ReadAccountModel
-                    {
-                        Email = account.Email,
-                        Id = account.Id,
-                        CreatedAt = account.CreatedAt,
-                        FirstName = account.FirstName,
-                        LastName = account.LastName,
-                        MiddleName = account.MiddleName
-                    };
-                });
+					var account = await model.Update(databaseContext, accountId);
 
-            mutations.Field<ReadAccountGraphType, ReadAccountModel>()
-                .Name("updateAccount")
-                .AuthorizeWith(Roles.User)
-                .Argument<UpdateAccountGraphType>("payload")
-                .ResolveAsync(async context =>
-                {
-                    var accountId = context.GetAccountId();
-                    var databaseContext = context.GetDatabaseContext();
+					await databaseContext.SaveChangesAsync();
 
-                    var model = context.GetArgument<UpdateAccountModel>("payload");
+					return new ReadAccountModel
+					{
+						Email = account.Email,
+						CreatedAt = account.CreatedAt,
+						Id = account.Id,
+						FirstName = account.FirstName,
+						LastName = account.LastName,
+						MiddleName = account.MiddleName
+					};
+				});
 
-                    var account = await model.Update(databaseContext, accountId);
+			mutations.Field<ReadAccountGraphType, ReadAccountModel>()
+				.Name("loginAccount")
+				.Argument<LoginAccountGraphType>("payload")
+				.ResolveAsync(async context =>
+				{
+					var httpContext = context.GetHttpContext();
+					var databaseContext = context.GetDatabaseContext();
+					var model = context.GetArgument<LoginAccountModel>("payload");
 
-                    await databaseContext.SaveChangesAsync();
+					var account = await model.Login(databaseContext, httpContext);
 
-                    return new ReadAccountModel
-                    {
-                        Email = account.Email,
-                        CreatedAt = account.CreatedAt,
-                        Id = account.Id,
-                        FirstName = account.FirstName,
-                        LastName = account.LastName,
-                        MiddleName = account.MiddleName
-                    };
-                });
-        }
-    }
+					return new ReadAccountModel
+					{
+						Email = account.Email,
+						Id = account.Id,
+						CreatedAt = account.CreatedAt,
+						FirstName = account.FirstName,
+						LastName = account.LastName,
+						MiddleName = account.MiddleName
+					};
+				});
+
+			mutations.Field<ReadAccountGraphType, ReadAccountModel>()
+				.Name("logoutAccount")
+				.ResolveAsync(async context =>
+				{
+					var accountId = context.GetAccountId();
+					var httpContext = context.GetHttpContext();
+					var databaseContext = context.GetDatabaseContext();
+
+					var account = await databaseContext.Accounts.SingleAsync(x => x.Id == accountId);
+
+					await httpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+
+					return new ReadAccountModel
+					{
+						Email = account.Email,
+						Id = account.Id,
+						CreatedAt = account.CreatedAt,
+						FirstName = account.FirstName,
+						LastName = account.LastName,
+						MiddleName = account.MiddleName
+					};
+				});
+		}
+	}
 }

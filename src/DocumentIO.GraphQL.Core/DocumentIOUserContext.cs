@@ -4,6 +4,7 @@ using System.Security.Claims;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
+using Phema.Validation;
 
 namespace DocumentIO
 {
@@ -23,5 +24,7 @@ namespace DocumentIO
 		public IServiceProvider ServiceProvider => HttpContext.RequestServices;
 
 		public DatabaseContext DatabaseContext => ServiceProvider.GetRequiredService<DatabaseContext>();
+
+		public IValidationContext ValidationContext => ServiceProvider.GetRequiredService<IValidationContext>();
 	}
 }

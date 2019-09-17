@@ -2,7 +2,7 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{485E121E-6278-40C1-A2D1-10F46419CA06}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DocumentIO", "src\DocumentIO\DocumentIO.csproj", "{D66964C0-63B1-483E-A75F-230EF9F34513}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DocumentIO.Data", "src\DocumentIO.Data\DocumentIO.Data.csproj", "{D66964C0-63B1-483E-A75F-230EF9F34513}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DocumentIO.GraphQL", "src\DocumentIO.GraphQL\DocumentIO.GraphQL.csproj", "{B6C49F0A-1C8A-42C8-AD4A-7836D20E1109}"
 EndProject
@@ -13,6 +13,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DocumentIO.Tests", "tests\DocumentIO.Tests\DocumentIO.Tests.csproj", "{A972C741-8C17-45AD-A084-30FE4413347B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DocumentIO.Frontend", "src\DocumentIO.Frontend\DocumentIO.Frontend.csproj", "{128C73F2-EE49-4A50-87E5-D883485E53D5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DocumentIO.GraphQL.Core", "src\DocumentIO.GraphQL.Core\DocumentIO.GraphQL.Core.csproj", "{43D777C8-F483-4EF5-AAB9-CA4EB7FCC4B3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -40,6 +42,10 @@ Global
 		{128C73F2-EE49-4A50-87E5-D883485E53D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{128C73F2-EE49-4A50-87E5-D883485E53D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{128C73F2-EE49-4A50-87E5-D883485E53D5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{43D777C8-F483-4EF5-AAB9-CA4EB7FCC4B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{43D777C8-F483-4EF5-AAB9-CA4EB7FCC4B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{43D777C8-F483-4EF5-AAB9-CA4EB7FCC4B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{43D777C8-F483-4EF5-AAB9-CA4EB7FCC4B3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{D66964C0-63B1-483E-A75F-230EF9F34513} = {485E121E-6278-40C1-A2D1-10F46419CA06}
@@ -47,5 +53,6 @@ Global
 		{2F515715-EBBC-4125-905E-D8D6DC26C72B} = {485E121E-6278-40C1-A2D1-10F46419CA06}
 		{A972C741-8C17-45AD-A084-30FE4413347B} = {B348008C-C12B-49D1-B057-83DE70D33129}
 		{128C73F2-EE49-4A50-87E5-D883485E53D5} = {485E121E-6278-40C1-A2D1-10F46419CA06}
+		{43D777C8-F483-4EF5-AAB9-CA4EB7FCC4B3} = {485E121E-6278-40C1-A2D1-10F46419CA06}
 	EndGlobalSection
 EndGlobal

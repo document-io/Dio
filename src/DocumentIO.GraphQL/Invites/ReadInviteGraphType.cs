@@ -7,7 +7,7 @@ namespace DocumentIO
 		public ReadInviteGraphType()
 		{
 			Name = "ReadInvite";
-			
+
 			Field(x => x.Id);
 			Field(x => x.Role);
 			Field(x => x.Email);

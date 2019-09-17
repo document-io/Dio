@@ -1,7 +1,5 @@
 using System.Security.Claims;
-using GraphQL;
 using GraphQL.Authorization;
-using GraphQL.Http;
 using GraphQL.Server;
 using GraphQL.Types;
 using GraphQL.Validation;
@@ -14,13 +12,8 @@ namespace DocumentIO.Web
 		public static IServiceCollection AddDocumentIOGraphQL(this IServiceCollection services)
 		{
 			services.AddSingleton<ISchema, DocumentIOSchema>();
-			services.AddSingleton<IDocumentExecuter, DocumentExecuter>();
-			services.AddSingleton<IDocumentWriter, DocumentWriter>();
 
-			services.AddGraphQL(options =>
-				{
-					options.ExposeExceptions = true;
-				})
+			services.AddGraphQL()
 				.AddGraphTypes(typeof(DocumentIOSchema))
 				.AddRelayGraphTypes()
 				.AddUserContextBuilder(context => new DocumentIOUserContext(context));

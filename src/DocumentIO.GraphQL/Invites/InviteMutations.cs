@@ -1,7 +1,5 @@
-using System.Linq;
 using GraphQL.Authorization;
 using GraphQL.Types;
-using GraphQL.Types.Relay;
 using Microsoft.EntityFrameworkCore;
 
 namespace DocumentIO

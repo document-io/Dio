@@ -6,11 +6,8 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\DocumentIO\DocumentIO.csproj" />
+	  <ProjectReference Include="..\DocumentIO.GraphQL.Core\DocumentIO.GraphQL.Core.csproj" />
 	</ItemGroup>
 
-	<ItemGroup>
-	  <PackageReference Include="GraphQL.Authorization" Version="3.0.35-preview-35" />
-	</ItemGroup>
 
 </Project>

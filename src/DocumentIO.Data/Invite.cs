@@ -15,7 +15,7 @@ namespace DocumentIO
 
 		public int? AccountId { get; set; }
 		public Account Account { get; set; }
-		
+
 		public int OrganizationId { get; set; }
 		public Organization Organization { get; set; }
 	}

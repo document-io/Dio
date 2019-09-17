@@ -1,3 +1,5 @@
+using GraphQL.Types;
+
 namespace DocumentIO
 {
 	public static class OrganizationMutations
@@ -6,12 +8,12 @@ namespace DocumentIO
 		{
 			mutations.Field<ReadOrganizationGraphType, ReadOrganizationModel>()
 				.Name("createOrganization")
-				.Argument<CreateOrganizationGraphType>("payload")
-				.ResolveAsync(async context =>
+				.Argument<NonNullGraphType<CreateOrganizationGraphType>>("payload")
+				.ResolveWithValidation<CreateOrganizationModel, ReadOrganizationModel>(async context =>
 				{
 					var databaseContext = context.GetDatabaseContext();
-
 					var model = context.GetArgument<CreateOrganizationModel>("payload");
+
 					var organization = await model.Create(databaseContext);
 
 					await databaseContext.SaveChangesAsync();

@@ -1,14 +1,12 @@
-using System;
-using System.Threading.Tasks;
-using GraphQL.Server.Ui.Voyager;
 using GraphQL.Types;
-using Microsoft.AspNetCore.Authentication.Cookies;
+using GraphQL.Server.Ui.Voyager;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Phema.Validation;
 
 namespace DocumentIO.Web
 {
@@ -23,25 +21,18 @@ namespace DocumentIO.Web
 
 		public void ConfigureServices(IServiceCollection services)
 		{
-			services.AddDatabaseContext();
+			services.AddDatabaseContext(configuration.GetConnectionString("PostgreSQL"));
 
 			services.AddDocumentIOGraphQL();
 			services.AddDocumentIOGraphQLAuthorization();
 
 			services.AddAuthorization()
-				.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-				.AddCookie(options =>
-				{
-					options.Events.OnRedirectToLogin = context =>
-					{
-						context.Response.StatusCode = 401;
-						return Task.CompletedTask;
-					};
+				.AddDocumentIOAuthentication();
 
-					options.Cookie.HttpOnly = true;
-					options.SlidingExpiration = true;
-					options.ExpireTimeSpan = TimeSpan.FromDays(7);
-				});
+			services.AddValidation(options =>
+				options.ValidationPartResolver = ValidationPartResolvers.CamelCase);
+
+			services.AddGraphQLValidation<CreateOrganizationModel, CreateOrganizationModelValidation>();
 
 			services.AddSpaStaticFiles(options =>
 			{
@@ -51,6 +42,7 @@ namespace DocumentIO.Web
 
 		public void Configure(IApplicationBuilder app, IWebHostEnvironment environment)
 		{
+			app.UseDatabaseMigrations();
 			app.UseHttpsRedirection();
 
 			app.UseAuthentication();

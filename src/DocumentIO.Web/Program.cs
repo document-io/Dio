@@ -13,9 +13,9 @@ namespace DocumentIO.Web
 
 		public static IHostBuilder CreateHostBuilder(string[] args) =>
 			Host.CreateDefaultBuilder(args)
-				.ConfigureAppConfiguration(builder => builder.AddEnvironmentVariables("DocumentIO:"))
-				.ConfigureWebHostDefaults(webBuilder => 
-						webBuilder.UseStartup<Startup>()
-							.UseKestrel(options => options.AllowSynchronousIO = true));
+				.ConfigureAppConfiguration(builder => builder.AddEnvironmentVariables("DocumentIO.Data:"))
+				.ConfigureWebHostDefaults(webBuilder =>
+					webBuilder.UseStartup<Startup>()
+						.UseKestrel(options => options.AllowSynchronousIO = true));
 	}
 }
