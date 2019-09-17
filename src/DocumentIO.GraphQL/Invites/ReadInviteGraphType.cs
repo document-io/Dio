@@ -15,7 +15,9 @@ namespace DocumentIO
 
 			Field(x => x.Description);
 			Field(x => x.CreatedAt);
-			Field(x => x.DueDate);
+			Field(x => x.DueDate, nullable: true);
+
+			Field(x => x.AccountId);
 		}
 	}
 }

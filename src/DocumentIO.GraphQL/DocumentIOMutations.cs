@@ -2,9 +2,9 @@ using GraphQL.Types;
 
 namespace DocumentIO
 {
-	public class DocumentIOMutation : ObjectGraphType
+	public class DocumentIOMutations : ObjectGraphType
 	{
-		public DocumentIOMutation()
+		public DocumentIOMutations()
 		{
 			Name = "Mutation";
 

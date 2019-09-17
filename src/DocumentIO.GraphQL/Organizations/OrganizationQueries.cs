@@ -6,15 +6,15 @@ namespace DocumentIO
 {
 	public static class OrganizationQueries
 	{
-		public static void AddOrganizationQueries(this DocumentIOQuery query)
+		public static void AddOrganizationQueries(this DocumentIOQueries queries)
 		{
-			query.Field<ReadOrganizationGraphType, ReadOrganizationModel>()
+			queries.Field<ReadOrganizationGraphType, ReadOrganizationModel>()
 				.Name("getOrganization")
 				.AuthorizeWith(Roles.User)
 				.ResolveAsync(async context =>
 				{
-					var accountId = context.GetUserContext().AccountId;
-					var databaseContext = context.GetUserContext().DatabaseContext;
+					var accountId = context.GetAccountId();
+					var databaseContext = context.GetDatabaseContext();
 
 					var organization = await databaseContext.Organizations
 						.SingleAsync(x => x.Accounts.Any(a => a.Id == accountId));

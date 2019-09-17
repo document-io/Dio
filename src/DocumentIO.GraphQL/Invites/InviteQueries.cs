@@ -8,15 +8,15 @@ namespace DocumentIO
 {
 	public static class InviteQueries
 	{
-		public static void AddInviteQueries(this DocumentIOQuery query)
+		public static void AddInviteQueries(this DocumentIOQueries queries)
 		{
-			query.Field<ListGraphType<ReadInviteGraphType>, List<ReadInviteModel>>()
+			queries.Field<ListGraphType<ReadInviteGraphType>, List<ReadInviteModel>>()
 				.Name("getInvites")
 				.AuthorizeWith(Roles.Admin)
 				.ResolveAsync(async context =>
 				{
-					var accountId = context.GetUserContext().AccountId;
-					var databaseContext = context.GetUserContext().DatabaseContext;
+					var accountId = context.GetAccountId();
+					var databaseContext = context.GetDatabaseContext();
 
 					return await databaseContext
 						.Invites

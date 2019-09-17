@@ -2,14 +2,15 @@ using GraphQL.Types;
 
 namespace DocumentIO
 {
-	public class DocumentIOQuery : ObjectGraphType
+	public class DocumentIOQueries : ObjectGraphType
 	{
-		public DocumentIOQuery()
+		public DocumentIOQueries()
 		{
 			Name = "Query";
 
 			this.AddOrganizationQueries();
 			this.AddInviteQueries();
+			this.AddAccountQueries();
 		}
 	}
 }

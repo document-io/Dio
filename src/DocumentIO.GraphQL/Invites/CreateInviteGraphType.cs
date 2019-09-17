@@ -11,7 +11,7 @@ namespace DocumentIO
 			Field(x => x.Role);
 			Field(x => x.Email);
 			Field(x => x.Description);
-			Field(x => x.DueDate);
+			Field(x => x.DueDate, nullable: true);
 		}
 	}
 }

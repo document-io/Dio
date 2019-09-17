@@ -1,22 +1,23 @@
 using System.Linq;
 using GraphQL.Authorization;
 using GraphQL.Types;
+using GraphQL.Types.Relay;
 using Microsoft.EntityFrameworkCore;
 
 namespace DocumentIO
 {
 	public static class InviteMutations
 	{
-		public static void AddInviteMutations(this DocumentIOMutation mutations)
+		public static void AddInviteMutations(this DocumentIOMutations mutationses)
 		{
-			mutations.Field<ReadInviteGraphType, ReadInviteModel>()
+			mutationses.Field<ReadInviteGraphType, ReadInviteModel>()
 				.Name("createInvite")
 				.AuthorizeWith(Roles.Admin)
-				.Argument<CreateInviteGraphType>("payload")
+				.Argument<NonNullGraphType<CreateInviteGraphType>>("payload")
 				.ResolveAsync(async context =>
 				{
-					var accountId = context.GetUserContext().AccountId;
-					var databaseContext = context.GetUserContext().DatabaseContext;
+					var accountId = context.GetAccountId();
+					var databaseContext = context.GetDatabaseContext();
 					var model = context.GetArgument<CreateInviteModel>("payload");
 
 					var account = await databaseContext.Accounts
@@ -39,13 +40,13 @@ namespace DocumentIO
 					};
 				});
 
-			mutations.Field<DeleteInviteGraphType, DeleteInviteModel>()
+			mutationses.Field<DeleteInviteGraphType, DeleteInviteModel>()
 				.Name("deleteInvite")
 				.Argument<IntGraphType>("id")
 				.AuthorizeWith(Roles.Admin)
 				.ResolveAsync(async context =>
 				{
-					var databaseContext = context.GetUserContext().DatabaseContext;
+					var databaseContext = context.GetDatabaseContext();
 					var inviteId = context.GetArgument<int>("id");
 
 					var invite = await databaseContext.Invites.SingleAsync(x => x.Id == inviteId);
