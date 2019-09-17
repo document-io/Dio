@@ -5,6 +5,11 @@ import './index.scss'
 import App from './App'
 import * as serviceWorker from './serviceWorker'
 import 'semantic-ui-css/semantic.min.css'
+import ApolloClient from 'apollo-boost'
+
+const client = new ApolloClient({
+  uri: 'https://48p1r2roz4.sse.codesandbox.io'
+})
 
 ReactDOM.render(
   <BrowserRouter>
