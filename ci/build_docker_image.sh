@@ -1,1 +1,1 @@
-docker build -t sergeyshaykhullin/documentio:1.0.$TRAVIS_BUILD_NUMBER -f ../Dockerfile .. 
+docker build -t sergeyshaykhullin/documentio:1.0.$TRAVIS_BUILD_NUMBER . 
