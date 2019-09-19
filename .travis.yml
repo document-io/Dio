@@ -19,6 +19,7 @@ script:
 - bash ./ci/build_docker_image.sh
 - 
   if [ "$TRAVIS_PULL_REQUEST" = "false" ];
+    then
     bash ./ci/push_image_to_dockerhub.sh;
     bash ./ci/deploy.sh;
   fi
