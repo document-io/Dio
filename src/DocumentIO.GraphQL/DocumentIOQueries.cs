@@ -17,7 +17,7 @@ namespace DocumentIO
 					var accountId = context.GetAccountId();
 					var databaseContext = context.GetDatabaseContext();
 
-					return  await databaseContext.Organizations
+					return await databaseContext.Organizations
 						.SingleAsync(organization =>
 							organization.Accounts.Any(account => account.Id == accountId));
 				});
