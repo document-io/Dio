@@ -7,8 +7,7 @@ namespace DocumentIO
 	{
 		public static void AddOrganizationQueries(this DocumentIOQueries queries)
 		{
-			queries.Field<ReadOrganizationGraphType, ReadOrganizationModel>()
-				.Name("getOrganization")
+			queries.Field<ReadOrganizationGraphType, ReadOrganizationModel>("getOrganization")
 				.AuthorizeWith(Roles.User)
 				.ResolveAsync(async context =>
 				{

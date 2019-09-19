@@ -13,7 +13,11 @@ namespace DocumentIO.Web
 		{
 			services.AddSingleton<ISchema, DocumentIOSchema>();
 
-			services.AddGraphQL()
+			services.AddGraphQL(options =>
+				{
+					options.ExposeExceptions = false;
+				})
+				.AddDataLoader()
 				.AddGraphTypes(typeof(DocumentIOSchema))
 				.AddRelayGraphTypes()
 				.AddUserContextBuilder(context => new DocumentIOUserContext(context));

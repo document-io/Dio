@@ -19,6 +19,32 @@ namespace DocumentIO.Web
 			this.configuration = configuration;
 		}
 
+/*
+query {
+  boards {
+		columns {
+			cards {
+			}
+		}
+	}
+
+	organization {
+		boards {
+			columns {
+				cards {
+				}
+			}
+		}
+
+		invites {
+		}
+
+		accounts {
+		}
+	}
+}
+*/
+
 		public void ConfigureServices(IServiceCollection services)
 		{
 			services.AddDatabaseContext(configuration.GetConnectionString("PostgreSQL"));
@@ -32,11 +58,16 @@ namespace DocumentIO.Web
 			services.AddValidation(options =>
 				options.ValidationPartResolver = ValidationPartResolvers.CamelCase);
 
+			services.AddHttpContextAccessor();
 			services.AddGraphQLValidation<CreateOrganizationModel, CreateOrganizationModelValidation>();
 			services.AddGraphQLValidation<CreateAccountModel, CreateAccountModelValidation>();
 			services.AddGraphQLValidation<LoginAccountModel, LoginAccountModelValidation>();
 			services.AddGraphQLValidation<UpdateAccountModel, UpdateAccountModelValidation>();
 			services.AddGraphQLValidation<CreateInviteModel, CreateInviteModelValidation>();
+			services.AddGraphQLValidation<CreateBoardModel, CreateBoardModelValidation>();
+			services.AddGraphQLValidation<UpdateBoardModel, UpdateBoardModelValidation>();
+			services.AddGraphQLValidation<CreateColumnModel, CreateColumnModelValidation>();
+			services.AddGraphQLValidation<UpdateColumnModel, UpdateColumnModelValidation>();
 
 			services.AddSpaStaticFiles(options =>
 			{

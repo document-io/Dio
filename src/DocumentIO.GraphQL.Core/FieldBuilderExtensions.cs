@@ -27,17 +27,28 @@ namespace DocumentIO
 					var argument = context.Arguments.Values.ElementAt(index) as Dictionary<string, object>;
 					var type = builder.FieldType.Arguments[index].ResolvedType switch
 					{
-						NonNullGraphType nngt => nngt.Type.BaseType.GetGenericArguments().Single(),
-						GraphType gt => gt.GetType().BaseType.GetGenericArguments().Single(),
+						NonNullGraphType nngt => nngt.Type.BaseType.GetGenericArguments().FirstOrDefault(),
+						GraphType gt => gt.GetType().BaseType.GetGenericArguments().FirstOrDefault(),
 						_ => throw new InvalidOperationException()
 					};
+
+					if (type == null)
+					{
+						continue;
+					}
 
 					var model = argument.ToObject(type);
 					var validationType = typeof(IGraphQLValidation<>).MakeGenericType(model.GetType());
 
 					var validation = serviceProvider.GetService(validationType);
 
-					await (Task)validationType.GetMethod("Validate", BindingFlags.Instance | BindingFlags.Public)
+					if (validation == null)
+					{
+						continue;
+					}
+
+					await (Task) validationType
+						.GetMethod("Validate", BindingFlags.Instance | BindingFlags.Public)
 						.Invoke(validation, new[] {validationContext, model});
 				}
 

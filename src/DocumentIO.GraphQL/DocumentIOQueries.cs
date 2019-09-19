@@ -11,6 +11,8 @@ namespace DocumentIO
 			this.AddOrganizationQueries();
 			this.AddInviteQueries();
 			this.AddAccountQueries();
+			this.AddBoardsQueries();
+			this.AddColumnQueries();
 		}
 	}
 }

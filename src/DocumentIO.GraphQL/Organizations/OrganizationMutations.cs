@@ -6,8 +6,7 @@ namespace DocumentIO
 	{
 		public static void AddOrganizationMutations(this DocumentIOMutations mutations)
 		{
-			mutations.Field<ReadOrganizationGraphType, ReadOrganizationModel>()
-				.Name("createOrganization")
+			mutations.Field<ReadOrganizationGraphType, ReadOrganizationModel>("createOrganization")
 				.Argument<NonNullGraphType<CreateOrganizationGraphType>>("payload")
 				.ResolveWithValidation(async context =>
 				{

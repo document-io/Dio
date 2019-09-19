@@ -9,8 +9,7 @@ namespace DocumentIO
 	{
 		public static void AddInviteMutations(this DocumentIOMutations mutations)
 		{
-			mutations.Field<ReadInviteGraphType, ReadInviteModel>()
-				.Name("createInvite")
+			mutations.Field<ReadInviteGraphType, ReadInviteModel>("createInvite")
 				.AuthorizeWith(Roles.Admin)
 				.Argument<NonNullGraphType<CreateInviteGraphType>>("payload")
 				.ResolveWithValidation(async context =>
@@ -39,9 +38,8 @@ namespace DocumentIO
 					};
 				});
 
-			mutations.Field<DeleteInviteGraphType, DeleteInviteModel>()
-				.Name("deleteInvite")
-				.Argument<IntGraphType>("id")
+			mutations.Field<DeleteInviteGraphType, DeleteInviteModel>("deleteInvite")
+				.Argument<NonNullGraphType<IntGraphType>>("id")
 				.AuthorizeWith(Roles.Admin)
 				.ResolveAsync(async context =>
 				{

@@ -11,6 +11,8 @@ namespace DocumentIO
 			this.AddOrganizationMutations();
 			this.AddInviteMutations();
 			this.AddAccountMutations();
+			this.AddBoardsMutations();
+			this.AddColumnMutations();
 		}
 	}
 }

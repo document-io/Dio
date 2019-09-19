@@ -9,5 +9,6 @@ namespace DocumentIO
 
 		public ICollection<Invite> Invites { get; set; }
 		public ICollection<Account> Accounts { get; set; }
+		public ICollection<Board> Boards { get; set; }
 	}
 }

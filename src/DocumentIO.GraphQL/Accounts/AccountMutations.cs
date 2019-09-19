@@ -1,4 +1,5 @@
 using GraphQL.Authorization;
+using GraphQL.Types;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
@@ -9,9 +10,8 @@ namespace DocumentIO
 	{
 		public static void AddAccountMutations(this DocumentIOMutations mutations)
 		{
-			mutations.Field<ReadAccountGraphType, ReadAccountModel>()
-				.Name("createAccount")
-				.Argument<CreateAccountGraphType>("payload")
+			mutations.Field<ReadAccountGraphType, ReadAccountModel>("createAccount")
+				.Argument<NonNullGraphType<CreateAccountGraphType>>("payload")
 				.ResolveWithValidation(async context =>
 				{
 					var databaseContext = context.GetDatabaseContext();
@@ -30,10 +30,9 @@ namespace DocumentIO
 					};
 				});
 
-			mutations.Field<ReadAccountGraphType, ReadAccountModel>()
-				.Name("updateAccount")
+			mutations.Field<ReadAccountGraphType, ReadAccountModel>("updateAccount")
 				.AuthorizeWith(Roles.User)
-				.Argument<UpdateAccountGraphType>("payload")
+				.Argument<NonNullGraphType<UpdateAccountGraphType>>("payload")
 				.ResolveWithValidation(async context =>
 				{
 					var accountId = context.GetAccountId();
@@ -56,9 +55,8 @@ namespace DocumentIO
 					};
 				});
 
-			mutations.Field<ReadAccountGraphType, ReadAccountModel>()
-				.Name("loginAccount")
-				.Argument<LoginAccountGraphType>("payload")
+			mutations.Field<ReadAccountGraphType, ReadAccountModel>("loginAccount")
+				.Argument<NonNullGraphType<LoginAccountGraphType>>("payload")
 				.ResolveWithValidation(async context =>
 				{
 					var httpContext = context.GetHttpContext();
@@ -78,8 +76,7 @@ namespace DocumentIO
 					};
 				});
 
-			mutations.Field<ReadAccountGraphType, ReadAccountModel>()
-				.Name("logoutAccount")
+			mutations.Field<ReadAccountGraphType, ReadAccountModel>("logoutAccount")
 				.AuthorizeWith(Roles.User)
 				.ResolveAsync(async context =>
 				{
