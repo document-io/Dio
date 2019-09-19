@@ -13,12 +13,12 @@ addons:
   apt:
     packages:
     - sshpass
-    
+
 script:
 - set -e
-- bash .travis/build_docker_image.sh
+- bash ./ci/build_docker_image.sh
 - 
   if [ "$TRAVIS_PULL_REQUEST" = "false" ];
-    bash .travis/push_image_to_dockerhub.sh;
-    bash .travis/deploy.sh;
+    bash ./ci/push_image_to_dockerhub.sh;
+    bash ./ci/deploy.sh;
   fi
