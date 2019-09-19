@@ -15,6 +15,7 @@ addons:
     - sshpass
     
 script:
+- set -e
 - docker build -t sergeyshaykhullin/documentio:1.0.$TRAVIS_BUILD_NUMBER .
 - docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWORD
 - docker push sergeyshaykhullin/documentio:1.0.$TRAVIS_BUILD_NUMBER
