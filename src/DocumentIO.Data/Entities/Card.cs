@@ -17,5 +17,9 @@ namespace DocumentIO
 		public Column Column { get; set; }
 
 		public ICollection<CardLabel> Labels { get; set; }
+		public ICollection<CardComment> Comments { get; set; }
+		public ICollection<CardAssignment> Assignments { get; set; }
+		public ICollection<CardAttachment> Attachments { get; set; }
+		public ICollection<CardEvent> Events { get; set; }
 	}
 }

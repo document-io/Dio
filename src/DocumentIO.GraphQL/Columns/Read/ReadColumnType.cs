@@ -15,7 +15,7 @@ namespace DocumentIO
 			Field(x => x.Name);
 			Field(x => x.Order);
 
-			Field<ReadBoardType, Board>()
+			Field<ReadBoardType, Board>("board")
 				.ResolveAsync(context =>
 				{
 					var databaseContext = context.GetDatabaseContext();

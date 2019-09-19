@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using GraphQL.Types;
 using Microsoft.EntityFrameworkCore;
@@ -8,7 +9,7 @@ namespace DocumentIO
 	{
 		public DocumentIOQueries()
 		{
-			Name = "DocumentIOQueries";
+			Name = "Queries";
 
 			Field<ReadOrganizationType, Organization>("organization")
 				.ResolveAsync(async context =>
@@ -16,7 +17,7 @@ namespace DocumentIO
 					var accountId = context.GetAccountId();
 					var databaseContext = context.GetDatabaseContext();
 
-					return await databaseContext.Organizations
+					return  await databaseContext.Organizations
 						.SingleAsync(organization =>
 							organization.Accounts.Any(account => account.Id == accountId));
 				});

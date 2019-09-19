@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace DocumentIO
 {
@@ -17,5 +18,10 @@ namespace DocumentIO
 
 		public Guid OrganizationId { get; set; }
 		public Organization Organization { get; set; }
+
+		public ICollection<CardComment> Comments { get; set; }
+		public ICollection<CardAssignment> Assignments { get; set; }
+		public ICollection<CardAttachment> Attachments { get; set; }
+		public ICollection<CardEvent> Events { get; set; }
 	}
 }

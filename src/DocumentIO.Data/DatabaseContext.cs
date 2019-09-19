@@ -20,11 +20,19 @@ namespace DocumentIO
 		public DbSet<Label> Labels { get; set; }
 		public DbSet<CardLabel> CardLabels { get; set; }
 
+		public DbSet<CardAssignment> CardAssignments { get; set; }
+		public DbSet<CardComment> CardComments { get; set; }
+		public DbSet<CardAttachment> CardAttachments { get; set; }
+		public DbSet<CardEvent> CardEvents { get; set; }
+
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
 			// TODO: EntityConfigurations
 			modelBuilder.Entity<CardLabel>()
 				.HasKey(cardLabel => new {cardLabel.CardId, cardLabel.LabelId});
+
+			modelBuilder.Entity<CardAssignment>()
+				.HasKey(cardAssignment => new { cardAssignment.AccountId, cardAssignment.CardId });
 		}
 	}
 }
