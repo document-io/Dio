@@ -19,7 +19,7 @@ namespace DocumentIO
 
 		public ClaimsPrincipal User => HttpContext.User;
 
-		public int AccountId => int.Parse(User.Identity.Name);
+		public int AccountId => int.TryParse(User.Identity.Name, out var accountId) ? accountId : 0;
 
 		public IServiceProvider ServiceProvider => HttpContext.RequestServices;
 
