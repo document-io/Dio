@@ -16,6 +16,7 @@ addons:
 
 script:
 - set -e
+- ls -al
 - bash ./ci/build_docker_image.sh
 - 
   if [ "$TRAVIS_PULL_REQUEST" = "false" ];
