@@ -9,7 +9,7 @@ namespace DocumentIO
 		public DocumentIOSchema(IServiceProvider serviceProvider) : base(serviceProvider)
 		{
 			Query = serviceProvider.GetRequiredService<DocumentIOQueries>();
-			Mutation = serviceProvider.GetRequiredService<DocumentIOMutations>();
+			// Mutation = serviceProvider.GetRequiredService<DocumentIOMutations>();
 		}
 	}
 }
