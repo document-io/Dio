@@ -16,7 +16,7 @@ addons:
     
 script:
 - set -e
-- .travis/build_docker_image.sh
+- bash .travis/build_docker_image.sh
 - 
   if [ "$TRAVIS_PULL_REQUEST" = "false" ];
     bash .travis/push_image_to_dockerhub.sh;
