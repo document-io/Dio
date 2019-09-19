@@ -1,0 +1,2 @@
+sudo sshpass -p $DOCUMENTIO_PASSWORD ssh -o StrictHostKeyChecking=no $DOCUMENTIO_CONNECTION \
+  "docker rm -f \$(docker ps -aq) && docker rmi \$(docker images -aq) && docker run -d -p 80:80 -e DocumentIO:ConnectionStrings:PostgreSQL=\"$DOCUMENTIO_CONNECTIONSTRING\" sergeyshaykhullin/documentio:1.0.$TRAVIS_BUILD_NUMBER"
