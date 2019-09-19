@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace DocumentIO
 {
@@ -14,5 +15,7 @@ namespace DocumentIO
 
 		public Guid ColumnId { get; set; }
 		public Column Column { get; set; }
+
+		public ICollection<CardLabel> Labels { get; set; }
 	}
 }

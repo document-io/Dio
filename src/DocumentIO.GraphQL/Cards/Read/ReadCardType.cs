@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using GraphQL.DataLoader;
 using GraphQL.Types;
@@ -29,6 +30,24 @@ namespace DocumentIO
 							.ToDictionaryAsync(card => card.Id, card => card.Column));
 
 					return loader.LoadAsync(context.Source.Id);
+				});
+			
+			Field<ListGraphType<ReadLabelType>, IEnumerable<Label>>("labels")
+				.ResolveAsync(async context =>
+				{
+					var databaseContext = context.GetDatabaseContext();
+
+					var loader = accessor.Context.GetOrAddCollectionBatchLoader<Guid, CardLabel>(
+						"CardLabels",
+						async ids => await databaseContext.CardLabels
+							.Include(cardLabel => cardLabel.Label)
+							.Where(cardLabel => ids.Contains(cardLabel.CardId))
+							.ToListAsync(),
+						cardLabel => cardLabel.CardId);
+
+					var cardLabels = await loader.LoadAsync(context.Source.Id);
+
+					return cardLabels.Select(cardLabel => cardLabel.Label).ToList();
 				});
 		}
 	}

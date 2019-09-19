@@ -13,5 +13,6 @@ namespace DocumentIO
 		public Organization Organization { get; set; }
 
 		public ICollection<Column> Columns { get; set; }
+		public ICollection<Label> Labels { get; set; }
 	}
 }
