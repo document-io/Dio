@@ -83,15 +83,18 @@ namespace DocumentIO
 				});
 
 			Field<ListGraphType<ReadAttachmentType>, IEnumerable<CardAttachment>>("attachments")
+				.Argument<AttachmentFilterType>("filter", q => q.DefaultValue = new AttachmentFilter())
 				.ResolveAsync(context =>
 				{
 					var databaseContext = context.GetDatabaseContext();
+					var filter = context.GetArgument<AttachmentFilter>("filter");
 
 					var loader = accessor.Context.GetOrAddCollectionBatchLoader<Guid, CardAttachment>(
 						"AccountAttachments",
-						async ids => await databaseContext.CardAttachments
-							.Where(cardLabel => ids.Contains(cardLabel.AccountId))
-							.ToListAsync(),
+						async ids =>
+							await filter.Filter(databaseContext.CardAttachments
+								.Where(cardLabel => ids.Contains(cardLabel.AccountId)))
+								.ToListAsync(),
 						cardLabel => cardLabel.AccountId);
 
 					return loader.LoadAsync(context.Source.Id);
