@@ -12,6 +12,7 @@ namespace DocumentIO.Web
 		public static IServiceCollection AddDocumentIOGraphQL(this IServiceCollection services)
 		{
 			services.AddSingleton<ISchema, DocumentIOSchema>();
+			services.AddHttpContextAccessor();
 
 			services.AddGraphQL(options =>
 				{

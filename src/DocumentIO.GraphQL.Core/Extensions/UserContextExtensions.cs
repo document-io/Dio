@@ -12,7 +12,7 @@ namespace DocumentIO
 			return (DocumentIOUserContext)context.UserContext;
 		}
 
-		public static int GetAccountId<TSource>(this ResolveFieldContext<TSource> context)
+		public static Guid GetAccountId<TSource>(this ResolveFieldContext<TSource> context)
 		{
 			return context.GetUserContext().AccountId;
 		}

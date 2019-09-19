@@ -1,4 +1,7 @@
+using System;
+using System.Linq;
 using GraphQL.Types;
+using Microsoft.EntityFrameworkCore;
 
 namespace DocumentIO
 {
@@ -6,13 +9,18 @@ namespace DocumentIO
 	{
 		public DocumentIOQueries()
 		{
-			Name = "Query";
+			Name = "Queries";
 
-			this.AddOrganizationQueries();
-			this.AddInviteQueries();
-			this.AddAccountQueries();
-			this.AddBoardsQueries();
-			this.AddColumnQueries();
+			Field<ReadOrganizationType, Organization>("organization")
+				.ResolveAsync(async context =>
+				{
+					var accountId = context.GetAccountId();
+					var databaseContext = context.GetDatabaseContext();
+
+					return  await databaseContext.Organizations
+						.SingleAsync(organization =>
+							organization.Accounts.Any(account => account.Id == accountId));
+				});
 		}
 	}
 }
