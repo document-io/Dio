@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DocumentIO
 {
-	public class ReadBoardType : ObjectGraphType<Board>
+	public class ReadBoardType : DocumentIOGraphType<Board>
 	{
 		public ReadBoardType(IDataLoaderContextAccessor accessor)
 		{
@@ -15,18 +15,18 @@ namespace DocumentIO
 			Field(x => x.Name);
 			Field(x => x.CreatedAt);
 
-			Field<ListGraphType<ReadColumnType>, IEnumerable<Column>>("columns")
-				.Argument<ColumnsFilterType>("filter", q => q.DefaultValue = new ColumnsFilter())
+			FilteredField<ListGraphType<ReadColumnType>, IEnumerable<Column>, ColumnsFilterType>("columns")
 				.ResolveAsync(context =>
 				{
 					var databaseContext = context.GetDatabaseContext();
-					var filter = context.GetArgument<ColumnsFilter>("filter");
+					var filter = context.GetFilter<Board, ColumnsFilter>();
 
 					var loader = accessor.Context.GetOrAddCollectionBatchLoader<Guid, Column>(
 						"BoardColumns",
 						async ids =>
-							await filter.Filter(databaseContext.Columns)
-								.Where(column => ids.Contains(column.BoardId))
+							await filter.Filtered(
+									databaseContext.Columns,
+									columns => columns.Where(column => ids.Contains(column.BoardId)))
 								.ToListAsync(),
 						column => column.BoardId);
 
@@ -48,18 +48,18 @@ namespace DocumentIO
 					return loader.LoadAsync(context.Source.Id);
 				});
 
-			Field<ListGraphType<ReadLabelType>, IEnumerable<Label>>("labels")
-				.Argument<LabelsFilterType>("filter", q => q.DefaultValue = new LabelsFilter())
+			FilteredField<ListGraphType<ReadLabelType>, IEnumerable<Label>, LabelsFilterType>("labels")
 				.ResolveAsync(context =>
 				{
 					var databaseContext = context.GetDatabaseContext();
-					var filter = context.GetArgument<LabelsFilter>("filter");
+					var filter = context.GetFilter<Board, LabelsFilter>();
 
 					var loader = accessor.Context.GetOrAddCollectionBatchLoader<Guid, Label>(
 						"BoardLabels",
 						async ids =>
-							await filter.Filter(databaseContext.Labels)
-								.Where(label => ids.Contains(label.BoardId))
+							await filter.Filtered(
+									databaseContext.Labels,
+									labels => labels.Where(label => ids.Contains(label.BoardId)))
 								.ToListAsync(),
 						label => label.BoardId);
 

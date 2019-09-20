@@ -1,8 +1,6 @@
-using GraphQL.Types;
-
 namespace DocumentIO
 {
-	public class CardsFilterType : InputObjectGraphType<CardsFilter>
+	public class CardsFilterType : FilterType<Card, CardsFilter>
 	{
 		public CardsFilterType()
 		{

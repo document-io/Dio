@@ -3,14 +3,16 @@ using System.Linq;
 
 namespace DocumentIO
 {
-	public class LabelsFilter : IFilter<Label>
+	public class LabelsFilter : Filter<Label>
 	{
 		public Guid? Id { get; set; }
 		public string Name { get; set; }
 		public string Description { get; set; }
 		public string Color { get; set; }
 
-		public IQueryable<Label> Filter(IQueryable<Label> queryable)
+		public override IQueryable<TPaginated> Filtered<TPaginated>(
+			IQueryable<Label> queryable,
+			Func<IQueryable<Label>, IQueryable<TPaginated>> query)
 		{
 			if (Id != null)
 				queryable = queryable.Where(label => label.Id == Id);
@@ -24,7 +26,7 @@ namespace DocumentIO
 			if (Color != null)
 				queryable = queryable.Where(label => label.Color == Color);
 
-			return queryable;
+			return base.Filtered(queryable, query);
 		}
 	}
 }

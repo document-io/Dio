@@ -1,9 +1,23 @@
+using System;
 using System.Linq;
 
 namespace DocumentIO
 {
-	public interface IFilter<TEntity>
+	public abstract class Filter<TEntity>
 	{
-		IQueryable<TEntity> Filter(IQueryable<TEntity> queryable);
+		public int? Page { get; set; }
+		public int Size { get; set; }
+
+		public virtual IQueryable<TPaginated> Filtered<TPaginated>(
+			IQueryable<TEntity> queryable,
+			Func<IQueryable<TEntity>, IQueryable<TPaginated>> query)
+		{
+			var paginated = query(queryable);
+
+			if (Page != null)
+				paginated = paginated.Skip(Size * Page.Value - 1).Take(Size);
+
+			return paginated;
+		}
 	}
 }

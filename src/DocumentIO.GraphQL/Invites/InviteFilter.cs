@@ -3,13 +3,15 @@ using System.Linq;
 
 namespace DocumentIO
 {
-	public class InviteFilter : IFilter<Invite>
+	public class InviteFilter : Filter<Invite>
 	{
 		public Guid? Id { get; set; }
 		public string Role { get; set; }
 		public string Description { get; set; }
 
-		public IQueryable<Invite> Filter(IQueryable<Invite> queryable)
+		public override IQueryable<TPaginated> Filtered<TPaginated>
+			(IQueryable<Invite> queryable,
+			Func<IQueryable<Invite>, IQueryable<TPaginated>> query)
 		{
 			if (Id != null)
 				queryable = queryable.Where(invite => invite.Id == Id);
@@ -20,7 +22,7 @@ namespace DocumentIO
 			if (Description != null)
 				queryable = queryable.Where(invite => invite.Description.Contains(Description));
 
-			return queryable;
+			return base.Filtered(queryable, query);
 		}
 	}
 }

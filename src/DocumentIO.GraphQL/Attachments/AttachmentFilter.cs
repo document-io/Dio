@@ -3,12 +3,14 @@ using System.Linq;
 
 namespace DocumentIO
 {
-	public class AttachmentFilter : IFilter<CardAttachment>
+	public class AttachmentFilter : Filter<CardAttachment>
 	{
 		public Guid? Id { get; set; }
 		public string MimeType { get; set; }
 
-		public IQueryable<CardAttachment> Filter(IQueryable<CardAttachment> queryable)
+		public override IQueryable<TPaginated> Filtered<TPaginated>(
+			IQueryable<CardAttachment> queryable,
+			Func<IQueryable<CardAttachment>, IQueryable<TPaginated>> query)
 		{
 			if (Id != null)
 				queryable = queryable.Where(attachment => attachment.Id == Id);
@@ -16,7 +18,7 @@ namespace DocumentIO
 			if (MimeType != null)
 				queryable = queryable.Where(attachment => attachment.MimeType == MimeType);
 
-			return queryable;
+			return base.Filtered(queryable, query);
 		}
 	}
 }

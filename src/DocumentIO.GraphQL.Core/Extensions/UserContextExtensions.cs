@@ -1,4 +1,5 @@
 using System;
+using GraphQL;
 using GraphQL.Types;
 using Microsoft.AspNetCore.Http;
 using Phema.Validation;
@@ -35,6 +36,12 @@ namespace DocumentIO
 		public static IServiceProvider GetServiceProvider<TSource>(this ResolveFieldContext<TSource> context)
 		{
 			return context.GetUserContext().ServiceProvider;
+		}
+
+		public static TFilter GetFilter<TSource, TFilter>(this ResolveFieldContext<TSource> context)
+			where TFilter : class, new()
+		{
+			return context.Arguments.ToObject<TFilter>();
 		}
 	}
 }

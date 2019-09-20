@@ -16,7 +16,7 @@ namespace DocumentIO.Web
 
 			services.AddGraphQL(options =>
 				{
-					options.ExposeExceptions = false;
+					options.ExposeExceptions = true;
 				})
 				.AddDataLoader()
 				.AddGraphTypes(typeof(DocumentIOSchema))

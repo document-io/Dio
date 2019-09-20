@@ -1,8 +1,6 @@
-using GraphQL.Types;
-
 namespace DocumentIO
 {
-	public class AccountFilterType : InputObjectGraphType<AccountFilter>
+	public class AccountFilterType : FilterType<Account, AccountFilter>
 	{
 		public AccountFilterType()
 		{

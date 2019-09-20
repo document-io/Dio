@@ -1,8 +1,6 @@
-using GraphQL.Types;
-
 namespace DocumentIO
 {
-	public class EventsFilterType : InputObjectGraphType<EventsFilter>
+	public class EventsFilterType : FilterType<CardEvent, EventsFilter>
 	{
 		public EventsFilterType()
 		{

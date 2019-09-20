@@ -3,12 +3,14 @@ using System.Linq;
 
 namespace DocumentIO
 {
-	public class BoardsFilter : IFilter<Board>
+	public class BoardsFilter : Filter<Board>
 	{
 		public Guid? Id { get; set; }
 		public string Name { get; set; }
 
-		public IQueryable<Board> Filter(IQueryable<Board> queryable)
+		public override IQueryable<TPaginated> Filtered<TPaginated>(
+			IQueryable<Board> queryable,
+			Func<IQueryable<Board>, IQueryable<TPaginated>> query)
 		{
 			if (Id != null)
 				queryable = queryable.Where(board => board.Id == Id);
@@ -16,7 +18,7 @@ namespace DocumentIO
 			if (Name != null)
 				queryable = queryable.Where(board => board.Name.Contains(Name));
 
-			return queryable;
+			return base.Filtered(queryable, query);
 		}
 	}
 }

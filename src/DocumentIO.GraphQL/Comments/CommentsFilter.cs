@@ -3,12 +3,14 @@ using System.Linq;
 
 namespace DocumentIO
 {
-	public class CommentsFilter : IFilter<CardComment>
+	public class CommentsFilter : Filter<CardComment>
 	{
 		public Guid? Id { get; set; }
 		public string Content { get; set; }
 
-		public IQueryable<CardComment> Filter(IQueryable<CardComment> queryable)
+		public override IQueryable<TPaginated> Filtered<TPaginated>(
+			IQueryable<CardComment> queryable,
+			Func<IQueryable<CardComment>, IQueryable<TPaginated>> query)
 		{
 			if (Id != null)
 				queryable = queryable.Where(comment => comment.Id == Id);
@@ -16,7 +18,7 @@ namespace DocumentIO
 			if (Content != null)
 				queryable = queryable.Where(comment => comment.Content.Contains(Content));
 
-			return queryable;
+			return base.Filtered(queryable, query);
 		}
 	}
 }

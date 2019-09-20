@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DocumentIO
 {
-	public class ReadColumnType : ObjectGraphType<Column>
+	public class ReadColumnType : DocumentIOGraphType<Column>
 	{
 		public ReadColumnType(IDataLoaderContextAccessor accessor)
 		{
@@ -30,18 +30,18 @@ namespace DocumentIO
 					return loader.LoadAsync(context.Source.Id);
 				});
 
-			Field<ListGraphType<ReadCardType>, IEnumerable<Card>>("cards")
-				.Argument<CardsFilterType>("filter", q => q.DefaultValue = new CardsFilter())
+			FilteredField<ListGraphType<ReadCardType>, IEnumerable<Card>, CardsFilterType>("cards")
 				.ResolveAsync(context =>
 				{
 					var databaseContext = context.GetDatabaseContext();
-					var filter = context.GetArgument<CardsFilter>("filter");
+					var filter = context.GetFilter<Column, CardsFilter>();
 
 					var loader = accessor.Context.GetOrAddCollectionBatchLoader<Guid, Card>(
 						"ColumnCards",
 						async ids => 
-							await filter.Filter(databaseContext.Cards)
-								.Where(card => ids.Contains(card.ColumnId))
+							await filter.Filtered(
+									databaseContext.Cards,
+									cards => cards.Where(card => ids.Contains(card.ColumnId)))
 								.ToListAsync(),
 						card => card.ColumnId);
 

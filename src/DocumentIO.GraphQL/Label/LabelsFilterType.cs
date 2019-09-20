@@ -1,8 +1,6 @@
-using GraphQL.Types;
-
 namespace DocumentIO
 {
-	public class LabelsFilterType : InputObjectGraphType<LabelsFilter>
+	public class LabelsFilterType : FilterType<Label, LabelsFilter>
 	{
 		public LabelsFilterType()
 		{

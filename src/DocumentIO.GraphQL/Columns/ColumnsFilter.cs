@@ -3,13 +3,15 @@ using System.Linq;
 
 namespace DocumentIO
 {
-	public class ColumnsFilter : IFilter<Column>
+	public class ColumnsFilter : Filter<Column>
 	{
 		public Guid? Id { get; set; }
 		public string Name { get; set; }
 		public int? Order { get; set; }
 
-		public IQueryable<Column> Filter(IQueryable<Column> queryable)
+		public override IQueryable<TPaginated> Filtered<TPaginated>(
+			IQueryable<Column> queryable,
+			Func<IQueryable<Column>, IQueryable<TPaginated>> query)
 		{
 			if (Id != null)
 				queryable = queryable.Where(column => column.Id == Id);
@@ -20,7 +22,7 @@ namespace DocumentIO
 			if (Order != null)
 				queryable = queryable.Where(column => column.Order == Order);
 
-			return queryable;
+			return base.Filtered(queryable, query);
 		}
 	}
 }

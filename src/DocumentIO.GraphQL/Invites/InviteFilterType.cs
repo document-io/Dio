@@ -1,8 +1,6 @@
-using GraphQL.Types;
-
 namespace DocumentIO
 {
-	public class InviteFilterType : InputObjectGraphType<InviteFilter>
+	public class InviteFilterType : FilterType<Invite, InviteFilter>
 	{
 		public InviteFilterType()
 		{

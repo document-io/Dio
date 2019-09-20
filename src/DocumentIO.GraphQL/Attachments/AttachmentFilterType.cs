@@ -1,8 +1,6 @@
-using GraphQL.Types;
-
 namespace DocumentIO
 {
-	public class AttachmentFilterType : InputObjectGraphType<AttachmentFilter>
+	public class AttachmentFilterType : FilterType<CardAttachment, AttachmentFilter>
 	{
 		public AttachmentFilterType()
 		{

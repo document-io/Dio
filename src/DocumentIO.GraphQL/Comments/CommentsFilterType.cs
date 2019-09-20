@@ -1,8 +1,6 @@
-using GraphQL.Types;
-
 namespace DocumentIO
 {
-	public class CommentsFilterType : InputObjectGraphType<CommentsFilter>
+	public class CommentsFilterType : FilterType<CardComment, CommentsFilter>
 	{
 		public CommentsFilterType()
 		{

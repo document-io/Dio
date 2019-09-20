@@ -1,8 +1,6 @@
-using GraphQL.Types;
-
 namespace DocumentIO
 {
-	public class ColumnsFilterType : InputObjectGraphType<ColumnsFilter>
+	public class ColumnsFilterType : FilterType<Column, ColumnsFilter>
 	{
 		public ColumnsFilterType()
 		{

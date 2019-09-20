@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace DocumentIO
 {
-	public class CardsFilter : IFilter<Card>
+	public class CardsFilter : Filter<Card>
 	{
 		public Guid? Id { get; set; }
 		public string Name { get; set; }
@@ -11,7 +11,9 @@ namespace DocumentIO
 
 		public DateTime? DueDate { get; set; }
 		
-		public IQueryable<Card> Filter(IQueryable<Card> queryable)
+		public override IQueryable<TPaginated> Filtered<TPaginated>(
+			IQueryable<Card> queryable,
+			Func<IQueryable<Card>, IQueryable<TPaginated>> query)
 		{
 			if (Id != null)
 				queryable = queryable.Where(card => card.Id == Id);
@@ -25,7 +27,7 @@ namespace DocumentIO
 			if (DueDate != null)
 				queryable = queryable.Where(card => card.DueDate != null && card.DueDate < DueDate);
 
-			return queryable;
+			return base.Filtered(queryable, query);
 		}
 	}
 }

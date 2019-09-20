@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using GraphQL.Types;
 using Microsoft.EntityFrameworkCore;
@@ -13,7 +14,7 @@ namespace DocumentIO
 			Field<ReadOrganizationType, Organization>("organization")
 				.ResolveAsync(async context =>
 				{
-					var accountId = context.GetAccountId();
+					var accountId = Guid.Parse("6bb84cbb-553c-4c93-8409-2348285ebee7");// context.GetAccountId();
 					var databaseContext = context.GetDatabaseContext();
 
 					return await databaseContext.Organizations

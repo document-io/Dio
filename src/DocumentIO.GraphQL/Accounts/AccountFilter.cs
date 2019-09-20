@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace DocumentIO
 {
-	public class AccountFilter : IFilter<Account>
+	public class AccountFilter : Filter<Account>
 	{
 		public Guid? Id { get; set; }
 		public string Role { get; set; }
@@ -12,7 +12,9 @@ namespace DocumentIO
 		public string MiddleName { get; set; }
 		public string LastName { get; set; }
 
-		public IQueryable<Account> Filter(IQueryable<Account> queryable)
+		public override IQueryable<TPaginated> Filtered<TPaginated>(
+			IQueryable<Account> queryable,
+			Func<IQueryable<Account>, IQueryable<TPaginated>> query)
 		{
 			if (Id != null)
 				queryable = queryable.Where(account => account.Id == Id);
@@ -32,7 +34,7 @@ namespace DocumentIO
 			if (LastName != null)
 				queryable = queryable.Where(account => account.LastName.Contains(LastName));
 
-			return queryable;
+			return base.Filtered(queryable, query);
 		}
 	}
 }

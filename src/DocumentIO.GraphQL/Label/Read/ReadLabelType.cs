@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DocumentIO
 {
-	public class ReadLabelType : ObjectGraphType<Label>
+	public class ReadLabelType : DocumentIOGraphType<Label>
 	{
 		public ReadLabelType(IDataLoaderContextAccessor accessor)
 		{
@@ -31,20 +31,21 @@ namespace DocumentIO
 					return loader.LoadAsync(context.Source.Id);
 				});
 
-			Field<ListGraphType<ReadCardType>, IEnumerable<Card>>("cards")
-				.Argument<CardsFilterType>("filter", q => q.DefaultValue = new CardsFilter())
+			FilteredField<ListGraphType<ReadCardType>, IEnumerable<Card>, CardsFilterType>("cards")
 				.ResolveAsync(async context =>
 				{
 					var databaseContext = context.GetDatabaseContext();
-					var filter = context.GetArgument<CardsFilter>("filter");
+					var filter = context.GetFilter<Label, CardsFilter>();
 
 					var loader = accessor.Context.GetOrAddCollectionBatchLoader<Guid, CardLabel>(
 						"LabelCards",
 						async ids => 
-							await filter.Filter(databaseContext.Cards)
-								.SelectMany(card => card.Labels)
-								.Include(cardLabel => cardLabel.Card)
-								.Where(cardLabel => ids.Contains(cardLabel.LabelId))
+							await filter.Filtered(
+									databaseContext.Cards,
+									cards => cards
+										.SelectMany(card => card.Labels)
+										.Include(cardLabel => cardLabel.Card)
+										.Where(cardLabel => ids.Contains(cardLabel.LabelId)))
 								.ToListAsync(),
 						cardLabel => cardLabel.LabelId);
 

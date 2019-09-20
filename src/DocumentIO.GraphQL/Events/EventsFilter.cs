@@ -3,12 +3,14 @@ using System.Linq;
 
 namespace DocumentIO
 {
-	public class EventsFilter : IFilter<CardEvent>
+	public class EventsFilter : Filter<CardEvent>
 	{
 		public Guid? Id { get; set; }
 		public string Content { get; set; }
 
-		public IQueryable<CardEvent> Filter(IQueryable<CardEvent> queryable)
+		public override IQueryable<TPaginated> Filtered<TPaginated>(
+			IQueryable<CardEvent> queryable, 
+			Func<IQueryable<CardEvent>, IQueryable<TPaginated>> query)
 		{
 			if (Id != null)
 				queryable = queryable.Where(@event => @event.Id == Id);
@@ -16,7 +18,7 @@ namespace DocumentIO
 			if (Content != null)
 				queryable = queryable.Where(@event => @event.Content.Contains(Content));
 
-			return queryable;
+			return base.Filtered(queryable, query);
 		}
 	}
 }
