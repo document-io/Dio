@@ -25,6 +25,7 @@ namespace DocumentIO
 					var loader = accessor.Context.GetOrAddBatchLoader<Guid, Account>(
 						"InviteAccount",
 						async ids => await databaseContext.Invites
+							.AsNoTracking()
 							.Include(invite => invite.Account)
 							.Where(invite => ids.Contains(invite.Id))
 							.ToDictionaryAsync(invite => invite.Id, invite => invite.Account));
@@ -40,6 +41,7 @@ namespace DocumentIO
 					var loader = accessor.Context.GetOrAddBatchLoader<Guid, Organization>(
 						"InviteOrganization",
 						async ids => await databaseContext.Invites
+							.AsNoTracking()
 							.Include(invite => invite.Organization)
 							.Where(invite => ids.Contains(invite.Id))
 							.ToDictionaryAsync(invite => invite.Id, invite => invite.Organization));

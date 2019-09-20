@@ -11,7 +11,7 @@ namespace DocumentIO
 
 		public DateTime? DueDate { get; set; }
 
-		public string Markdown { get; set; }
+		public string Content { get; set; }
 
 		public Guid ColumnId { get; set; }
 		public Column Column { get; set; }

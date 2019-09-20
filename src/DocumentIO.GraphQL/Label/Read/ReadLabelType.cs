@@ -24,6 +24,7 @@ namespace DocumentIO
 					var loader = accessor.Context.GetOrAddBatchLoader<Guid, Board>(
 						"LabelBoard",
 						async ids => await databaseContext.Labels
+							.AsNoTracking()
 							.Include(label => label.Board)
 							.Where(label => ids.Contains(label.Id))
 							.ToDictionaryAsync(label => label.Id, label => label.Board));
@@ -41,7 +42,7 @@ namespace DocumentIO
 						"LabelCards",
 						async ids => 
 							await filter.Filtered(
-									databaseContext.Cards,
+									databaseContext.Cards.AsNoTracking(),
 									cards => cards
 										.SelectMany(card => card.Labels)
 										.Include(cardLabel => cardLabel.Card)

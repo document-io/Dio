@@ -22,6 +22,7 @@ namespace DocumentIO
 					var loader = accessor.Context.GetOrAddBatchLoader<Guid, Card>(
 						"CommentCard",
 						async ids => await databaseContext.CardComments
+							.AsNoTracking()
 							.Include(assignment => assignment.Card)
 							.Where(assignment => ids.Contains(assignment.CardId))
 							.ToDictionaryAsync(x => x.CardId, x => x.Card));
@@ -37,6 +38,7 @@ namespace DocumentIO
 					var loader = accessor.Context.GetOrAddBatchLoader<Guid, Account>(
 						"CommentAccount",
 						async ids => await databaseContext.CardComments
+							.AsNoTracking()
 							.Include(assignment => assignment.Account)
 							.Where(assignment => ids.Contains(assignment.AccountId))
 							.ToDictionaryAsync(x => x.AccountId, x => x.Account));

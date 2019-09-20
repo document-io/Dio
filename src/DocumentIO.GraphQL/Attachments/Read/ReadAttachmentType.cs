@@ -21,7 +21,7 @@ namespace DocumentIO
 
 					var loader = accessor.Context.GetOrAddBatchLoader<Guid, Card>(
 						"AttachmentCard",
-						async ids => await databaseContext.CardAttachments
+						async ids => await databaseContext.CardAttachments.AsNoTracking()
 							.Include(assignment => assignment.Card)
 							.Where(assignment => ids.Contains(assignment.CardId))
 							.ToDictionaryAsync(x => x.CardId, x => x.Card));
@@ -36,7 +36,7 @@ namespace DocumentIO
 
 					var loader = accessor.Context.GetOrAddBatchLoader<Guid, Account>(
 						"AttachmentAccount",
-						async ids => await databaseContext.CardAttachments
+						async ids => await databaseContext.CardAttachments.AsNoTracking()
 							.Include(assignment => assignment.Account)
 							.Where(assignment => ids.Contains(assignment.AccountId))
 							.ToDictionaryAsync(x => x.AccountId, x => x.Account));

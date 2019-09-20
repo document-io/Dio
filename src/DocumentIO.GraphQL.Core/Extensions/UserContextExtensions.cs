@@ -2,6 +2,7 @@ using System;
 using GraphQL;
 using GraphQL.Types;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.DependencyInjection;
 using Phema.Validation;
 
 namespace DocumentIO
@@ -15,17 +16,29 @@ namespace DocumentIO
 
 		public static Guid GetAccountId<TSource>(this ResolveFieldContext<TSource> context)
 		{
-			return context.GetUserContext().AccountId;
+			var userContext = context.GetUserContext();
+
+			return Guid.TryParse(userContext.User.Identity.Name, out var accountId)
+				? accountId
+				: Guid.Empty;
 		}
 
 		public static DatabaseContext GetDatabaseContext<TSource>(this ResolveFieldContext<TSource> context)
 		{
-			return context.GetUserContext().DatabaseContext;
+			var userContext = context.GetUserContext();
+
+			return userContext
+				.ServiceProvider
+				.CreateScope()
+				.ServiceProvider
+				.GetRequiredService<DatabaseContext>();
 		}
 
 		public static IValidationContext GetValidationContext<TSource>(this ResolveFieldContext<TSource> context)
 		{
-			return context.GetUserContext().ValidationContext;
+			var userContext = context.GetUserContext();
+
+			return userContext.ServiceProvider.GetRequiredService<IValidationContext>();
 		}
 
 		public static HttpContext GetHttpContext<TSource>(this ResolveFieldContext<TSource> context)

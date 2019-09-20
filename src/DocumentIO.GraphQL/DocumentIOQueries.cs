@@ -18,6 +18,7 @@ namespace DocumentIO
 					var databaseContext = context.GetDatabaseContext();
 
 					return await databaseContext.Organizations
+						.AsNoTracking()
 						.SingleAsync(organization =>
 							organization.Accounts.Any(account => account.Id == accountId));
 				});

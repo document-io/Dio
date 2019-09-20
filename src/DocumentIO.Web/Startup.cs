@@ -1,8 +1,10 @@
+using System.Linq;
 using GraphQL.Types;
 using GraphQL.Server.Ui.Voyager;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -52,12 +54,15 @@ namespace DocumentIO.Web
 
 				var databaseContext = context.RequestServices.GetRequiredService<DatabaseContext>();
 
-				// var shouldSaveChanges = databaseContext
-				// 	.ChangeTracker
-				// 	.Entries()
-				// 	.Any(x => x.State == EntityState.Added || x.State == EntityState.Deleted || x.State == EntityState.Modified);
+				var shouldSaveChanges = databaseContext
+					.ChangeTracker
+					.Entries()
+					.Any(x => x.State == EntityState.Added || x.State == EntityState.Deleted || x.State == EntityState.Modified);
 
-				await databaseContext.SaveChangesAsync();
+				if (shouldSaveChanges)
+				{
+					await databaseContext.SaveChangesAsync();
+				}
 			});
 
 			app.UseGraphQL<ISchema>();

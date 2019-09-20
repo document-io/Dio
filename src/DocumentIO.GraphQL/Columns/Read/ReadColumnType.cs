@@ -23,6 +23,7 @@ namespace DocumentIO
 					var loader = accessor.Context.GetOrAddBatchLoader<Guid, Board>(
 						"ColumnBoard",
 						async ids => await databaseContext.Columns
+							.AsNoTracking()
 							.Include(column => column.Board)
 							.Where(column => ids.Contains(column.Id))
 							.ToDictionaryAsync(column => column.Id, column => column.Board));
@@ -40,7 +41,7 @@ namespace DocumentIO
 						"ColumnCards",
 						async ids => 
 							await filter.Filtered(
-									databaseContext.Cards,
+									databaseContext.Cards.AsNoTracking(),
 									cards => cards.Where(card => ids.Contains(card.ColumnId)))
 								.ToListAsync(),
 						card => card.ColumnId);

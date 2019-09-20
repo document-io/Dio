@@ -15,7 +15,7 @@ namespace DocumentIO
 			Field(x => x.Name);
 			Field(x => x.Order);
 			Field(x => x.DueDate, nullable: true);
-			Field(x => x.Markdown);
+			Field(x => x.Content);
 
 			Field<ReadColumnType, Column>("column")
 				.ResolveAsync(context =>
@@ -25,6 +25,7 @@ namespace DocumentIO
 					var loader = accessor.Context.GetOrAddBatchLoader<Guid, Column>(
 						"CardColumn",
 						async ids => await databaseContext.Cards
+							.AsNoTracking()
 							.Include(card => card.Column)
 							.Where(card => ids.Contains(card.Id))
 							.ToDictionaryAsync(card => card.Id, card => card.Column));
@@ -42,7 +43,7 @@ namespace DocumentIO
 						"CardLabels",
 						async ids =>
 							await filter.Filtered(
-									databaseContext.Labels,
+									databaseContext.Labels.AsNoTracking(),
 									labels => labels.SelectMany(label => label.Cards)
 										.Include(cardLabel => cardLabel.Label)
 										.Where(cardLabel => ids.Contains(cardLabel.CardId)))
@@ -64,7 +65,7 @@ namespace DocumentIO
 						"AccountAssignments",
 						async ids => 
 							await filter.Filtered(
-									databaseContext.Accounts,
+									databaseContext.Accounts.AsNoTracking(),
 									accounts => accounts.SelectMany(account => account.Assignments)
 										.Include(cardLabel => cardLabel.Account)
 										.Where(cardLabel => ids.Contains(cardLabel.CardId)))
@@ -86,7 +87,7 @@ namespace DocumentIO
 						"CardComments",
 						async ids =>
 							await filter.Filtered(
-									databaseContext.CardComments,
+									databaseContext.CardComments.AsNoTracking(),
 									comments => comments.Where(comment => ids.Contains(comment.CardId)))
 								.ToListAsync(),
 						cardLabel => cardLabel.CardId);
@@ -104,7 +105,7 @@ namespace DocumentIO
 						"CardAttachment",
 						async ids =>
 							await filter.Filtered(
-									databaseContext.CardAttachments,
+									databaseContext.CardAttachments.AsNoTracking(),
 									attachments => attachments.Where(attachment => ids.Contains(attachment.CardId)))
 								.ToListAsync(),
 						cardLabel => cardLabel.CardId);
@@ -122,7 +123,7 @@ namespace DocumentIO
 						"CardEvent",
 						async ids =>
 							await filter.Filtered(
-									databaseContext.CardEvents,
+									databaseContext.CardEvents.AsNoTracking(),
 									events => events.Where(@event => ids.Contains(@event.CardId)))
 								.ToListAsync(),
 						cardLabel => cardLabel.CardId);

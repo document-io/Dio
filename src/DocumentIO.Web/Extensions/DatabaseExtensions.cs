@@ -8,7 +8,7 @@ namespace DocumentIO
 	{
 		public static IServiceCollection AddDatabaseContext(this IServiceCollection services, string connectionString)
 		{
-			return services.AddDbContext<DatabaseContext>(options =>
+			return services.AddDbContextPool<DatabaseContext>(options =>
 				options.UseNpgsql(connectionString, builder =>
 					builder.MigrationsAssembly(typeof(DatabaseContext).Assembly.FullName)));
 		}
