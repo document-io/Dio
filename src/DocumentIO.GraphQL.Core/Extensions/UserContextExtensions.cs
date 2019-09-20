@@ -27,11 +27,7 @@ namespace DocumentIO
 		{
 			var userContext = context.GetUserContext();
 
-			return userContext
-				.ServiceProvider
-				.CreateScope()
-				.ServiceProvider
-				.GetRequiredService<DatabaseContext>();
+			return userContext.ServiceProvider.GetRequiredService<DatabaseContext>();
 		}
 
 		public static IValidationContext GetValidationContext<TSource>(this ResolveFieldContext<TSource> context)
