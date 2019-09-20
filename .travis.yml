@@ -16,10 +16,10 @@ addons:
 
 script:
 - set -e
-- bash ./ci/build_docker_image.sh
+- bash ./travis/build_docker_image.sh
 - 
   if [ "$TRAVIS_PULL_REQUEST" = "false" ];
     then
-    bash ./ci/push_image_to_dockerhub.sh;
-    bash ./ci/deploy.sh;
+    bash ./travis/push_image_to_dockerhub.sh;
+    bash ./travis/deploy.sh;
   fi
