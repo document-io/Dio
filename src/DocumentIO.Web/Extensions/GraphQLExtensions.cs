@@ -18,11 +18,10 @@ namespace DocumentIO.Web
 
 			services.AddGraphQL(options =>
 				{
-					options.ExposeExceptions = true;
+					options.ExposeExceptions = false;
 				})
 				.AddDataLoader()
 				.AddGraphTypes(typeof(DocumentIOSchema))
-				.AddRelayGraphTypes()
 				.AddUserContextBuilder(context => new DocumentIOUserContext(context));
 
 			return services;
