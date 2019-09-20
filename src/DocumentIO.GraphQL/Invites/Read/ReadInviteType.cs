@@ -1,14 +1,8 @@
-using System;
-using System.Linq;
-using GraphQL.DataLoader;
-using GraphQL.Types;
-using Microsoft.EntityFrameworkCore;
-
 namespace DocumentIO
 {
-	public class ReadInviteType : ObjectGraphType<Invite>
+	public class ReadInviteType : DocumentIOGraphType<Invite>
 	{
-		public ReadInviteType(IDataLoaderContextAccessor accessor)
+		public ReadInviteType()
 		{
 			Field(x => x.Id);
 			Field(x => x.Secret);
@@ -17,37 +11,11 @@ namespace DocumentIO
 			Field(x => x.CreatedAt);
 			Field(x => x.DueDate, nullable: true);
 
-			Field<ReadAccountType, Account>("account")
-				.ResolveAsync(context =>
-				{
-					var databaseContext = context.GetDatabaseContext();
+			DocumentIOField<ReadAccountType, Account>("account")
+				.ResolveAsync<InviteAccountResolver>();
 
-					var loader = accessor.Context.GetOrAddBatchLoader<Guid, Account>(
-						"InviteAccount",
-						async ids => await databaseContext.Invites
-							.AsNoTracking()
-							.Include(invite => invite.Account)
-							.Where(invite => ids.Contains(invite.Id))
-							.ToDictionaryAsync(invite => invite.Id, invite => invite.Account));
-
-					return loader.LoadAsync(context.Source.Id);
-				});
-
-			Field<ReadOrganizationType, Organization>("organization")
-				.ResolveAsync(context =>
-				{
-					var databaseContext = context.GetDatabaseContext();
-
-					var loader = accessor.Context.GetOrAddBatchLoader<Guid, Organization>(
-						"InviteOrganization",
-						async ids => await databaseContext.Invites
-							.AsNoTracking()
-							.Include(invite => invite.Organization)
-							.Where(invite => ids.Contains(invite.Id))
-							.ToDictionaryAsync(invite => invite.Id, invite => invite.Organization));
-
-					return loader.LoadAsync(context.Source.Id);
-				});
+			DocumentIOField<ReadOrganizationType, Organization>("organization")
+				.ResolveAsync<InviteOrganizationResolver>();
 		}
 	}
 }

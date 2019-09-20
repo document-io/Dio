@@ -1,6 +1,6 @@
 namespace DocumentIO
 {
-	public class AttachmentFilterType : FilterType<CardAttachment, AttachmentFilter>
+	public class AttachmentFilterType : GraphQLFilterType<CardAttachment, AttachmentFilter>
 	{
 		public AttachmentFilterType()
 		{

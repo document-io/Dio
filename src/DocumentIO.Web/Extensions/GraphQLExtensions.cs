@@ -1,3 +1,5 @@
+using System.Linq;
+using System.Reflection;
 using System.Security.Claims;
 using GraphQL;
 using GraphQL.Authorization;
@@ -16,12 +18,16 @@ namespace DocumentIO.Web
 			services.AddSingleton<ISchema, DocumentIOSchema>();
 			services.AddSingleton<IDocumentExecuter, DocumentIODocumentExecuter>();
 
+			var assembly = typeof(DocumentIOSchema).Assembly;
+			
 			services.AddGraphQL(options =>
 				{
 					options.ExposeExceptions = false;
 				})
 				.AddDataLoader()
-				.AddGraphTypes(typeof(DocumentIOSchema))
+				.AddGraphTypes(assembly)
+				.AddGraphValidation(assembly)
+				.AddGraphResolvers(assembly)
 				.AddUserContextBuilder(context => new DocumentIOUserContext(context));
 
 			return services;
@@ -46,6 +52,37 @@ namespace DocumentIO.Web
 			});
 
 			return services;
+		}
+
+		public static IGraphQLBuilder AddGraphValidation(this IGraphQLBuilder builder, Assembly assembly)
+		{
+			var types = assembly.GetTypes()
+				.Where(type => !type.IsAbstract
+					// TODO: Возможно не будет работать и нужно указывать закрытый тип
+					// Для этого сделать метод Argument<TArgument, TValidation>
+					// Либо заиметь недженерик IGraphQLValidation и регистрировать (type.BaseType, type)
+					&& typeof(IGraphQLValidation<>).IsAssignableFrom(type));
+
+			foreach (var type in types)
+			{
+				builder.Services.Add(ServiceDescriptor.Scoped(type.BaseType, type));
+			}
+
+			return builder;
+		}
+
+		public static IGraphQLBuilder AddGraphResolvers(this IGraphQLBuilder builder, Assembly assembly)
+		{
+			var types = assembly.GetTypes()
+				.Where(type => !type.IsAbstract
+					&& typeof(IGraphQLResolver).IsAssignableFrom(type));
+
+			foreach (var type in types)
+			{
+				builder.Services.Add(ServiceDescriptor.Scoped(type, type));
+			}
+
+			return builder;
 		}
 	}
 }

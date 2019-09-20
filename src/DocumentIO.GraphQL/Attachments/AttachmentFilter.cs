@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace DocumentIO
 {
-	public class AttachmentFilter : Filter<CardAttachment>
+	public class AttachmentFilter : GraphQLFilter<CardAttachment>
 	{
 		public Guid? Id { get; set; }
 		public string MimeType { get; set; }

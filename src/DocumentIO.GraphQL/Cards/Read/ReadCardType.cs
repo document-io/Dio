@@ -1,15 +1,11 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using GraphQL.DataLoader;
 using GraphQL.Types;
-using Microsoft.EntityFrameworkCore;
 
 namespace DocumentIO
 {
 	public class ReadCardType : DocumentIOGraphType<Card>
 	{
-		public ReadCardType(IDataLoaderContextAccessor accessor)
+		public ReadCardType()
 		{
 			Field(x => x.Id);
 			Field(x => x.Name);
@@ -17,119 +13,28 @@ namespace DocumentIO
 			Field(x => x.DueDate, nullable: true);
 			Field(x => x.Content);
 
-			Field<ReadColumnType, Column>("column")
-				.ResolveAsync(context =>
-				{
-					var databaseContext = context.GetDatabaseContext();
+			DocumentIOField<ReadColumnType, Column>("column")
+				.ResolveAsync<CardColumnResolver>();
 
-					var loader = accessor.Context.GetOrAddBatchLoader<Guid, Column>(
-						"CardColumn",
-						async ids => await databaseContext.Cards
-							.AsNoTracking()
-							.Include(card => card.Column)
-							.Where(card => ids.Contains(card.Id))
-							.ToDictionaryAsync(card => card.Id, card => card.Column));
+			DocumentIOField<ListGraphType<ReadLabelType>, IEnumerable<Label>>("labels")
+				.Filtered<LabelsFilterType>()
+				.ResolveAsync<CardLabelsResolver>();
 
-					return loader.LoadAsync(context.Source.Id);
-				});
-			
-			FilteredField<ListGraphType<ReadLabelType>, IEnumerable<Label>, LabelsFilterType>("labels")
-				.ResolveAsync(async context =>
-				{
-					var databaseContext = context.GetDatabaseContext();
-					var filter = context.GetFilter<Card, LabelsFilter>();
+			DocumentIOField<ListGraphType<ReadAccountType>, IEnumerable<Account>>("assignments")
+				.Filtered<AccountFilterType>()
+				.ResolveAsync<CardAssignmentsResolver>();
 
-					var loader = accessor.Context.GetOrAddCollectionBatchLoader<Guid, CardLabel>(
-						"CardLabels",
-						async ids =>
-							await filter.Filtered(
-									databaseContext.Labels.AsNoTracking(),
-									labels => labels.SelectMany(label => label.Cards)
-										.Include(cardLabel => cardLabel.Label)
-										.Where(cardLabel => ids.Contains(cardLabel.CardId)))
-								.ToListAsync(),
-						cardLabel => cardLabel.CardId);
+			DocumentIOField<ListGraphType<ReadCommentType>, IEnumerable<CardComment>>("comments")
+				.Filtered<CommentsFilterType>()
+				.ResolveAsync<CardCommentsResolver>();
 
-					var cardLabels = await loader.LoadAsync(context.Source.Id);
+			DocumentIOField<ListGraphType<ReadAttachmentType>, IEnumerable<CardAttachment>>("attachments")
+				.Filtered<AttachmentFilterType>()
+				.ResolveAsync<CardAttachmentsResolver>();
 
-					return cardLabels.Select(cardLabel => cardLabel.Label).ToList();
-				});
-
-			FilteredField<ListGraphType<ReadAccountType>, IEnumerable<Account>, AccountFilterType>("assignments")
-				.ResolveAsync(async context =>
-				{
-					var databaseContext = context.GetDatabaseContext();
-					var filter = context.GetFilter<Card, AccountFilter>();
-
-					var loader = accessor.Context.GetOrAddCollectionBatchLoader<Guid, CardAssignment>(
-						"AccountAssignments",
-						async ids => 
-							await filter.Filtered(
-									databaseContext.Accounts.AsNoTracking(),
-									accounts => accounts.SelectMany(account => account.Assignments)
-										.Include(cardLabel => cardLabel.Account)
-										.Where(cardLabel => ids.Contains(cardLabel.CardId)))
-								.ToListAsync(),
-						cardLabel => cardLabel.CardId);
-
-					var cardLabels = await loader.LoadAsync(context.Source.Id);
-
-					return cardLabels.Select(cardLabel => cardLabel.Account).ToList();
-				});
-
-			FilteredField<ListGraphType<ReadCommentType>, IEnumerable<CardComment>, CommentsFilterType>("comments")
-				.ResolveAsync(context =>
-				{
-					var databaseContext = context.GetDatabaseContext();
-					var filter = context.GetFilter<Card, CommentsFilter>();
-
-					var loader = accessor.Context.GetOrAddCollectionBatchLoader<Guid, CardComment>(
-						"CardComments",
-						async ids =>
-							await filter.Filtered(
-									databaseContext.CardComments.AsNoTracking(),
-									comments => comments.Where(comment => ids.Contains(comment.CardId)))
-								.ToListAsync(),
-						cardLabel => cardLabel.CardId);
-
-					return loader.LoadAsync(context.Source.Id);
-				});
-
-			FilteredField<ListGraphType<ReadAttachmentType>, IEnumerable<CardAttachment>, AttachmentFilterType>("attachments")
-				.ResolveAsync(context =>
-				{
-					var databaseContext = context.GetDatabaseContext();
-					var filter = context.GetFilter<Card, AttachmentFilter>();
-
-					var loader = accessor.Context.GetOrAddCollectionBatchLoader<Guid, CardAttachment>(
-						"CardAttachment",
-						async ids =>
-							await filter.Filtered(
-									databaseContext.CardAttachments.AsNoTracking(),
-									attachments => attachments.Where(attachment => ids.Contains(attachment.CardId)))
-								.ToListAsync(),
-						cardLabel => cardLabel.CardId);
-
-					return loader.LoadAsync(context.Source.Id);
-				});
-
-			FilteredField<ListGraphType<ReadEventType>, IEnumerable<CardEvent>, EventsFilterType>("events")
-				.ResolveAsync(context =>
-				{
-					var databaseContext = context.GetDatabaseContext();
-					var filter = context.GetFilter<Card, EventsFilter>();
-
-					var loader = accessor.Context.GetOrAddCollectionBatchLoader<Guid, CardEvent>(
-						"CardEvent",
-						async ids =>
-							await filter.Filtered(
-									databaseContext.CardEvents.AsNoTracking(),
-									events => events.Where(@event => ids.Contains(@event.CardId)))
-								.ToListAsync(),
-						cardLabel => cardLabel.CardId);
-
-					return loader.LoadAsync(context.Source.Id);
-				});
+			DocumentIOField<ListGraphType<ReadEventType>, IEnumerable<CardEvent>>("events")
+				.Filtered<EventsFilterType>()
+				.ResolveAsync<CardEventsResolver>();
 		}
 	}
 }

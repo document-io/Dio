@@ -23,13 +23,6 @@ namespace DocumentIO
 				: Guid.Empty;
 		}
 
-		public static DatabaseContext GetDatabaseContext<TSource>(this ResolveFieldContext<TSource> context)
-		{
-			var userContext = context.GetUserContext();
-
-			return userContext.ServiceProvider.GetRequiredService<DatabaseContext>();
-		}
-
 		public static IValidationContext GetValidationContext<TSource>(this ResolveFieldContext<TSource> context)
 		{
 			var userContext = context.GetUserContext();
@@ -45,12 +38,6 @@ namespace DocumentIO
 		public static IServiceProvider GetServiceProvider<TSource>(this ResolveFieldContext<TSource> context)
 		{
 			return context.GetUserContext().ServiceProvider;
-		}
-
-		public static TFilter GetFilter<TSource, TFilter>(this ResolveFieldContext<TSource> context)
-			where TFilter : class, new()
-		{
-			return context.Arguments.ToObject<TFilter>();
 		}
 	}
 }

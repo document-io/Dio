@@ -1,6 +1,6 @@
 namespace DocumentIO
 {
-	public class BoardsFilterType : FilterType<Board, BoardsFilter>
+	public class BoardsFilterType : GraphQLFilterType<Board, BoardsFilter>
 	{
 		public BoardsFilterType()
 		{
