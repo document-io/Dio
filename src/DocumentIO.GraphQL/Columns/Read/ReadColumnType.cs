@@ -31,15 +31,18 @@ namespace DocumentIO
 				});
 
 			Field<ListGraphType<ReadCardType>, IEnumerable<Card>>("cards")
+				.Argument<CardsFilterType>("filter", q => q.DefaultValue = new CardsFilter())
 				.ResolveAsync(context =>
 				{
 					var databaseContext = context.GetDatabaseContext();
+					var filter = context.GetArgument<CardsFilter>("filter");
 
 					var loader = accessor.Context.GetOrAddCollectionBatchLoader<Guid, Card>(
 						"ColumnCards",
-						async ids => await databaseContext.Cards
-							.Where(card => ids.Contains(card.ColumnId))
-							.ToListAsync(),
+						async ids => 
+							await filter.Filter(databaseContext.Cards)
+								.Where(card => ids.Contains(card.ColumnId))
+								.ToListAsync(),
 						card => card.ColumnId);
 
 					return loader.LoadAsync(context.Source.Id);

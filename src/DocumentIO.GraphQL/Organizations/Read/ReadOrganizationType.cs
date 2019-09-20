@@ -24,8 +24,8 @@ namespace DocumentIO
 					var loader = accessor.Context.GetOrAddCollectionBatchLoader<Guid, Account>(
 						"OrganizationAccounts",
 						async ids =>
-							await filter.Filter(databaseContext.Accounts
-								.Where(account => ids.Contains(account.OrganizationId)))
+							await filter.Filter(databaseContext.Accounts)
+								.Where(account => ids.Contains(account.OrganizationId))
 								.ToListAsync(),
 						account => account.OrganizationId);
 
@@ -33,15 +33,18 @@ namespace DocumentIO
 				});
 
 			Field<ListGraphType<ReadInviteType>, IEnumerable<Invite>>("invites")
+				.Argument<InviteFilterType>("filter", q => q.DefaultValue = new InviteFilter())
 				.ResolveAsync(context =>
 				{
 					var databaseContext = context.GetDatabaseContext();
+					var filter = context.GetArgument<InviteFilter>("filter");
 
 					var loader = accessor.Context.GetOrAddCollectionBatchLoader<Guid, Invite>(
 						"OrganizationInvites",
-						async ids => await databaseContext.Invites
-							.Where(invite => ids.Contains(invite.OrganizationId))
-							.ToListAsync(),
+						async ids =>
+							await filter.Filter(databaseContext.Invites)
+								.Where(invite => ids.Contains(invite.OrganizationId))
+								.ToListAsync(),
 						invite => invite.OrganizationId);
 
 					return loader.LoadAsync(context.Source.Id);
@@ -57,8 +60,8 @@ namespace DocumentIO
 					var loader = accessor.Context.GetOrAddCollectionBatchLoader<Guid, Board>(
 						"OrganizationBoards",
 						async ids => 
-							await filter.Filter(databaseContext.Boards
-								.Where(board => ids.Contains(board.OrganizationId)))
+							await filter.Filter(databaseContext.Boards)
+								.Where(board => ids.Contains(board.OrganizationId))
 								.ToListAsync(),
 						board => board.OrganizationId);
 

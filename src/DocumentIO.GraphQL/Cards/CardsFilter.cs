@@ -1,0 +1,31 @@
+using System;
+using System.Linq;
+
+namespace DocumentIO
+{
+	public class CardsFilter : IFilter<Card>
+	{
+		public Guid? Id { get; set; }
+		public string Name { get; set; }
+		public int? Order { get; set; }
+
+		public DateTime? DueDate { get; set; }
+		
+		public IQueryable<Card> Filter(IQueryable<Card> queryable)
+		{
+			if (Id != null)
+				queryable = queryable.Where(card => card.Id == Id);
+			
+			if (Name != null)
+				queryable = queryable.Where(card => card.Name.Contains(Name));
+			
+			if (Order != null)
+				queryable = queryable.Where(card => card.Order == Order);
+
+			if (DueDate != null)
+				queryable = queryable.Where(card => card.DueDate != null && card.DueDate < DueDate);
+
+			return queryable;
+		}
+	}
+}

@@ -16,15 +16,18 @@ namespace DocumentIO
 			Field(x => x.CreatedAt);
 
 			Field<ListGraphType<ReadColumnType>, IEnumerable<Column>>("columns")
+				.Argument<ColumnsFilterType>("filter", q => q.DefaultValue = new ColumnsFilter())
 				.ResolveAsync(context =>
 				{
 					var databaseContext = context.GetDatabaseContext();
+					var filter = context.GetArgument<ColumnsFilter>("filter");
 
 					var loader = accessor.Context.GetOrAddCollectionBatchLoader<Guid, Column>(
 						"BoardColumns",
-						async ids => await databaseContext.Columns
-							.Where(column => ids.Contains(column.BoardId))
-							.ToListAsync(),
+						async ids =>
+							await filter.Filter(databaseContext.Columns)
+								.Where(column => ids.Contains(column.BoardId))
+								.ToListAsync(),
 						column => column.BoardId);
 
 					return loader.LoadAsync(context.Source.Id);
@@ -46,15 +49,18 @@ namespace DocumentIO
 				});
 
 			Field<ListGraphType<ReadLabelType>, IEnumerable<Label>>("labels")
+				.Argument<LabelsFilterType>("filter", q => q.DefaultValue = new LabelsFilter())
 				.ResolveAsync(context =>
 				{
 					var databaseContext = context.GetDatabaseContext();
+					var filter = context.GetArgument<LabelsFilter>("filter");
 
 					var loader = accessor.Context.GetOrAddCollectionBatchLoader<Guid, Label>(
 						"BoardLabels",
-						async ids => await databaseContext.Labels
-							.Where(label => ids.Contains(label.BoardId))
-							.ToListAsync(),
+						async ids =>
+							await filter.Filter(databaseContext.Labels)
+								.Where(label => ids.Contains(label.BoardId))
+								.ToListAsync(),
 						label => label.BoardId);
 
 					return loader.LoadAsync(context.Source.Id);

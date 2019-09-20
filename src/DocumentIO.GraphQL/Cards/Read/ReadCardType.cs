@@ -33,16 +33,20 @@ namespace DocumentIO
 				});
 			
 			Field<ListGraphType<ReadLabelType>, IEnumerable<Label>>("labels")
+				.Argument<LabelsFilterType>("filter", q => q.DefaultValue = new LabelsFilter())
 				.ResolveAsync(async context =>
 				{
 					var databaseContext = context.GetDatabaseContext();
+					var filter = context.GetArgument<LabelsFilter>("filter");
 
 					var loader = accessor.Context.GetOrAddCollectionBatchLoader<Guid, CardLabel>(
 						"CardLabels",
-						async ids => await databaseContext.CardLabels
-							.Include(cardLabel => cardLabel.Label)
-							.Where(cardLabel => ids.Contains(cardLabel.CardId))
-							.ToListAsync(),
+						async ids =>
+							await filter.Filter(databaseContext.Labels)
+								.SelectMany(label => label.Cards)
+								.Include(cardLabel => cardLabel.Label)
+								.Where(cardLabel => ids.Contains(cardLabel.CardId))
+								.ToListAsync(),
 						cardLabel => cardLabel.CardId);
 
 					var cardLabels = await loader.LoadAsync(context.Source.Id);
@@ -51,16 +55,20 @@ namespace DocumentIO
 				});
 
 			Field<ListGraphType<ReadAccountType>, IEnumerable<Account>>("assignments")
+				.Argument<AccountFilterType>("filter", q => q.DefaultValue = new AccountFilter())
 				.ResolveAsync(async context =>
 				{
 					var databaseContext = context.GetDatabaseContext();
+					var filter = context.GetArgument<AccountFilter>("filter");
 
 					var loader = accessor.Context.GetOrAddCollectionBatchLoader<Guid, CardAssignment>(
-						"CardAssignments",
-						async ids => await databaseContext.CardAssignments
-							.Include(cardLabel => cardLabel.Account)
-							.Where(cardLabel => ids.Contains(cardLabel.CardId))
-							.ToListAsync(),
+						"AccountAssignments",
+						async ids => 
+							await filter.Filter(databaseContext.Accounts)
+								.SelectMany(account => account.Assignments)
+								.Include(cardLabel => cardLabel.Account)
+								.Where(cardLabel => ids.Contains(cardLabel.CardId))
+								.ToListAsync(),
 						cardLabel => cardLabel.CardId);
 
 					var cardLabels = await loader.LoadAsync(context.Source.Id);
@@ -69,15 +77,18 @@ namespace DocumentIO
 				});
 
 			Field<ListGraphType<ReadCommentType>, IEnumerable<CardComment>>("comments")
+				.Argument<CommentsFilterType>("filter", q => q.DefaultValue = new CommentsFilter())
 				.ResolveAsync(context =>
 				{
 					var databaseContext = context.GetDatabaseContext();
+					var filter = context.GetArgument<CommentsFilter>("filter");
 
 					var loader = accessor.Context.GetOrAddCollectionBatchLoader<Guid, CardComment>(
 						"CardComments",
-						async ids => await databaseContext.CardComments
-							.Where(cardLabel => ids.Contains(cardLabel.CardId))
-							.ToListAsync(),
+						async ids =>
+							await filter.Filter(databaseContext.CardComments)
+								.Where(comment => ids.Contains(comment.CardId))
+								.ToListAsync(),
 						cardLabel => cardLabel.CardId);
 
 					return loader.LoadAsync(context.Source.Id);
@@ -93,8 +104,8 @@ namespace DocumentIO
 					var loader = accessor.Context.GetOrAddCollectionBatchLoader<Guid, CardAttachment>(
 						"CardAttachment",
 						async ids =>
-							await filter.Filter(databaseContext.CardAttachments
-								.Where(cardLabel => ids.Contains(cardLabel.CardId)))
+							await filter.Filter(databaseContext.CardAttachments)
+								.Where(attachment => ids.Contains(attachment.CardId))
 								.ToListAsync(),
 						cardLabel => cardLabel.CardId);
 
@@ -102,15 +113,18 @@ namespace DocumentIO
 				});
 
 			Field<ListGraphType<ReadEventType>, IEnumerable<CardEvent>>("events")
+				.Argument<EventsFilterType>("filter", q => q.DefaultValue = new EventsFilter())
 				.ResolveAsync(context =>
 				{
 					var databaseContext = context.GetDatabaseContext();
+					var filter = context.GetArgument<EventsFilter>("filter");
 
 					var loader = accessor.Context.GetOrAddCollectionBatchLoader<Guid, CardEvent>(
 						"CardEvent",
-						async ids => await databaseContext.CardEvents
-							.Where(cardLabel => ids.Contains(cardLabel.CardId))
-							.ToListAsync(),
+						async ids =>
+							await filter.Filter(databaseContext.CardEvents)
+								.Where(@event => ids.Contains(@event.CardId))
+								.ToListAsync(),
 						cardLabel => cardLabel.CardId);
 
 					return loader.LoadAsync(context.Source.Id);
