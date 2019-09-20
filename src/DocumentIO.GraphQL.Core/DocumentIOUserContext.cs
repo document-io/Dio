@@ -3,8 +3,6 @@ using GraphQL.Authorization;
 using System.Security.Claims;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.DependencyInjection;
-using Phema.Validation;
 
 namespace DocumentIO
 {
@@ -20,7 +18,5 @@ namespace DocumentIO
 		public ClaimsPrincipal User => HttpContext.User;
 
 		public IServiceProvider ServiceProvider => HttpContext.RequestServices;
-
-		public IValidationContext ValidationContext => ServiceProvider.GetRequiredService<IValidationContext>();
 	}
 }
