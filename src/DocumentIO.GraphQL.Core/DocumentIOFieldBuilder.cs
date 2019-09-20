@@ -6,18 +6,48 @@ using System.Threading.Tasks;
 using GraphQL;
 using GraphQL.Builders;
 using GraphQL.Types;
+using GraphQL.Utilities;
 using GraphQL.Validation;
 using Phema.Validation;
 
 namespace DocumentIO
 {
-	public static class FieldBuilderExtensions
+	public class DocumentIOFieldBuilder<TSourceType, TReturnType>
 	{
-		public static FieldBuilder<TSourceType, TReturnType> ResolveWithValidation<TSourceType, TReturnType>(
-			this FieldBuilder<TSourceType, TReturnType> builder,
-			Func<ResolveFieldContext<TSourceType>, Task<TReturnType>> resolve)
+		private readonly FieldBuilder<TSourceType, TReturnType> builder;
+
+		public DocumentIOFieldBuilder(FieldBuilder<TSourceType, TReturnType> builder)
 		{
-			return builder.ResolveAsync(async context =>
+			this.builder = builder;
+		}
+
+		public DocumentIOFieldBuilder<TSourceType, TReturnType> Filtered<TFilterType>()
+			where TFilterType : IComplexGraphType, new()
+		{
+			var filter = new TFilterType();
+
+			builder.Configure(q =>
+				{
+					foreach (var field in filter.Fields)
+					{
+						q.Arguments.Add(new QueryArgument(field.Type)
+						{
+							Description = field.Description,
+							Name = field.Name,
+							DefaultValue = field.DefaultValue,
+							Metadata = field.Metadata,
+							ResolvedType = field.ResolvedType
+						});
+					}
+				});
+
+			return this;
+		}
+
+		public DocumentIOFieldBuilder<TSourceType, TReturnType> ResolveAsync<TResolver>()
+			where TResolver : IGraphQLResolver<TSourceType, TReturnType>
+		{
+			builder.ResolveAsync(async context =>
 			{
 				var serviceProvider = context.GetServiceProvider();
 				var validationContext = context.GetValidationContext();
@@ -49,7 +79,7 @@ namespace DocumentIO
 
 					await (Task) validationType
 						.GetMethod("Validate", BindingFlags.Instance | BindingFlags.Public)
-						.Invoke(validation, new[] {validationContext, model});
+						.Invoke(validation, new[] { validationContext, model });
 				}
 
 				if (!validationContext.IsValid())
@@ -62,8 +92,11 @@ namespace DocumentIO
 					return default;
 				}
 
-				return await resolve(context);
+				return await serviceProvider.GetRequiredService<TResolver>()
+					.Resolve(new DocumentIOResolveFieldContext<TSourceType>(context));
 			});
+
+			return this;
 		}
 	}
 }

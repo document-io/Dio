@@ -1,6 +1,6 @@
 namespace DocumentIO
 {
-	public class EventsFilterType : FilterType<CardEvent, EventsFilter>
+	public class EventsFilterType : GraphQLFilterType<CardEvent, EventsFilter>
 	{
 		public EventsFilterType()
 		{

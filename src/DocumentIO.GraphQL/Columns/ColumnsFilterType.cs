@@ -1,6 +1,6 @@
 namespace DocumentIO
 {
-	public class ColumnsFilterType : FilterType<Column, ColumnsFilter>
+	public class ColumnsFilterType : GraphQLFilterType<Column, ColumnsFilter>
 	{
 		public ColumnsFilterType()
 		{

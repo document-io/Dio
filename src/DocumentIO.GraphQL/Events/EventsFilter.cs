@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace DocumentIO
 {
-	public class EventsFilter : Filter<CardEvent>
+	public class EventsFilter : GraphQLFilter<CardEvent>
 	{
 		public Guid? Id { get; set; }
 		public string Content { get; set; }

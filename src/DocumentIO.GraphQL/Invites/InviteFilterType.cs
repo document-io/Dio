@@ -1,6 +1,6 @@
 namespace DocumentIO
 {
-	public class InviteFilterType : FilterType<Invite, InviteFilter>
+	public class InviteFilterType : GraphQLFilterType<Invite, InviteFilter>
 	{
 		public InviteFilterType()
 		{

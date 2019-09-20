@@ -3,10 +3,10 @@ using System.Linq;
 
 namespace DocumentIO
 {
-	public abstract class Filter<TEntity>
+	public abstract class GraphQLFilter<TEntity>
 	{
 		public int? Page { get; set; }
-		public int Size { get; set; }
+		public int? Size { get; set; }
 
 		public virtual IQueryable<TPaginated> Filtered<TPaginated>(
 			IQueryable<TEntity> queryable,
@@ -14,9 +14,16 @@ namespace DocumentIO
 		{
 			var paginated = query(queryable);
 
-			if (Page != null)
-				paginated = paginated.Skip(Size * Page.Value - 1).Take(Size);
+			if (Page != null && Size != null)
+			{
+				paginated = paginated.Skip(Size.Value * Page.Value - 1);
+			}
 
+			if (Size != null)
+			{
+				paginated = paginated.Take(Size.Value);
+			}
+			
 			return paginated;
 		}
 	}
