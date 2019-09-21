@@ -10,9 +10,11 @@ namespace DocumentIO
 			Field(x => x.Color);
 
 			DocumentIOField<ReadBoardType, Board>("board")
+				.Authorize(Roles.User)
 				.ResolveAsync<LabelBoardResolver>();
 
 			DocumentIOListField<ReadCardType, Card>("cards")
+				.Authorize(Roles.User)
 				.ResolveAsync<LabelCardsResolver>();
 		}
 	}

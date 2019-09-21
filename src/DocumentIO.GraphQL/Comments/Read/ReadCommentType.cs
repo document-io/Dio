@@ -9,9 +9,11 @@ namespace DocumentIO
 			Field(x => x.CreatedAt);
 
 			DocumentIOField<ReadCardType, Card>("card")
+				.Authorize(Roles.User)
 				.ResolveAsync<CommentCardResolver>();
 
 			DocumentIOField<ReadAccountType, Account>("account")
+				.Authorize(Roles.User)
 				.ResolveAsync<CommentAccountResolver>();
 		}
 	}

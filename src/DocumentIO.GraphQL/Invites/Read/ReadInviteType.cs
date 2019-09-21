@@ -12,9 +12,11 @@ namespace DocumentIO
 			Field(x => x.DueDate, nullable: true);
 
 			DocumentIOField<ReadAccountType, Account>("account")
+				.Authorize(Roles.User)
 				.ResolveAsync<InviteAccountResolver>();
 
 			DocumentIOField<ReadOrganizationType, Organization>("organization")
+				.Authorize(Roles.User)
 				.ResolveAsync<InviteOrganizationResolver>();
 		}
 	}
