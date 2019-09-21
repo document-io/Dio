@@ -4,6 +4,7 @@ namespace DocumentIO
 	{
 		public CreateAccountType()
 		{
+			Field(x => x.Login);
 			Field(x => x.Email);
 			Field(x => x.Password);
 			Field(x => x.FirstName);

@@ -37,6 +37,9 @@ namespace DocumentIO.Migrations
                     b.Property<string>("LastName")
                         .HasColumnType("text");
 
+                    b.Property<string>("Login")
+                        .HasColumnType("text");
+
                     b.Property<string>("MiddleName")
                         .HasColumnType("text");
 

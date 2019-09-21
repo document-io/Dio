@@ -34,9 +34,33 @@ namespace DocumentIO
 
 		public async Task Validate(IValidationContext validationContext, Account model)
 		{
+			validationContext.When(model, m => m.Login)
+				.IsNullOrWhitespace()
+				.AddError("Логин не задан");
+
+			if (validationContext.IsValid(model, m => m.Login))
+			{
+				var loginExists = await databaseContext.Accounts
+					.AnyAsync(x => x.Login == model.Login);
+
+				validationContext.When(model, m => m.Login)
+					.Is(() => loginExists)
+					.AddError("Логин уже используется");
+			}
+
 			validationContext.When(model, m => m.Email)
 				.IsNotEmail()
 				.AddError("Это не email =/");
+
+			if (validationContext.IsValid(model, m => m.Email))
+			{
+				var accountExists = await databaseContext.Accounts
+					.AnyAsync(account => account.Email == model.Email);
+
+				validationContext.When(model, m => m.Email)
+					.Is(() => accountExists)
+					.AddError("Email уже используется");
+			}
 
 			validationContext.When(model, m => m.Password)
 				.IsNullOrWhitespace()
@@ -49,16 +73,6 @@ namespace DocumentIO
 			validationContext.When(model, m => m.LastName)
 				.IsNullOrWhitespace()
 				.AddError("Фамилия не задана");
-
-			if (validationContext.IsValid(model, m => m.Email))
-			{
-				var accountExists = await databaseContext.Accounts
-					.AnyAsync(account => account.Email == model.Email);
-
-				validationContext.When(model, m => m.Email)
-					.Is(() => accountExists)
-					.AddError("Email уже используется");
-			}
 		}
 	}
 }
