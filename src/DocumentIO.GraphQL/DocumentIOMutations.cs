@@ -9,16 +9,19 @@ namespace DocumentIO
 			Name = "Mutations";
 
 			DocumentIOField<ReadOrganizationType, Organization>("createOrganization")
-				.NonNullArgument<CreateOrganizationType, CreateOrganizationValidation>()
+				.NonNullArgument<CreateOrganizationType>()
+				.Validate<CreateOrganizationValidation>()
 				.ResolveAsync<CreateOrganizationResolver>();
 
 			DocumentIOField<ReadAccountType, Account>("createAccount")
 				.NonNullArgument<GuidGraphType>("secret")
-				.NonNullArgument<CreateAccountType, CreateAccountValidation>()
+				.NonNullArgument<CreateAccountType>()
+				.Validate<CreateAccountValidation>()
 				.ResolveAsync<CreateAccountResolver>();
 
 			DocumentIOField<ReadAccountType, Account>("loginAccount")
-				.Argument<LoginAccountType, LoginAccountValidation>()
+				.Argument<LoginAccountType>()
+				.Validate<LoginAccountValidation>()
 				.ResolveAsync<LoginAccountResolver>();
 
 			DocumentIOField<ReadAccountType, Account>("logoutAccount")
@@ -27,7 +30,8 @@ namespace DocumentIO
 
 			DocumentIOField<ReadInviteType, Invite>("createInvite")
 				.Authorize(Roles.Admin)
-				.Argument<CreateInviteType, CreateInviteValidation>()
+				.Argument<CreateInviteType>()
+				.Validate<CreateInviteValidation>()
 				.ResolveAsync<CreateInviteResolver>();
 
 			DocumentIOField<ReadInviteType, Invite>("deleteInvite")

@@ -4,10 +4,12 @@ using Phema.Validation.Conditions;
 
 namespace DocumentIO
 {
-	public class CreateInviteValidation : IDocumentIOValidation<CreateInviteType, Invite>
+	public class CreateInviteValidation : IDocumentIOValidation<object>
 	{
-		public Task Validate(IValidationContext validationContext, Invite model)
+		public Task Validate(DocumentIOResolveFieldContext<object> context, IValidationContext validationContext)
 		{
+			var model = context.GetArgument<Invite>();
+
 			validationContext.When(model, m => m.Role)
 				.IsNotIn(Roles.All)
 				.AddError("Неизвестная роль");

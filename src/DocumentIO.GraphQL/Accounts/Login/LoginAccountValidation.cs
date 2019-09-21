@@ -5,7 +5,7 @@ using Phema.Validation.Conditions;
 
 namespace DocumentIO
 {
-	public class LoginAccountValidation : IDocumentIOValidation<LoginAccountType, Account>
+	public class LoginAccountValidation : IDocumentIOValidation<object>
 	{
 		private readonly DatabaseContext databaseContext;
 
@@ -14,8 +14,10 @@ namespace DocumentIO
 			this.databaseContext = databaseContext;
 		}
 
-		public async Task Validate(IValidationContext validationContext, Account model)
+		public async Task Validate(DocumentIOResolveFieldContext<object> context, IValidationContext validationContext)
 		{
+			var model = context.GetArgument<Account>();
+
 			validationContext.When(model, m => m.Email)
 				.IsNotEmail()
 				.AddError("Это не email =/");

@@ -1,3 +1,5 @@
+using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Phema.Validation;
@@ -5,13 +7,29 @@ using Phema.Validation.Conditions;
 
 namespace DocumentIO
 {
-	public class CreateAccountValidation : IDocumentIOValidation<CreateAccountType, Account>
+	public class CreateAccountValidation : IDocumentIOValidation<object>
 	{
 		private readonly DatabaseContext databaseContext;
 
 		public CreateAccountValidation(DatabaseContext databaseContext)
 		{
 			this.databaseContext = databaseContext;
+		}
+
+		public async Task Validate(DocumentIOResolveFieldContext<object> context, IValidationContext validationContext)
+		{
+			var model = context.GetArgument<Account>();
+			var secret = context.GetArgument<Guid>("secret");
+
+			var inviteExists = await databaseContext.Invites
+				.Where(x => x.Secret == secret)
+				.AnyAsync(x => x.Account == null);
+
+			validationContext.When("secret")
+				.IsNot(() => inviteExists)
+				.AddError("Приглашение не найдено, либо уже использовано");
+
+			await Validate(validationContext, model);
 		}
 
 		public async Task Validate(IValidationContext validationContext, Account model)
@@ -34,7 +52,8 @@ namespace DocumentIO
 
 			if (validationContext.IsValid(model, m => m.Email))
 			{
-				var accountExists = await databaseContext.Accounts.AnyAsync(account => account.Email == model.Email);
+				var accountExists = await databaseContext.Accounts
+					.AnyAsync(account => account.Email == model.Email);
 
 				validationContext.When(model, m => m.Email)
 					.Is(() => accountExists)

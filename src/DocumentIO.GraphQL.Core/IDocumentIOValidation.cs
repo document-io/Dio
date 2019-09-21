@@ -1,5 +1,4 @@
 using System.Threading.Tasks;
-using GraphQL.Types;
 using Phema.Validation;
 
 namespace DocumentIO
@@ -8,9 +7,8 @@ namespace DocumentIO
 	{
 	}
 
-	public interface IDocumentIOValidation<TGraphType, TModel> : IDocumentIOValidation
-		where TGraphType : ComplexGraphType<TModel>
+	public interface IDocumentIOValidation<TSourceType> : IDocumentIOValidation
 	{
-		Task Validate(IValidationContext validationContext, TModel model);
+		Task Validate(DocumentIOResolveFieldContext<TSourceType> context, IValidationContext validationContext);
 	}
 }

@@ -5,7 +5,7 @@ using Phema.Validation.Conditions;
 
 namespace DocumentIO
 {
-	public class CreateOrganizationValidation : IDocumentIOValidation<CreateOrganizationType, Organization>
+	public class CreateOrganizationValidation : IDocumentIOValidation<object>
 	{
 		private readonly DatabaseContext databaseContext;
 		private readonly CreateAccountValidation accountValidation;
@@ -18,8 +18,10 @@ namespace DocumentIO
 			this.accountValidation = accountValidation;
 		}
 
-		public async Task Validate(IValidationContext validationContext, Organization model)
+		public async Task Validate(DocumentIOResolveFieldContext<object> context, IValidationContext validationContext)
 		{
+			var model = context.GetArgument<Organization>();
+			
 			validationContext.When(model, m => m.Name)
 				.IsNullOrWhitespace()
 				.AddError("Задайте имя организации");

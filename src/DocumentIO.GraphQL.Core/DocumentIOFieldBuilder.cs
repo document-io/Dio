@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using GraphQL;
@@ -48,29 +46,6 @@ namespace DocumentIO
 			return Argument<NonNullGraphType<TArgumentType>>(name, description);
 		}
 
-		public DocumentIOFieldBuilder<TSourceType, TReturnType> Argument<TArgumentType, TValidationType>(
-			string name = "input",
-			string description = null)
-			where TArgumentType : GraphType
-			where TValidationType : IDocumentIOValidation
-		{
-			builder.Argument<TArgumentType>(
-				name,
-				description,
-				argument => argument.WithMetadata("validation", typeof(TValidationType)));
-
-			return this;
-		}
-
-		public DocumentIOFieldBuilder<TSourceType, TReturnType> NonNullArgument<TArgumentType, TValidationType>(
-			string name = "input",
-			string description = null)
-			where TArgumentType : GraphType
-			where TValidationType : IDocumentIOValidation
-		{
-			return Argument<NonNullGraphType<TArgumentType>, TValidationType>(name, description);
-		}
-
 		public DocumentIOFieldBuilder<TSourceType, TReturnType> Filtered<TFilterType>()
 			where TFilterType : IComplexGraphType, new()
 		{
@@ -90,6 +65,14 @@ namespace DocumentIO
 						});
 					}
 				});
+
+			return this;
+		}
+
+		public DocumentIOFieldBuilder<TSourceType, TReturnType> Validate<TValidationType>()
+			where TValidationType : IDocumentIOValidation<TSourceType>
+		{
+			builder.Configure(q => q.WithMetadata("validation", typeof(TValidationType)));
 
 			return this;
 		}
@@ -126,37 +109,23 @@ namespace DocumentIO
 			IServiceProvider serviceProvider,
 			IValidationContext validationContext)
 		{
-			for (var index = 0; index < context.Arguments?.Count; index++)
+			var validationType = builder.FieldType.GetMetadata<Type>("validation");
+
+			if (validationType == null)
 			{
-				var validationType = builder.FieldType.Arguments[index].GetMetadata<Type>("validation");
-
-				if (validationType == null)
-				{
-					continue;
-				}
-
-				var type = validationType.GetInterfaces().First().GenericTypeArguments[1];
-
-				if (type == null)
-				{
-					continue;
-				}
-
-				var argument = context.Arguments.Values.ElementAt(index) as Dictionary<string, object>;
-
-				var model = argument.ToObject(type);
-
-				var validation = serviceProvider.GetService(validationType);
-
-				if (validation == null)
-				{
-					continue;
-				}
-
-				await (Task) validationType
-					.GetMethod("Validate", BindingFlags.Instance | BindingFlags.Public)
-					.Invoke(validation, new[] { validationContext, model });
+				return;
 			}
+
+			var validation = serviceProvider.GetService(validationType);
+
+			if (validation == null)
+			{
+				return;
+			}
+
+			await (Task) validationType
+				.GetMethod("Validate", BindingFlags.Instance | BindingFlags.Public)
+				.Invoke(validation, new object[]{ new DocumentIOResolveFieldContext<TSourceType>(context), validationContext });
 		}
 	}
 }
