@@ -39,6 +39,30 @@ namespace DocumentIO
 				.NonNullArgument<GuidGraphType>("id")
 				.Validate<DeleteInviteValidation>()
 				.ResolveAsync<DeleteInviteResolver>();
+
+			DocumentIOField<ReadBoardType, Board>("createBoard")
+				.Authorize(Roles.User)
+				.NonNullArgument<CreateBoardType>()
+				.Validate<CreateBoardValidation>()
+				.ResolveAsync<CreateBoardResolver>();
+
+			DocumentIOField<ReadBoardType, Board>("updateBoard")
+				.Authorize(Roles.User)
+				.NonNullArgument<UpdateBoardType>()
+				.Validate<UpdateBoardValidation>()
+				.ResolveAsync<UpdateBoardResolver>();
+
+			DocumentIOField<ReadColumnType, Column>("createColumn")
+				.Authorize(Roles.User)
+				.NonNullArgument<CreateColumnType>()
+				.Validate<CreateColumnValidation>()
+				.ResolveAsync<CreateColumnResolver>();
+
+			DocumentIOField<ReadColumnType, Column>("updateColumn")
+				.Authorize(Roles.User)
+				.NonNullArgument<UpdateColumnType>()
+				.Validate<UpdateColumnValidation>()
+				.ResolveAsync<UpdateColumnResolver>();
 		}
 	}
 }

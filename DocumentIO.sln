@@ -10,7 +10,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DocumentIO.Web", "src\Docum
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{B348008C-C12B-49D1-B057-83DE70D33129}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DocumentIO.GrapgQL.Tests", "tests\DocumentIO.GrapgQL.Tests\DocumentIO.GrapgQL.Tests.csproj", "{A972C741-8C17-45AD-A084-30FE4413347B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DocumentIO.GraphQL.Tests", "tests\DocumentIO.GraphQL.Tests\DocumentIO.GraphQL.Tests.csproj", "{A972C741-8C17-45AD-A084-30FE4413347B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DocumentIO.Frontend", "src\DocumentIO.Frontend\DocumentIO.Frontend.csproj", "{128C73F2-EE49-4A50-87E5-D883485E53D5}"
 EndProject
