@@ -63,6 +63,18 @@ namespace DocumentIO
 				.NonNullArgument<UpdateColumnType>()
 				.Validate<UpdateColumnValidation>()
 				.ResolveAsync<UpdateColumnResolver>();
+
+			DocumentIOField<ReadCardType, Card>("createCard")
+				.Authorize(Roles.User)
+				.NonNullArgument<CreateCardType>()
+				.Validate<CreateCardValidation>()
+				.ResolveAsync<CreateCardResolver>();
+
+			DocumentIOField<ReadCardType, Card>("updateCard")
+				.Authorize(Roles.User)
+				.NonNullArgument<UpdateCardType>()
+				.Validate<UpdateCardValidation>()
+				.ResolveAsync<UpdateCardResolver>();
 		}
 	}
 }

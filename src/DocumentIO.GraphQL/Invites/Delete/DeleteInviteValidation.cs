@@ -6,7 +6,7 @@ using Phema.Validation;
 
 namespace DocumentIO
 {
-	public class DeleteInviteValidation : IDocumentIOValidation<object>
+	public class DeleteInviteValidation : IDocumentIOValidation
 	{
 		private readonly DatabaseContext databaseContext;
 

@@ -5,10 +5,6 @@ namespace DocumentIO
 {
 	public interface IDocumentIOValidation
 	{
-	}
-
-	public interface IDocumentIOValidation<TSourceType> : IDocumentIOValidation
-	{
-		Task Validate(DocumentIOResolveFieldContext<TSourceType> context, IValidationContext validationContext);
+		Task Validate(DocumentIOResolveFieldContext<object> context, IValidationContext validationContext);
 	}
 }

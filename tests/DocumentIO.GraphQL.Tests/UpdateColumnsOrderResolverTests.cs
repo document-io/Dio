@@ -3,11 +3,11 @@ using Xunit;
 
 namespace DocumentIO
 {
-	public class UpdateColumnResolverTests
+	public class UpdateColumnsOrderResolverTests
 	{
 		private readonly UpdateColumnResolver resolver;
 
-		public UpdateColumnResolverTests()
+		public UpdateColumnsOrderResolverTests()
 		{
 			resolver = new UpdateColumnResolver(null);
 		}
@@ -35,7 +35,7 @@ namespace DocumentIO
 
 			var columns = new[] { column1, column2 };
 
-			resolver.UpdateColumns(columns, model);
+			resolver.UpdateColumnsOrder(columns, model);
 
 			Assert.Equal(2, column1.Order);
 			Assert.Equal(1, column2.Order);
@@ -64,7 +64,7 @@ namespace DocumentIO
 
 			var columns = new[] { column1, column2 };
 
-			resolver.UpdateColumns(columns, model);
+			resolver.UpdateColumnsOrder(columns, model);
 
 			Assert.Equal(2, column1.Order);
 			Assert.Equal(1, column2.Order);
@@ -105,7 +105,7 @@ namespace DocumentIO
 
 			var columns = new[] { column1, column2, column3, column4 };
 
-			resolver.UpdateColumns(columns, model);
+			resolver.UpdateColumnsOrder(columns, model);
 
 			Assert.Equal(1, column1.Order);
 			Assert.Equal(3, column2.Order);
@@ -142,7 +142,7 @@ namespace DocumentIO
 
 			var columns = new[] { column1, column2, column3 };
 
-			resolver.UpdateColumns(columns, model);
+			resolver.UpdateColumnsOrder(columns, model);
 
 			Assert.Equal(1, column1.Order);
 			Assert.Equal(3, column2.Order);
@@ -184,7 +184,7 @@ namespace DocumentIO
 
 			var columns = new[] { column1, column2, column3, column4 };
 
-			resolver.UpdateColumns(columns, model);
+			resolver.UpdateColumnsOrder(columns, model);
 
 			Assert.Equal(4, column1.Order);
 			Assert.Equal(1, column2.Order);
@@ -227,7 +227,7 @@ namespace DocumentIO
 
 			var columns = new[] { column1, column2, column3, column4 };
 
-			resolver.UpdateColumns(columns, model);
+			resolver.UpdateColumnsOrder(columns, model);
 
 			Assert.Equal(1, column1.Order);
 			Assert.Equal(3, column2.Order);
@@ -270,7 +270,7 @@ namespace DocumentIO
 
 			var columns = new[] { column1, column2, column3, column4 };
 
-			resolver.UpdateColumns(columns, model);
+			resolver.UpdateColumnsOrder(columns, model);
 
 			Assert.Equal(2, column1.Order);
 			Assert.Equal(3, column2.Order);

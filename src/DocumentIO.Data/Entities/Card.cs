@@ -8,7 +8,8 @@ namespace DocumentIO
 		public Guid Id { get; set; }
 		public string Name { get; set; }
 		public int Order { get; set; }
-
+		public DateTime CreatedAt { get; set; }
+		public DateTime? UpdatedAt { get; set; }
 		public DateTime? DueDate { get; set; }
 
 		public string Content { get; set; }
