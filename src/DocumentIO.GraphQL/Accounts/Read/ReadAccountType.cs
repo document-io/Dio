@@ -5,6 +5,7 @@ namespace DocumentIO
 		public ReadAccountType()
 		{
 			Field(x => x.Id);
+			Field(x => x.Login);
 			Field(x => x.Role);
 			Field(x => x.Email);
 			Field(x => x.FirstName);

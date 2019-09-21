@@ -6,6 +6,7 @@ namespace DocumentIO
 	public class AccountFilter : DocumentIOFilter<Account>
 	{
 		public Guid? Id { get; set; }
+		public string Login { get; set; }
 		public string Role { get; set; }
 		public string Email { get; set; }
 		public string FirstName { get; set; }
@@ -18,6 +19,9 @@ namespace DocumentIO
 		{
 			if (Id != null)
 				queryable = queryable.Where(account => account.Id == Id);
+
+			if (Login != null)
+				queryable = queryable.Where(account => account.Login == Login);
 
 			if (Role != null)
 				queryable = queryable.Where(account => account.Role == Role);
