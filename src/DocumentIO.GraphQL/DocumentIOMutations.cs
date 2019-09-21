@@ -37,6 +37,7 @@ namespace DocumentIO
 			DocumentIOField<ReadInviteType, Invite>("deleteInvite")
 				.Authorize(Roles.Admin)
 				.NonNullArgument<GuidGraphType>("id")
+				.Validate<DeleteInviteValidation>()
 				.ResolveAsync<DeleteInviteResolver>();
 		}
 	}
