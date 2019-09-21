@@ -8,8 +8,8 @@ namespace DocumentIO
 		public Guid Id { get; set; }
 		public string Name { get; set; }
 
-		public ICollection<Invite> Invites { get; set; }
-		public ICollection<Account> Accounts { get; set; }
-		public ICollection<Board> Boards { get; set; }
+		public IList<Invite> Invites { get; set; }
+		public IList<Account> Accounts { get; set; }
+		public IList<Board> Boards { get; set; }
 	}
 }

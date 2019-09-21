@@ -1,5 +1,4 @@
 using System;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 
@@ -19,17 +18,16 @@ namespace DocumentIO
 			var secret = context.GetArgument<Guid>("secret");
 			var account = context.GetArgument<Account>();
 
-			var invite = await databaseContext.Invites
-				.Include(x => x.Organization)
-				.Where(x => x.Secret == secret)
-				.SingleAsync(x => x.Account == null);
+			var invite = await databaseContext
+				.Invites
+				.SingleAsync(x => x.Secret == secret && x.AccountId == null);
 
 			account.Role = invite.Role;
 			account.CreatedAt = DateTime.UtcNow;
 			account.Invite = invite;
-			account.Organization = invite.Organization;
 
 			await databaseContext.Accounts.AddAsync(account);
+
 			await databaseContext.SaveChangesAsync();
 
 			return account;

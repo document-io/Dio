@@ -31,35 +31,44 @@ namespace DocumentIO
 		}
 
 		public DocumentIOFieldBuilder<TSourceType, TReturnType> Argument<TArgumentType>(
-			string name,
+			string name = "input",
 			string description = null)
+			where TArgumentType : GraphType
 		{
 			builder.Argument<TArgumentType>(name, description);
 
 			return this;
 		}
 
-		public DocumentIOFieldBuilder<TSourceType, TReturnType> Argument<TArgumentType>()
-			where TArgumentType : IComplexGraphType, new()
+		public DocumentIOFieldBuilder<TSourceType, TReturnType> NonNullArgument<TArgumentType>(
+			string name = "input",
+			string description = null)
+			where TArgumentType : GraphType
 		{
-			var filter = new TArgumentType();
+			return Argument<NonNullGraphType<TArgumentType>>(name, description);
+		}
 
-			builder.Configure(q =>
-			{
-				foreach (var field in filter.Fields)
-				{
-					q.Arguments.Add(new QueryArgument(field.Type)
-					{
-						Description = field.Description,
-						Name = field.Name,
-						DefaultValue = field.DefaultValue,
-						Metadata = field.Metadata,
-						ResolvedType = field.ResolvedType
-					});
-				}
-			});
+		public DocumentIOFieldBuilder<TSourceType, TReturnType> Argument<TArgumentType, TValidationType>(
+			string name = "input",
+			string description = null)
+			where TArgumentType : GraphType
+			where TValidationType : IDocumentIOValidation
+		{
+			builder.Argument<TArgumentType>(
+				name,
+				description,
+				argument => argument.WithMetadata("validation", typeof(TValidationType)));
 
 			return this;
+		}
+
+		public DocumentIOFieldBuilder<TSourceType, TReturnType> NonNullArgument<TArgumentType, TValidationType>(
+			string name = "input",
+			string description = null)
+			where TArgumentType : GraphType
+			where TValidationType : IDocumentIOValidation
+		{
+			return Argument<NonNullGraphType<TArgumentType>, TValidationType>(name, description);
 		}
 
 		public DocumentIOFieldBuilder<TSourceType, TReturnType> Filtered<TFilterType>()
@@ -119,21 +128,23 @@ namespace DocumentIO
 		{
 			for (var index = 0; index < context.Arguments?.Count; index++)
 			{
-				var argument = context.Arguments.Values.ElementAt(index) as Dictionary<string, object>;
-				var type = builder.FieldType.Arguments[index].ResolvedType switch
+				var validationType = builder.FieldType.Arguments[index].GetMetadata<Type>("validation");
+
+				if (validationType == null)
 				{
-					NonNullGraphType nngt => nngt.Type.BaseType.GetGenericArguments().FirstOrDefault(),
-					GraphType gt => gt.GetType().BaseType.GetGenericArguments().FirstOrDefault(),
-					_ => throw new InvalidOperationException()
-				};
+					continue;
+				}
+
+				var type = validationType.GetInterfaces().First().GenericTypeArguments[0];
 
 				if (type == null)
 				{
 					continue;
 				}
 
+				var argument = context.Arguments.Values.ElementAt(index) as Dictionary<string, object>;
+
 				var model = argument.ToObject(type);
-				var validationType = typeof(IDocumentIOValidation<>).MakeGenericType(model.GetType());
 
 				var validation = serviceProvider.GetService(validationType);
 

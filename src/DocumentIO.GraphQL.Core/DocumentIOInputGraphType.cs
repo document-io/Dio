@@ -4,9 +4,10 @@ namespace DocumentIO
 {
 	public class DocumentIOInputGraphType<TSourceType> : InputObjectGraphType<TSourceType>
 	{
-		protected DocumentIOFieldBuilder<TSourceType, TReturnType> DocumentIOField<TGraphType, TReturnType>(string name)
+		protected DocumentIOFieldBuilder<TSourceType, TReturnType> NonNullField<TGraphType, TReturnType>(string name)
+			where TGraphType : GraphType
 		{
-			return new DocumentIOFieldBuilder<TSourceType, TReturnType>(Field<TGraphType, TReturnType>(name));
+			return new DocumentIOFieldBuilder<TSourceType, TReturnType>(Field<NonNullGraphType<TGraphType>, TReturnType>(name));
 		}
 	}
 }

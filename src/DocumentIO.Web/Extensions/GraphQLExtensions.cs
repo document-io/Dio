@@ -62,7 +62,7 @@ namespace DocumentIO.Web
 
 			foreach (var type in types)
 			{
-				builder.Services.Add(ServiceDescriptor.Scoped(type.GetInterfaces().First(), type));
+				builder.Services.Add(ServiceDescriptor.Scoped(type, type));
 			}
 
 			return builder;

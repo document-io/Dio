@@ -12,7 +12,7 @@ namespace DocumentIO
 		public Guid OrganizationId { get; set; }
 		public Organization Organization { get; set; }
 
-		public ICollection<Column> Columns { get; set; }
-		public ICollection<Label> Labels { get; set; }
+		public IList<Column> Columns { get; set; }
+		public IList<Label> Labels { get; set; }
 	}
 }

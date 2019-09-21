@@ -9,16 +9,16 @@ namespace DocumentIO
 			Name = "Mutations";
 
 			DocumentIOField<ReadOrganizationType, Organization>("createOrganization")
-				.Argument<CreateOrganizationType>()
+				.NonNullArgument<CreateOrganizationType, CreateOrganizationValidation>()
 				.ResolveAsync<CreateOrganizationResolver>();
 
 			DocumentIOField<ReadAccountType, Account>("createAccount")
-				.Argument<CreateAccountType>()
-				.Argument<NonNullGraphType<GuidGraphType>>("secret")
+				.NonNullArgument<GuidGraphType>("secret")
+				.NonNullArgument<CreateAccountType, CreateAccountValidation>()
 				.ResolveAsync<CreateAccountResolver>();
 
 			DocumentIOField<ReadAccountType, Account>("loginAccount")
-				.Argument<LoginAccountType>()
+				.Argument<LoginAccountType, LoginAccountValidation>()
 				.ResolveAsync<LoginAccountResolver>();
 
 			DocumentIOField<ReadAccountType, Account>("logoutAccount")

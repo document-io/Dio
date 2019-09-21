@@ -16,10 +16,10 @@ namespace DocumentIO
 		public Guid ColumnId { get; set; }
 		public Column Column { get; set; }
 
-		public ICollection<CardLabel> Labels { get; set; }
-		public ICollection<CardComment> Comments { get; set; }
-		public ICollection<CardAssignment> Assignments { get; set; }
-		public ICollection<CardAttachment> Attachments { get; set; }
-		public ICollection<CardEvent> Events { get; set; }
+		public IList<CardLabel> Labels { get; set; }
+		public IList<CardComment> Comments { get; set; }
+		public IList<CardAssignment> Assignments { get; set; }
+		public IList<CardAttachment> Attachments { get; set; }
+		public IList<CardEvent> Events { get; set; }
 	}
 }

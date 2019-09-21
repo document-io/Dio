@@ -13,6 +13,6 @@ namespace DocumentIO
         public Guid BoardId { get; set; }
         public Board Board { get; set; }
 
-        public ICollection<CardLabel> Cards { get; set; }
+        public IList<CardLabel> Cards { get; set; }
     }
 }

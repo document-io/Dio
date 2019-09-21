@@ -5,13 +5,17 @@ using Phema.Validation.Conditions;
 
 namespace DocumentIO
 {
-	public class CreateOrganizationValidation : IDocumentIOValidation<Organization>
+	public class CreateOrganizationValidation : IDocumentIOValidation<CreateOrganizationType, Organization>
 	{
 		private readonly DatabaseContext databaseContext;
+		private readonly CreateAccountValidation accountValidation;
 
-		public CreateOrganizationValidation(DatabaseContext databaseContext)
+		public CreateOrganizationValidation(
+			DatabaseContext databaseContext,
+			CreateAccountValidation accountValidation)
 		{
 			this.databaseContext = databaseContext;
+			this.accountValidation = accountValidation;
 		}
 
 		public async Task Validate(IValidationContext validationContext, Organization model)
@@ -29,6 +33,20 @@ namespace DocumentIO
 				validationContext.When(model, m => m.Name)
 					.Is(() => organizationNameExists)
 					.AddError("Имя организации уже используется");
+			}
+
+			validationContext.When(model, m => m.Accounts)
+				.IsEmpty()
+				.AddError("Создайте хотя-бы один аккаунт");
+
+			for (var index = 0; index < model.Accounts.Count; index++)
+			{
+				var account = model.Accounts[index];
+
+				using (var scope = validationContext.CreateScope(model, m => m.Accounts[index]))
+				{
+					await accountValidation.Validate(scope, account);
+				}
 			}
 		}
 	}

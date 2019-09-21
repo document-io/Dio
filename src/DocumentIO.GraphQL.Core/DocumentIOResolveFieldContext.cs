@@ -31,7 +31,7 @@ namespace DocumentIO
 		public TArgumentType GetArgument<TArgumentType>()
 			where TArgumentType : class, new()
 		{
-			return Arguments.ToObject<TArgumentType>();
+			return GetArgument<TArgumentType>("input");
 		}
 
 		public TFilter GetFilter<TFilter>()
