@@ -9,9 +9,11 @@ namespace DocumentIO
 			Field(x => x.Order);
 
 			DocumentIOField<ReadBoardType, Board>("board")
+				.Authorize(Roles.User)
 				.ResolveAsync<ColumnBoardResolver>();
 
 			DocumentIOListField<ReadCardType, Card>("cards")
+				.Authorize(Roles.User)
 				.Filtered<CardsFilterType>()
 				.ResolveAsync<ColumnCardsResolver>();
 		}

@@ -8,9 +8,11 @@ namespace DocumentIO
 			Field(x => x.Content);
 
 			DocumentIOField<ReadCardType, Card>("card")
+				.Authorize(Roles.User)
 				.ResolveAsync<EventCardResolver>();
 
 			DocumentIOField<ReadAccountType, Account>("account")
+				.Authorize(Roles.User)
 				.ResolveAsync<EventAccountResolver>();
 		}
 	}
