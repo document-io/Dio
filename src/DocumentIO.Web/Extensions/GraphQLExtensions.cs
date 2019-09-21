@@ -22,7 +22,7 @@ namespace DocumentIO.Web
 			
 			services.AddGraphQL(options =>
 				{
-					options.ExposeExceptions = false;
+					options.ExposeExceptions = true;
 				})
 				.AddDataLoader()
 				.AddGraphTypes(assembly)
@@ -58,14 +58,11 @@ namespace DocumentIO.Web
 		{
 			var types = assembly.GetTypes()
 				.Where(type => !type.IsAbstract
-					// TODO: Возможно не будет работать и нужно указывать закрытый тип
-					// Для этого сделать метод Argument<TArgument, TValidation>
-					// Либо заиметь недженерик IGraphQLValidation и регистрировать (type.BaseType, type)
-					&& typeof(IGraphQLValidation<>).IsAssignableFrom(type));
+					&& typeof(IDocumentIOValidation).IsAssignableFrom(type));
 
 			foreach (var type in types)
 			{
-				builder.Services.Add(ServiceDescriptor.Scoped(type.BaseType, type));
+				builder.Services.Add(ServiceDescriptor.Scoped(type.GetInterfaces().First(), type));
 			}
 
 			return builder;
@@ -75,7 +72,7 @@ namespace DocumentIO.Web
 		{
 			var types = assembly.GetTypes()
 				.Where(type => !type.IsAbstract
-					&& typeof(IGraphQLResolver).IsAssignableFrom(type));
+					&& typeof(IDocumentIOResolver).IsAssignableFrom(type));
 
 			foreach (var type in types)
 			{

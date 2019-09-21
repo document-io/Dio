@@ -1,6 +1,6 @@
 namespace DocumentIO
 {
-	public class AccountFilterType : GraphQLFilterType<Account, AccountFilter>
+	public class AccountFilterType : DocumentIOFilterType<Account, AccountFilter>
 	{
 		public AccountFilterType()
 		{

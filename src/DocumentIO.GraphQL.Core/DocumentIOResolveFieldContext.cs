@@ -28,6 +28,12 @@ namespace DocumentIO
 			Path = context.Path;
 		}
 
+		public TArgumentType GetArgument<TArgumentType>()
+			where TArgumentType : class, new()
+		{
+			return Arguments.ToObject<TArgumentType>();
+		}
+
 		public TFilter GetFilter<TFilter>()
 			where TFilter : class, new()
 		{

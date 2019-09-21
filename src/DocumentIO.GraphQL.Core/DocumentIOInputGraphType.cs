@@ -2,7 +2,7 @@ using GraphQL.Types;
 
 namespace DocumentIO
 {
-	public class DocumentIOGraphType<TSourceType> : ObjectGraphType<TSourceType>
+	public class DocumentIOInputGraphType<TSourceType> : InputObjectGraphType<TSourceType>
 	{
 		protected DocumentIOFieldBuilder<TSourceType, TReturnType> DocumentIOField<TGraphType, TReturnType>(string name)
 		{

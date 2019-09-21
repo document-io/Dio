@@ -1,11 +1,10 @@
 using System;
 using System.Threading.Tasks;
-using GraphQL.Types;
 using Microsoft.EntityFrameworkCore;
 
 namespace DocumentIO
 {
-	public class QueryOrganizationResolver : IGraphQLResolver<object, Organization>
+	public class QueryOrganizationResolver : IDocumentIOResolver<object, Organization>
 	{
 		private readonly DatabaseContext databaseContext;
 

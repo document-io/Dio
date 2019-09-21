@@ -1,6 +1,6 @@
 namespace DocumentIO
 {
-	public class LabelsFilterType : GraphQLFilterType<Label, LabelsFilter>
+	public class LabelsFilterType : DocumentIOFilterType<Label, LabelsFilter>
 	{
 		public LabelsFilterType()
 		{

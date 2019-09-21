@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace DocumentIO
 {
-	public abstract class GraphQLFilter<TEntity>
+	public abstract class DocumentIOFilter<TEntity>
 	{
 		public int? Page { get; set; }
 		public int? Size { get; set; }

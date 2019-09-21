@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace DocumentIO
 {
-	public class ColumnsFilter : GraphQLFilter<Column>
+	public class ColumnsFilter : DocumentIOFilter<Column>
 	{
 		public Guid? Id { get; set; }
 		public string Name { get; set; }

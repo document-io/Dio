@@ -1,12 +1,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using GraphQL.Types;
 using Microsoft.EntityFrameworkCore;
 
 namespace DocumentIO
 {
-	public class QueryLabelsResovler : IGraphQLResolver<object, IEnumerable<Label>>
+	public class QueryLabelsResovler : IDocumentIOResolver<object, IEnumerable<Label>>
 	{
 		private readonly DatabaseContext databaseContext;
 

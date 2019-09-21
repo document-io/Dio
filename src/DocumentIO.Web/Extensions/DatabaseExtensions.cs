@@ -1,3 +1,4 @@
+using System.Linq;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -19,7 +20,10 @@ namespace DocumentIO
 			{
 				var databaseContext = scope.ServiceProvider.GetRequiredService<DatabaseContext>();
 
-				databaseContext.Database.Migrate();
+				if (databaseContext.Database.GetPendingMigrations().Any())
+				{
+					databaseContext.Database.Migrate();
+				}
 			}
 		}
 	}

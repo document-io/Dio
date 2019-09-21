@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using GraphQL.DataLoader;
-using GraphQL.Types;
 using Microsoft.EntityFrameworkCore;
 
 namespace DocumentIO
 {
-	public class OrganizationBoardsResolver : IGraphQLResolver<Organization, IEnumerable<Board>>
+	public class OrganizationBoardsResolver : IDocumentIOResolver<Organization, IEnumerable<Board>>
 	{
 		private readonly DatabaseContext databaseContext;
 		private readonly IDataLoaderContextAccessor accessor;

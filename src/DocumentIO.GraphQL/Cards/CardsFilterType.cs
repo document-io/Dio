@@ -1,6 +1,6 @@
 namespace DocumentIO
 {
-	public class CardsFilterType : GraphQLFilterType<Card, CardsFilter>
+	public class CardsFilterType : DocumentIOFilterType<Card, CardsFilter>
 	{
 		public CardsFilterType()
 		{

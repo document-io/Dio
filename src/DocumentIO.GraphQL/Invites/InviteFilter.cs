@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace DocumentIO
 {
-	public class InviteFilter : GraphQLFilter<Invite>
+	public class InviteFilter : DocumentIOFilter<Invite>
 	{
 		public Guid? Id { get; set; }
 		public string Role { get; set; }

@@ -9,7 +9,15 @@ namespace DocumentIO.Web
 	{
 		public static IServiceCollection AddDocumentIOAuthentication(this IServiceCollection services)
 		{
-			services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+			services.AddAuthentication(o =>
+				{
+					o.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+					o.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+					o.DefaultSignOutScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+					o.DefaultForbidScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+
+					o.RequireAuthenticatedSignIn = false;
+				})
 				.AddCookie(options =>
 				{
 					options.Events.OnRedirectToLogin = context =>
@@ -17,7 +25,7 @@ namespace DocumentIO.Web
 						context.Response.StatusCode = 401;
 						return Task.CompletedTask;
 					};
-
+					options.Cookie.Name = "DocumentIO";
 					options.Cookie.HttpOnly = true;
 					options.SlidingExpiration = true;
 					options.ExpireTimeSpan = TimeSpan.FromDays(7);

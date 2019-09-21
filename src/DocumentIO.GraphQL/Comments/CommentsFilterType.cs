@@ -1,6 +1,6 @@
 namespace DocumentIO
 {
-	public class CommentsFilterType : GraphQLFilterType<CardComment, CommentsFilter>
+	public class CommentsFilterType : DocumentIOFilterType<CardComment, CommentsFilter>
 	{
 		public CommentsFilterType()
 		{

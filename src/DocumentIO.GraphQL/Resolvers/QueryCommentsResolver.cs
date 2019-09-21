@@ -1,12 +1,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using GraphQL.Types;
 using Microsoft.EntityFrameworkCore;
 
 namespace DocumentIO
 {
-	public class QueryCommentsResolver : IGraphQLResolver<object, IEnumerable<CardComment>>
+	public class QueryCommentsResolver : IDocumentIOResolver<object, IEnumerable<CardComment>>
 	{		
 		private readonly DatabaseContext databaseContext;
 

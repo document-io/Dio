@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using GraphQL.DataLoader;
-using GraphQL.Types;
 using Microsoft.EntityFrameworkCore;
 
 namespace DocumentIO
 {
-	public class AccountAttachmentsResolver : IGraphQLResolver<Account, IEnumerable<CardAttachment>>
+	public class AccountAttachmentsResolver : IDocumentIOResolver<Account, IEnumerable<CardAttachment>>
 	{
 		private readonly IDataLoaderContextAccessor accessor;
 		private readonly DatabaseContext databaseContext;

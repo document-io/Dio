@@ -1,13 +1,12 @@
 using System.Threading.Tasks;
-using GraphQL.Types;
 
 namespace DocumentIO
 {
-	public interface IGraphQLResolver
+	public interface IDocumentIOResolver
 	{
 	}
 
-	public interface IGraphQLResolver<TSourceType, TReturnType> : IGraphQLResolver
+	public interface IDocumentIOResolver<TSourceType, TReturnType> : IDocumentIOResolver
 	{
 		Task<TReturnType> Resolve(DocumentIOResolveFieldContext<TSourceType> context);
 	}
