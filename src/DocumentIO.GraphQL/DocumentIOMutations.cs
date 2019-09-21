@@ -24,6 +24,16 @@ namespace DocumentIO
 			DocumentIOField<ReadAccountType, Account>("logoutAccount")
 				.Authorize(Roles.User)
 				.ResolveAsync<LogoutAccountResolver>();
+
+			DocumentIOField<ReadInviteType, Invite>("createInvite")
+				.Authorize(Roles.Admin)
+				.Argument<CreateInviteType, CreateInviteValidation>()
+				.ResolveAsync<CreateInviteResolver>();
+
+			DocumentIOField<ReadInviteType, Invite>("deleteInvite")
+				.Authorize(Roles.Admin)
+				.NonNullArgument<GuidGraphType>("id")
+				.ResolveAsync<DeleteInviteResolver>();
 		}
 	}
 }

@@ -1,6 +1,3 @@
-using System.Collections.Generic;
-using GraphQL.Types;
-
 namespace DocumentIO
 {
 	public class ReadColumnType : DocumentIOGraphType<Column>
@@ -14,7 +11,7 @@ namespace DocumentIO
 			DocumentIOField<ReadBoardType, Board>("board")
 				.ResolveAsync<ColumnBoardResolver>();
 
-			DocumentIOField<ListGraphType<ReadCardType>, IEnumerable<Card>>("cards")
+			DocumentIOListField<ReadCardType, Card>("cards")
 				.Filtered<CardsFilterType>()
 				.ResolveAsync<ColumnCardsResolver>();
 		}

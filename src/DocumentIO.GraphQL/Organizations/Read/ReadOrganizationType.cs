@@ -1,6 +1,3 @@
-using System.Collections.Generic;
-using GraphQL.Types;
-
 namespace DocumentIO
 {
 	public class ReadOrganizationType : DocumentIOGraphType<Organization>
@@ -10,15 +7,15 @@ namespace DocumentIO
 			Field(x => x.Id);
 			Field(x => x.Name);
 
-			DocumentIOField<ListGraphType<ReadAccountType>, IEnumerable<Account>>("accounts")
+			DocumentIOListField<ReadAccountType, Account>("accounts")
 				.Filtered<AccountFilterType>()
 				.ResolveAsync<OrganizationAccountsResolver>();
 
-			DocumentIOField<ListGraphType<ReadInviteType>, IEnumerable<Invite>>("invites")
+			DocumentIOListField<ReadInviteType, Invite>("invites")
 				.Filtered<InviteFilterType>()
 				.ResolveAsync<OrganizationInvitesResolver>();
 
-			DocumentIOField<ListGraphType<ReadBoardType>, IEnumerable<Board>>("boards")
+			DocumentIOListField<ReadBoardType, Board>("boards")
 				.Filtered<BoardsFilterType>()
 				.ResolveAsync<OrganizationBoardsResolver>();
 		}

@@ -19,13 +19,10 @@ namespace DocumentIO
 			var accountId = context.GetAccountId();
 			var filter = context.GetFilter<CommentsFilter>();
 
-			var organization = await databaseContext.Organizations
-				.AsNoTracking()
-				.GetByAccountId(accountId);
-
 			return await filter.Filtered(
 					databaseContext.CardComments.AsNoTracking(),
-					comments => comments.Where(comment => comment.Account.Organization == organization))
+					comments => comments.Where(comment =>
+						comment.Account.Organization.Accounts.Any(account => account.Id == accountId)))
 				.ToListAsync();
 		}
 	}

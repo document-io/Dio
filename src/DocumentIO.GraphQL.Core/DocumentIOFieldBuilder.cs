@@ -22,9 +22,9 @@ namespace DocumentIO
 			this.builder = builder;
 		}
 
-		// TODO: AllowAdmin, AllowUser???
 		public DocumentIOFieldBuilder<TSourceType, TReturnType> Authorize(string role)
 		{
+			// TODO: AllowAdmin, AllowUser???
 			builder.AuthorizeWith(role);
 
 			return this;
@@ -135,7 +135,7 @@ namespace DocumentIO
 					continue;
 				}
 
-				var type = validationType.GetInterfaces().First().GenericTypeArguments[0];
+				var type = validationType.GetInterfaces().First().GenericTypeArguments[1];
 
 				if (type == null)
 				{

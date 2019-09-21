@@ -1,6 +1,3 @@
-using System.Collections.Generic;
-using GraphQL.Types;
-
 namespace DocumentIO
 {
 	public class ReadLabelType : DocumentIOGraphType<Label>
@@ -15,7 +12,7 @@ namespace DocumentIO
 			DocumentIOField<ReadBoardType, Board>("board")
 				.ResolveAsync<LabelBoardResolver>();
 
-			DocumentIOField<ListGraphType<ReadCardType>, IEnumerable<Card>>("cards")
+			DocumentIOListField<ReadCardType, Card>("cards")
 				.ResolveAsync<LabelCardsResolver>();
 		}
 	}

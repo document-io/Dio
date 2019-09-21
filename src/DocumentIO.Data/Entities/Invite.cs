@@ -8,8 +8,8 @@ namespace DocumentIO
 		public Guid Secret { get; set; }
 		public string Role { get; set; }
 		public string Description { get; set; }
-		public DateTime CreatedAt { get; set; }
 		public DateTime? DueDate { get; set; }
+		public DateTime CreatedAt { get; set; }
 
 		public Guid? AccountId { get; set; }
 		public Account Account { get; set; }

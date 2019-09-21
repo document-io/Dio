@@ -1,6 +1,3 @@
-using System.Collections.Generic;
-using GraphQL.Types;
-
 namespace DocumentIO
 {
 	public class DocumentIOQueries : DocumentIOGraphType<object>
@@ -10,41 +7,51 @@ namespace DocumentIO
 			Name = "Queries";
 
 			DocumentIOField<ReadOrganizationType, Organization>("organization")
+				.Authorize(Roles.User)
 				.ResolveAsync<QueryOrganizationResolver>();
 
-			DocumentIOField<ListGraphType<ReadAccountType>, IEnumerable<Account>>("accounts")
+			DocumentIOListField<ReadAccountType, Account>("accounts")
+				.Authorize(Roles.User)
 				.Filtered<AccountFilterType>()
 				.ResolveAsync<QueryAccountsResolver>();
 
-			DocumentIOField<ListGraphType<ReadAttachmentType>, IEnumerable<CardAttachment>>("attachments")
+			DocumentIOListField<ReadAttachmentType, CardAttachment>("attachments")
+				.Authorize(Roles.User)
 				.Filtered<AttachmentFilterType>()
 				.ResolveAsync<QueryAttachmentsResolver>();
 
-			DocumentIOField<ListGraphType<ReadBoardType>, IEnumerable<Board>>("boards")
+			DocumentIOListField<ReadBoardType, Board>("boards")
+				.Authorize(Roles.User)
 				.Filtered<BoardsFilterType>()
 				.ResolveAsync<QueryBoardsResolver>();
 
-			DocumentIOField<ListGraphType<ReadColumnType>, IEnumerable<Column>>("columns")
+			DocumentIOListField<ReadColumnType, Column>("columns")
+				.Authorize(Roles.User)
 				.Filtered<ColumnsFilterType>()
 				.ResolveAsync<QueryColumnsResolver>();
 
-			DocumentIOField<ListGraphType<ReadCardType>, IEnumerable<Card>>("cards")
+			DocumentIOListField<ReadCardType, Card>("cards")
+				.Authorize(Roles.User)
 				.Filtered<CardsFilterType>()
 				.ResolveAsync<QueryCardsResolver>();
 
-			DocumentIOField<ListGraphType<ReadCommentType>, IEnumerable<CardComment>>("comments")
+			DocumentIOListField<ReadCommentType, CardComment>("comments")
+				.Authorize(Roles.User)
 				.Filtered<CommentsFilterType>()
 				.ResolveAsync<QueryCommentsResolver>();
 
-			DocumentIOField<ListGraphType<ReadEventType>, IEnumerable<CardEvent>>("events")
+			DocumentIOListField<ReadEventType, CardEvent>("events")
+				.Authorize(Roles.User)
 				.Filtered<EventsFilterType>()
 				.ResolveAsync<QueryEventsResovler>();
 
-			DocumentIOField<ListGraphType<ReadInviteType>, IEnumerable<Invite>>("invites")
+			DocumentIOListField<ReadInviteType, Invite>("invites")
+				.Authorize(Roles.Admin)
 				.Filtered<InviteFilterType>()
 				.ResolveAsync<QueryInvitesResovler>();
 
-			DocumentIOField<ListGraphType<ReadLabelType>, IEnumerable<Label>>("labels")
+			DocumentIOListField<ReadLabelType, Label>("labels")
+				.Authorize(Roles.User)
 				.Filtered<LabelsFilterType>()
 				.ResolveAsync<QueryLabelsResovler>();
 		}

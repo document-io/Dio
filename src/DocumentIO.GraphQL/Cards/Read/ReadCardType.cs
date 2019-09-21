@@ -1,6 +1,3 @@
-using System.Collections.Generic;
-using GraphQL.Types;
-
 namespace DocumentIO
 {
 	public class ReadCardType : DocumentIOGraphType<Card>
@@ -16,23 +13,23 @@ namespace DocumentIO
 			DocumentIOField<ReadColumnType, Column>("column")
 				.ResolveAsync<CardColumnResolver>();
 
-			DocumentIOField<ListGraphType<ReadLabelType>, IEnumerable<Label>>("labels")
+			DocumentIOListField<ReadLabelType, Label>("labels")
 				.Filtered<LabelsFilterType>()
 				.ResolveAsync<CardLabelsResolver>();
 
-			DocumentIOField<ListGraphType<ReadAccountType>, IEnumerable<Account>>("assignments")
+			DocumentIOListField<ReadAccountType, Account>("assignments")
 				.Filtered<AccountFilterType>()
 				.ResolveAsync<CardAssignmentsResolver>();
 
-			DocumentIOField<ListGraphType<ReadCommentType>, IEnumerable<CardComment>>("comments")
+			DocumentIOListField<ReadCommentType, CardComment>("comments")
 				.Filtered<CommentsFilterType>()
 				.ResolveAsync<CardCommentsResolver>();
 
-			DocumentIOField<ListGraphType<ReadAttachmentType>, IEnumerable<CardAttachment>>("attachments")
+			DocumentIOListField<ReadAttachmentType, CardAttachment>("attachments")
 				.Filtered<AttachmentFilterType>()
 				.ResolveAsync<CardAttachmentsResolver>();
 
-			DocumentIOField<ListGraphType<ReadEventType>, IEnumerable<CardEvent>>("events")
+			DocumentIOListField<ReadEventType, CardEvent>("events")
 				.Filtered<EventsFilterType>()
 				.ResolveAsync<CardEventsResolver>();
 		}

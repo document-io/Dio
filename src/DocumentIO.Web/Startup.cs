@@ -12,9 +12,11 @@ namespace DocumentIO.Web
 	public class Startup
 	{
 		private readonly IConfiguration configuration;
+		private readonly IWebHostEnvironment environment;
 
-		public Startup(IConfiguration configuration)
+		public Startup(IConfiguration configuration, IWebHostEnvironment environment)
 		{
+			this.environment = environment;
 			this.configuration = configuration;
 		}
 
@@ -22,7 +24,7 @@ namespace DocumentIO.Web
 		{
 			services.AddDatabaseContext(configuration.GetConnectionString("PostgreSQL"));
 
-			services.AddDocumentIOGraphQL();
+			services.AddDocumentIOGraphQL(environment);
 			services.AddDocumentIOGraphQLAuthorization();
 
 			services.AddAuthorization()
@@ -37,7 +39,7 @@ namespace DocumentIO.Web
 			});
 		}
 
-		public void Configure(IApplicationBuilder app, IWebHostEnvironment environment)
+		public void Configure(IApplicationBuilder app)
 		{
 			app.UseDatabaseMigrations();
 

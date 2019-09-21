@@ -6,13 +6,15 @@ using GraphQL.Authorization;
 using GraphQL.Server;
 using GraphQL.Types;
 using GraphQL.Validation;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
 namespace DocumentIO.Web
 {
 	public static class GraphQLExtensions
 	{
-		public static IServiceCollection AddDocumentIOGraphQL(this IServiceCollection services)
+		public static IServiceCollection AddDocumentIOGraphQL(this IServiceCollection services, IWebHostEnvironment environment)
 		{
 			services.AddHttpContextAccessor();
 			services.AddSingleton<ISchema, DocumentIOSchema>();
@@ -22,7 +24,7 @@ namespace DocumentIO.Web
 			
 			services.AddGraphQL(options =>
 				{
-					options.ExposeExceptions = true;
+					options.ExposeExceptions = environment.IsDevelopment();
 				})
 				.AddDataLoader()
 				.AddGraphTypes(assembly)

@@ -25,6 +25,7 @@ namespace DocumentIO
 			account.Role = invite.Role;
 			account.CreatedAt = DateTime.UtcNow;
 			account.Invite = invite;
+			account.OrganizationId = invite.OrganizationId;
 
 			await databaseContext.Accounts.AddAsync(account);
 
