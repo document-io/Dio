@@ -5,7 +5,6 @@ namespace DocumentIO
 		public CreateOrganizationType()
 		{
 			Field(x => x.Name);
-			Field<CreateAccountType, Account>("account");
 		}
 	}
 }

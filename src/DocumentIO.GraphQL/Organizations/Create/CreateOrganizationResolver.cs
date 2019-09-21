@@ -16,23 +16,16 @@ namespace DocumentIO
 		{
 			var organization = context.GetArgument<Organization>();
 
-			var account = context.GetArgument<Account>("account");
-			account.Role = Roles.Admin;
-			account.CreatedAt = DateTime.UtcNow;
-			account.Organization = organization;
-
 			var invite = new Invite
 			{
 				Role = Roles.Admin,
 				Secret = Guid.NewGuid(),
 				CreatedAt = DateTime.UtcNow,
 				Description = "Создание организации",
-				Account = account,
 				Organization = organization
 			};
 
 			await databaseContext.Organizations.AddAsync(organization);
-			await databaseContext.Accounts.AddAsync(account);
 			await databaseContext.Invites.AddAsync(invite);
 
 			await databaseContext.SaveChangesAsync();
