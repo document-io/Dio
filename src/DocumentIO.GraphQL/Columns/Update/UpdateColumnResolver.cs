@@ -29,7 +29,7 @@ namespace DocumentIO
 					.Include(x => x.Columns)
 					.SingleAsync(x => x.Id == column.BoardId);
 
-				UpdateColumns(board.Columns, model);
+				UpdateColumnsOrder(board.Columns, model);
 			}
 
 			await databaseContext.SaveChangesAsync();
@@ -37,7 +37,7 @@ namespace DocumentIO
 			return column;
 		}
 
-		public void UpdateColumns(ICollection<Column> columns, Column model)
+		public void UpdateColumnsOrder(ICollection<Column> columns, Column model)
 		{
 			columns = columns.OrderBy(x => x.Order).ToList();
 

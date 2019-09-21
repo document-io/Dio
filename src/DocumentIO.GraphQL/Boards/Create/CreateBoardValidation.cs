@@ -6,7 +6,7 @@ using Phema.Validation.Conditions;
 
 namespace DocumentIO
 {
-	public class CreateBoardValidation : IDocumentIOValidation<object>
+	public class CreateBoardValidation : IDocumentIOValidation
 	{
 		private readonly DatabaseContext databaseContext;
 

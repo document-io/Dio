@@ -4,7 +4,7 @@ using Phema.Validation.Conditions;
 
 namespace DocumentIO
 {
-	public class CreateInviteValidation : IDocumentIOValidation<object>
+	public class CreateInviteValidation : IDocumentIOValidation
 	{
 		public Task Validate(DocumentIOResolveFieldContext<object> context, IValidationContext validationContext)
 		{

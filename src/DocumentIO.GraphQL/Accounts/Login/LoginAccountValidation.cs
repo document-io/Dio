@@ -5,7 +5,7 @@ using Phema.Validation.Conditions;
 
 namespace DocumentIO
 {
-	public class LoginAccountValidation : IDocumentIOValidation<object>
+	public class LoginAccountValidation : IDocumentIOValidation
 	{
 		private readonly DatabaseContext databaseContext;
 

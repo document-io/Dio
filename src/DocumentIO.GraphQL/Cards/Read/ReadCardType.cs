@@ -7,6 +7,8 @@ namespace DocumentIO
 			Field(x => x.Id);
 			Field(x => x.Name);
 			Field(x => x.Order);
+			Field(x => x.CreatedAt);
+			Field(x => x.UpdatedAt, nullable: true);
 			Field(x => x.DueDate, nullable: true);
 			Field(x => x.Content);
 

@@ -70,7 +70,7 @@ namespace DocumentIO
 		}
 
 		public DocumentIOFieldBuilder<TSourceType, TReturnType> Validate<TValidationType>()
-			where TValidationType : IDocumentIOValidation<TSourceType>
+			where TValidationType : IDocumentIOValidation
 		{
 			builder.Configure(q => q.WithMetadata("validation", typeof(TValidationType)));
 
