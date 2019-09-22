@@ -24,6 +24,12 @@ namespace DocumentIO
 				.Validate<LoginAccountValidation>()
 				.ResolveAsync<LoginAccountResolver>();
 
+			DocumentIOField<ReadAccountType, Account>("updateAccount")
+				.Authorize(Roles.User)
+				.NonNullArgument<UpdateAccountType>()
+				.Validate<UpdateAccountValidation>()
+				.ResolveAsync<UpdateAccountResolver>();
+
 			DocumentIOField<ReadAccountType, Account>("logoutAccount")
 				.Authorize(Roles.User)
 				.ResolveAsync<LogoutAccountResolver>();

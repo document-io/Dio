@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Phema.Validation;
 using Phema.Validation.Conditions;
@@ -8,10 +9,12 @@ namespace DocumentIO
 	public class LoginAccountValidation : IDocumentIOValidation
 	{
 		private readonly DatabaseContext databaseContext;
+		private readonly IPasswordHasher<Account> passwordHasher;
 
-		public LoginAccountValidation(DatabaseContext databaseContext)
+		public LoginAccountValidation(DatabaseContext databaseContext, IPasswordHasher<Account> passwordHasher)
 		{
 			this.databaseContext = databaseContext;
+			this.passwordHasher = passwordHasher;
 		}
 
 		public async Task Validate(DocumentIOResolveFieldContext<object> context, IValidationContext validationContext)
@@ -28,8 +31,15 @@ namespace DocumentIO
 
 			if (validationContext.IsValid(model, m => m.Email) && validationContext.IsValid(model, m => m.Password))
 			{
-				var accountExists = await databaseContext.Accounts.AnyAsync(account =>
-					account.Email == model.Email && account.Password == model.Password);
+				var account = await databaseContext
+					.Accounts
+					.FirstOrDefaultAsync(x => x.Email == model.Email);
+
+				var accountExists = account != null
+					&& passwordHasher.VerifyHashedPassword(
+						account,
+						account.Password,
+						model.Password) == PasswordVerificationResult.Success;
 
 				validationContext.When()
 					.IsNot(() => accountExists)

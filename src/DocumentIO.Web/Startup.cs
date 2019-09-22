@@ -1,6 +1,7 @@
 using GraphQL.Types;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -28,7 +29,8 @@ namespace DocumentIO.Web
 			services.AddDocumentIOGraphQLAuthorization();
 
 			services.AddAuthorization()
-				.AddDocumentIOAuthentication();
+				.AddDocumentIOAuthentication()
+				.AddSingleton<IPasswordHasher<Account>, PasswordHasher<Account>>();
 
 			services.AddValidation(options =>
 				options.ValidationPartResolver = ValidationPartResolvers.CamelCase);

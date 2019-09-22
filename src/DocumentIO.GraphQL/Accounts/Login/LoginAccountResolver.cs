@@ -22,7 +22,7 @@ namespace DocumentIO
 
 			var account = await databaseContext
 				.Accounts
-				.SingleAsync(x => x.Email == input.Email && x.Password == input.Password);
+				.SingleAsync(x => x.Email == input.Email);
 
 			await httpContext.SignInAsync(
 				CookieAuthenticationDefaults.AuthenticationScheme,

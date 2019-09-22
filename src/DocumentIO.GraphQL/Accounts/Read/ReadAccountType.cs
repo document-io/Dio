@@ -9,7 +9,7 @@ namespace DocumentIO
 			Field(x => x.Role);
 			Field(x => x.Email);
 			Field(x => x.FirstName);
-			Field(x => x.MiddleName);
+			Field(x => x.MiddleName, nullable: true);
 			Field(x => x.LastName);
 			Field(x => x.CreatedAt);
 
