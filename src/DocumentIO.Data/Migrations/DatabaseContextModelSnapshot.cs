@@ -175,11 +175,11 @@ namespace DocumentIO.Migrations
                     b.Property<Guid>("CardId")
                         .HasColumnType("uuid");
 
-                    b.Property<string>("Content")
-                        .HasColumnType("text");
-
                     b.Property<DateTimeOffset>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Text")
+                        .HasColumnType("text");
 
                     b.Property<DateTimeOffset?>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");

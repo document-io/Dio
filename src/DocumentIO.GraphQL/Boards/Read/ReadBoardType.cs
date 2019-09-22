@@ -8,7 +8,7 @@ namespace DocumentIO
 			Field(x => x.Name);
 			Field(x => x.CreatedAt);
 
-			DocumentIOField<ReadOrganizationType, Organization>("organization")
+			NonNullDocumentIOField<ReadOrganizationType, Organization>("organization")
 				.Authorize(Roles.User)
 				.ResolveAsync<BoardOrganizationResolver>();
 

@@ -8,10 +8,10 @@ namespace DocumentIO
 		{
 			Name = "Queries";
 
-			DocumentIOField<StringGraphType, string>("version")
+			NonNullDocumentIOField<StringGraphType, string>("version")
 				.ResolveAsync<QueryVersionResolver>();
 
-			DocumentIOField<ReadOrganizationType, Organization>("organization")
+			NonNullDocumentIOField<ReadOrganizationType, Organization>("organization")
 				.Authorize(Roles.User)
 				.ResolveAsync<QueryOrganizationResolver>();
 

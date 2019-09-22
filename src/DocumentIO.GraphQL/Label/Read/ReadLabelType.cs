@@ -9,7 +9,7 @@ namespace DocumentIO
 			Field(x => x.Description);
 			Field(x => x.Color);
 
-			DocumentIOField<ReadBoardType, Board>("board")
+			NonNullDocumentIOField<ReadBoardType, Board>("board")
 				.Authorize(Roles.User)
 				.ResolveAsync<LabelBoardResolver>();
 

@@ -13,13 +13,19 @@ namespace DocumentIO
 			return new DocumentIOFieldBuilder<TSourceType, TProperty>(Field(expression, nullable: true));
 		}
 
-		protected DocumentIOFieldBuilder<TSourceType, TReturnType> DocumentIOField<TGraphType, TReturnType>(string name)
+		public DocumentIOFieldBuilder<TSourceType, TReturnType> DocumentIOField<TGraphType, TReturnType>(string name)
 			where TGraphType : GraphType
 		{
-			return new DocumentIOFieldBuilder<TSourceType, TReturnType>(Field<NonNullGraphType<TGraphType>, TReturnType>(name));
+			return new DocumentIOFieldBuilder<TSourceType, TReturnType>(Field<TGraphType, TReturnType>(name));
 		}
 
-		protected DocumentIOFieldBuilder<TSourceType, IEnumerable<TReturnType>> DocumentIOListField<TGraphType, TReturnType>(string name)
+		public DocumentIOFieldBuilder<TSourceType, TReturnType> NonNullDocumentIOField<TGraphType, TReturnType>(string name)
+			where TGraphType : GraphType
+		{
+			return DocumentIOField<NonNullGraphType<TGraphType>, TReturnType>(name);
+		}
+
+		public DocumentIOFieldBuilder<TSourceType, IEnumerable<TReturnType>> DocumentIOListField<TGraphType, TReturnType>(string name)
 			where TGraphType : GraphType
 		{
 			return new DocumentIOFieldBuilder<TSourceType, IEnumerable<TReturnType>>(

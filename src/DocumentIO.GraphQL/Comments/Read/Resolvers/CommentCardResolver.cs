@@ -21,11 +21,9 @@ namespace DocumentIO
 		{
 			var loader = accessor.Context.GetOrAddBatchLoader<Guid, Card>(
 				"CommentCard",
-				async ids => await databaseContext.CardComments
-					.AsNoTracking()
-					.Include(assignment => assignment.Card)
-					.Where(assignment => ids.Contains(assignment.CardId))
-					.ToDictionaryAsync(x => x.CardId, x => x.Card));
+				async ids => await databaseContext.Cards.AsNoTracking()
+					.Where(x => ids.Contains(x.Id))
+					.ToDictionaryAsync(x => x.Id));
 
 			return loader.LoadAsync(context.Source.CardId);
 		}

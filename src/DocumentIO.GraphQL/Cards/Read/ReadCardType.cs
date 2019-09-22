@@ -12,7 +12,7 @@ namespace DocumentIO
 			NullField(x => x.DueDate);
 			Field(x => x.Content);
 
-			DocumentIOField<ReadColumnType, Column>("column")
+			NonNullDocumentIOField<ReadColumnType, Column>("column")
 				.Authorize(Roles.User)
 				.ResolveAsync<CardColumnResolver>();
 

@@ -5,7 +5,7 @@ namespace DocumentIO
 	public class CardComment
 	{
 		public Guid Id { get; set; }
-		public string Content { get; set; }
+		public string Text { get; set; }
 		public DateTimeOffset CreatedAt { get; set; }
 		public DateTimeOffset? UpdatedAt { get; set; }
 

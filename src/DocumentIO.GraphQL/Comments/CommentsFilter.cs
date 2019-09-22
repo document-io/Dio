@@ -20,7 +20,7 @@ namespace DocumentIO
 				queryable = queryable.Where(comment => comment.Id == Id);
 			
 			if (Content != null)
-				queryable = queryable.Where(comment => comment.Content.Contains(Content));
+				queryable = queryable.Where(comment => comment.Text.Contains(Content));
 
 			if (CreatedAt != null)
 				queryable = queryable.Where(comment => comment.CreatedAt >= CreatedAt);

@@ -1,5 +1,3 @@
-using GraphQL.Types;
-
 namespace DocumentIO
 {
 	public class ReadAccountType : DocumentIOGraphType<Account>
@@ -15,11 +13,11 @@ namespace DocumentIO
 			Field(x => x.LastName);
 			Field(x => x.CreatedAt);
 
-			DocumentIOField<ReadInviteType, Invite>("invite")
+			NonNullDocumentIOField<ReadInviteType, Invite>("invite")
 				.Authorize(Roles.Admin)
 				.ResolveAsync<AccountInviteResolver>();
 
-			DocumentIOField<ReadOrganizationType, Organization>("organization")
+			NonNullDocumentIOField<ReadOrganizationType, Organization>("organization")
 				.Authorize(Roles.User)
 				.ResolveAsync<AccountOrganizationResolver>();
 

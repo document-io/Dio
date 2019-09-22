@@ -8,7 +8,7 @@ namespace DocumentIO
 			Field(x => x.Name);
 			Field(x => x.Order);
 
-			DocumentIOField<ReadBoardType, Board>("board")
+			NonNullDocumentIOField<ReadBoardType, Board>("board")
 				.Authorize(Roles.User)
 				.ResolveAsync<ColumnBoardResolver>();
 
