@@ -20,7 +20,7 @@ namespace DocumentIO
 				.ResolveAsync<CreateAccountResolver>();
 
 			DocumentIOField<ReadAccountType, Account>("loginAccount")
-				.Argument<LoginAccountType>()
+				.NonNullArgument<LoginAccountType>()
 				.Validate<LoginAccountValidation>()
 				.ResolveAsync<LoginAccountResolver>();
 
@@ -30,7 +30,7 @@ namespace DocumentIO
 
 			DocumentIOField<ReadInviteType, Invite>("createInvite")
 				.Authorize(Roles.Admin)
-				.Argument<CreateInviteType>()
+				.NonNullArgument<CreateInviteType>()
 				.Validate<CreateInviteValidation>()
 				.ResolveAsync<CreateInviteResolver>();
 
