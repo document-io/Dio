@@ -4,7 +4,7 @@ namespace DocumentIO
 {
 	public class CardAssignment
 	{
-		public DateTime CreatedAt { get; set; }
+		public DateTimeOffset CreatedAt { get; set; }
 
 		public Guid CardId { get; set; }
 		public Card Card { get; set; }

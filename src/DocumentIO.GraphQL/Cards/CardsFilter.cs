@@ -10,7 +10,7 @@ namespace DocumentIO
 		public string Name { get; set; }
 		public int? Order { get; set; }
 
-		public DateTime? DueDate { get; set; }
+		public DateTimeOffset? DueDate { get; set; }
 		
 		public override IQueryable<TPaginated> Filtered<TPaginated, TOrderBy>(
 			IQueryable<Card> queryable,

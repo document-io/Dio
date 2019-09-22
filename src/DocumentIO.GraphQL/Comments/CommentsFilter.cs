@@ -8,8 +8,8 @@ namespace DocumentIO
 	{
 		public Guid? Id { get; set; }
 		public string Content { get; set; }
-		public DateTime? CreatedAt { get; set; }
-		public DateTime? UpdatedAt { get; set; }
+		public DateTimeOffset? CreatedAt { get; set; }
+		public DateTimeOffset? UpdatedAt { get; set; }
 
 		public override IQueryable<TPaginated> Filtered<TPaginated, TOrderBy>(
 			IQueryable<CardComment> queryable,
