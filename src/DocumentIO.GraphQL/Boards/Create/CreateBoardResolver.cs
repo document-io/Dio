@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace DocumentIO
 {
-	public class CreateBoardResolver : IDocumentIOResolver<object, Board>
+	public class CreateBoardResolver : IDocumentIOResolver<Board>
 	{
 		private readonly DatabaseContext databaseContext;
 

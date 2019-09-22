@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DocumentIO
 {
-	public class CreateAccountResolver : IDocumentIOResolver<object, Account>
+	public class CreateAccountResolver : IDocumentIOResolver<Account>
 	{
 		private readonly DatabaseContext databaseContext;
 

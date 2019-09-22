@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DocumentIO
 {
-	public class CreateColumnResolver : IDocumentIOResolver<object, Column>
+	public class CreateColumnResolver : IDocumentIOResolver<Column>
 	{
 		private readonly DatabaseContext databaseContext;
 

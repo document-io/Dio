@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace DocumentIO
 {
-	public class CreateOrganizationResolver : IDocumentIOResolver<object, Organization>
+	public class CreateOrganizationResolver : IDocumentIOResolver<Organization>
 	{
 		private readonly DatabaseContext databaseContext;
 

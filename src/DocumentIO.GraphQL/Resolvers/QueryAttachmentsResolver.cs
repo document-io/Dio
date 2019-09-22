@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DocumentIO
 {
-	public class QueryAttachmentsResolver : IDocumentIOResolver<object, IEnumerable<CardAttachment>>
+	public class QueryAttachmentsResolver : IDocumentIOResolver<IEnumerable<CardAttachment>>
 	{		
 		private readonly DatabaseContext databaseContext;
 

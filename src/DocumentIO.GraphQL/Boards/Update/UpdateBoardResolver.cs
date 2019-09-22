@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DocumentIO
 {
-	public class UpdateBoardResolver : IDocumentIOResolver<object, Board>
+	public class UpdateBoardResolver : IDocumentIOResolver<Board>
 	{
 		private readonly DatabaseContext databaseContext;
 

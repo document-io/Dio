@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DocumentIO
 {
-	public class LoginAccountResolver : IDocumentIOResolver<object, Account>
+	public class LoginAccountResolver : IDocumentIOResolver<Account>
 	{
 		private readonly DatabaseContext databaseContext;
 

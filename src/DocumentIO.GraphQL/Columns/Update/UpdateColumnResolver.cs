@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DocumentIO
 {
-	public class UpdateColumnResolver : IDocumentIOResolver<object, Column>
+	public class UpdateColumnResolver : IDocumentIOResolver<Column>
 	{
 		private readonly DatabaseContext databaseContext;
 
