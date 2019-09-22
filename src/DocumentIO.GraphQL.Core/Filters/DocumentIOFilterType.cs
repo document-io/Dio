@@ -1,16 +1,14 @@
-using GraphQL.Types;
-
 namespace DocumentIO
 {
-	public abstract class DocumentIOFilterType<TEntity, TFilter> : InputObjectGraphType<TFilter>
+	public abstract class DocumentIOFilterType<TEntity, TFilter> : DocumentIOInputGraphType<TFilter>
 		where TFilter : DocumentIOFilter<TEntity>
 	{
 		protected DocumentIOFilterType()
 		{
-			Field(x => x.Page, nullable: true);
-			Field(x => x.Size, nullable: true)
+			NullField(x => x.Page);
+			NullField(x => x.Size)
 				.DefaultValue(20);
-			Field(x => x.OrderBy, nullable: true);
+			NullField(x => x.OrderBy);
 		}
 	}
 }

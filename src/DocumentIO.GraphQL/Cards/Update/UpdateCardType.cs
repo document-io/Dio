@@ -5,10 +5,10 @@ namespace DocumentIO
 		public UpdateCardType()
 		{
 			Field(x => x.Id);
-			Field(x => x.Name, nullable: true);
-			Field(x => x.Order, nullable: true);
-			Field(x => x.DueDate, nullable: true);
-			Field(x => x.Content, nullable: true);
+			NullField(x => x.Name);
+			NullField(x => x.Order);
+			NullField(x => x.DueDate);
+			NullField(x => x.Content);
 		}
 	}
 }

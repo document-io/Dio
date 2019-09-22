@@ -7,7 +7,7 @@ namespace DocumentIO
 			Field(x => x.Id);
 			Field(x => x.Content);
 			Field(x => x.CreatedAt);
-			Field(x => x.UpdatedAt, nullable: true);
+			NullField(x => x.UpdatedAt);
 
 			DocumentIOField<ReadCardType, Card>("card")
 				.Authorize(Roles.User)

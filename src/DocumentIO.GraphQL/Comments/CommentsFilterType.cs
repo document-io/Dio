@@ -4,10 +4,10 @@ namespace DocumentIO
 	{
 		public CommentsFilterType()
 		{
-			Field(x => x.Id, nullable: true);
-			Field(x => x.Content, nullable: true);
-			Field(x => x.CreatedAt, nullable: true);
-			Field(x => x.UpdatedAt, nullable: true);
+			NullField(x => x.Id);
+			NullField(x => x.Content);
+			NullField(x => x.CreatedAt);
+			NullField(x => x.UpdatedAt);
 		}
 	}
 }

@@ -4,12 +4,12 @@ namespace DocumentIO
 	{
 		public UpdateAccountType()
 		{
-			Field(x => x.Login, nullable: true);
-			Field(x => x.Email, nullable: true);
-			Field(x => x.Password, nullable: true);
-			Field(x => x.FirstName, nullable: true);
-			Field(x => x.MiddleName, nullable: true);
-			Field(x => x.LastName, nullable: true);
+			NullField(x => x.Login);
+			NullField(x => x.Email);
+			NullField(x => x.Password);
+			NullField(x => x.FirstName);
+			NullField(x => x.MiddleName);
+			NullField(x => x.LastName);
 		}
 	}
 }

@@ -9,7 +9,7 @@ namespace DocumentIO
 			Field(x => x.Role);
 			Field(x => x.Description);
 			Field(x => x.CreatedAt);
-			Field(x => x.DueDate, nullable: true);
+			NullField(x => x.DueDate);
 
 			DocumentIOField<ReadAccountType, Account>("account")
 				.Authorize(Roles.User)

@@ -4,13 +4,13 @@ namespace DocumentIO
 	{
 		public AccountFilterType()
 		{
-			Field(x => x.Id, nullable: true);
-			Field(x => x.Login, nullable: true);
-			Field(x => x.Role, nullable: true);
-			Field(x => x.Email, nullable: true);
-			Field(x => x.FirstName, nullable: true);
-			Field(x => x.MiddleName, nullable: true);
-			Field(x => x.LastName, nullable: true);
+			NullField(x => x.Id);
+			NullField(x => x.Login);
+			NullField(x => x.Role);
+			NullField(x => x.Email);
+			NullField(x => x.FirstName);
+			NullField(x => x.MiddleName);
+			NullField(x => x.LastName);
 		}
 	}
 }

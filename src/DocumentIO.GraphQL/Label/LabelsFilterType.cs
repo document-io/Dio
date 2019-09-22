@@ -4,10 +4,10 @@ namespace DocumentIO
 	{
 		public LabelsFilterType()
 		{
-			Field(x => x.Id, nullable: true);
-			Field(x => x.Name, nullable: true);
-			Field(x => x.Description, nullable: true);
-			Field(x => x.Color, nullable: true);
+			NullField(x => x.Id);
+			NullField(x => x.Name);
+			NullField(x => x.Description);
+			NullField(x => x.Color);
 		}
 	}
 }

@@ -4,8 +4,8 @@ namespace DocumentIO
 	{
 		public BoardsFilterType()
 		{
-			Field(x => x.Id, nullable: true);
-			Field(x => x.Name, nullable: true);
+			NullField(x => x.Id);
+			NullField(x => x.Name);
 		}
 	}
 }
