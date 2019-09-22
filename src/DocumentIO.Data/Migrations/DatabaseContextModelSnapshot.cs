@@ -25,8 +25,8 @@ namespace DocumentIO.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp without time zone");
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Email")
                         .HasColumnType("text");
@@ -65,8 +65,8 @@ namespace DocumentIO.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp without time zone");
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Name")
                         .HasColumnType("text");
@@ -93,11 +93,11 @@ namespace DocumentIO.Migrations
                     b.Property<string>("Content")
                         .HasColumnType("text");
 
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp without time zone");
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
 
-                    b.Property<DateTime?>("DueDate")
-                        .HasColumnType("timestamp without time zone");
+                    b.Property<DateTimeOffset?>("DueDate")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Name")
                         .HasColumnType("text");
@@ -105,8 +105,8 @@ namespace DocumentIO.Migrations
                     b.Property<int>("Order")
                         .HasColumnType("integer");
 
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("timestamp without time zone");
+                    b.Property<DateTimeOffset?>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
 
@@ -122,6 +122,9 @@ namespace DocumentIO.Migrations
 
                     b.Property<Guid>("CardId")
                         .HasColumnType("uuid");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
 
                     b.HasKey("AccountId", "CardId");
 
@@ -144,6 +147,9 @@ namespace DocumentIO.Migrations
 
                     b.Property<byte[]>("Content")
                         .HasColumnType("bytea");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("MimeType")
                         .HasColumnType("text");
@@ -172,8 +178,11 @@ namespace DocumentIO.Migrations
                     b.Property<string>("Content")
                         .HasColumnType("text");
 
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp without time zone");
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTimeOffset?>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
 
@@ -198,6 +207,9 @@ namespace DocumentIO.Migrations
 
                     b.Property<string>("Content")
                         .HasColumnType("text");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
 
@@ -254,14 +266,14 @@ namespace DocumentIO.Migrations
                     b.Property<Guid?>("AccountId")
                         .HasColumnType("uuid");
 
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp without time zone");
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Description")
                         .HasColumnType("text");
 
-                    b.Property<DateTime?>("DueDate")
-                        .HasColumnType("timestamp without time zone");
+                    b.Property<DateTimeOffset?>("DueDate")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<Guid>("OrganizationId")
                         .HasColumnType("uuid");

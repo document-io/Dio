@@ -13,7 +13,7 @@ namespace DocumentIO
 		public string FirstName { get; set; }
 		public string MiddleName { get; set; }
 		public string LastName { get; set; }
-		public DateTime CreatedAt { get; set; }
+		public DateTimeOffset CreatedAt { get; set; }
 
 		public Invite Invite { get; set; }
 

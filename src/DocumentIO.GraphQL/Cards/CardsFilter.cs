@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Linq.Expressions;
 
 namespace DocumentIO
 {
@@ -9,11 +10,12 @@ namespace DocumentIO
 		public string Name { get; set; }
 		public int? Order { get; set; }
 
-		public DateTime? DueDate { get; set; }
+		public DateTimeOffset? DueDate { get; set; }
 		
-		public override IQueryable<TPaginated> Filtered<TPaginated>(
+		public override IQueryable<TPaginated> Filtered<TPaginated, TOrderBy>(
 			IQueryable<Card> queryable,
-			Func<IQueryable<Card>, IQueryable<TPaginated>> query)
+			Func<IQueryable<Card>, IQueryable<TPaginated>> query,
+			Expression<Func<TPaginated, TOrderBy>> orderBy)
 		{
 			if (Id != null)
 				queryable = queryable.Where(card => card.Id == Id);
@@ -27,7 +29,7 @@ namespace DocumentIO
 			if (DueDate != null)
 				queryable = queryable.Where(card => card.DueDate != null && card.DueDate < DueDate);
 
-			return base.Filtered(queryable, query);
+			return base.Filtered(queryable, query, orderBy);
 		}
 	}
 }

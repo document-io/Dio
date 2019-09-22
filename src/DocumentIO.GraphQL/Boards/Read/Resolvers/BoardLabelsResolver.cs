@@ -27,7 +27,8 @@ namespace DocumentIO
 				async ids =>
 					await filter.Filtered(
 							databaseContext.Labels.AsNoTracking(),
-							labels => labels.Where(label => ids.Contains(label.BoardId)))
+							query: labels => labels.Where(label => ids.Contains(label.BoardId)),
+							orderBy: label => label.Id)
 						.ToListAsync(),
 				label => label.BoardId);
 

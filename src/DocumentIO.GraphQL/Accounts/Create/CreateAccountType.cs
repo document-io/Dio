@@ -8,7 +8,7 @@ namespace DocumentIO
 			Field(x => x.Email);
 			Field(x => x.Password);
 			Field(x => x.FirstName);
-			Field(x => x.MiddleName, nullable: true);
+			NullField(x => x.MiddleName);
 			Field(x => x.LastName);
 		}
 	}

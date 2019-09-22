@@ -22,7 +22,8 @@ namespace DocumentIO
 			return await filter.Filtered(
 					databaseContext.CardComments.AsNoTracking(),
 					comments => comments.Where(comment =>
-						comment.Account.Organization.Accounts.Any(account => account.Id == accountId)))
+						comment.Account.Organization.Accounts.Any(account => account.Id == accountId)),
+					orderBy: comment => comment.CreatedAt)
 				.ToListAsync();
 		}
 	}

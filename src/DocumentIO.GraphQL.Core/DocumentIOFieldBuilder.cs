@@ -104,6 +104,13 @@ namespace DocumentIO
 			return this;
 		}
 
+		public DocumentIOFieldBuilder<TSourceType, TReturnType> DefaultValue(TReturnType value)
+		{
+			builder.DefaultValue(value);
+
+			return this;
+		}
+
 		private async Task EnsureArgumentsValid(
 			ResolveFieldContext<TSourceType> context,
 			IServiceProvider serviceProvider,

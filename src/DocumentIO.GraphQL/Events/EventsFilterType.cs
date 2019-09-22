@@ -4,8 +4,8 @@ namespace DocumentIO
 	{
 		public EventsFilterType()
 		{
-			Field(x => x.Id, nullable: true);
-			Field(x => x.Content, nullable: true);
+			NullField(x => x.Id);
+			NullField(x => x.Content);
 		}
 	}
 }

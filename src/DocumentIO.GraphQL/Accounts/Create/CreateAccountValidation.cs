@@ -40,7 +40,8 @@ namespace DocumentIO
 
 			if (validationContext.IsValid(model, m => m.Login))
 			{
-				var loginExists = await databaseContext.Accounts
+				var loginExists = await databaseContext
+					.Accounts
 					.AnyAsync(x => x.Login == model.Login);
 
 				validationContext.When(model, m => m.Login)
@@ -54,7 +55,8 @@ namespace DocumentIO
 
 			if (validationContext.IsValid(model, m => m.Email))
 			{
-				var accountExists = await databaseContext.Accounts
+				var accountExists = await databaseContext
+					.Accounts
 					.AnyAsync(account => account.Email == model.Email);
 
 				validationContext.When(model, m => m.Email)

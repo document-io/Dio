@@ -1,15 +1,18 @@
 using System;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 
 namespace DocumentIO
 {
 	public class CreateOrganizationResolver : IDocumentIOResolver<Organization>
 	{
 		private readonly DatabaseContext databaseContext;
+		private readonly IPasswordHasher<Account> passwordHasher;
 
-		public CreateOrganizationResolver(DatabaseContext databaseContext)
+		public CreateOrganizationResolver(DatabaseContext databaseContext, IPasswordHasher<Account> passwordHasher)
 		{
 			this.databaseContext = databaseContext;
+			this.passwordHasher = passwordHasher;
 		}
 
 		public async Task<Organization> Resolve(DocumentIOResolveFieldContext<object> context)
@@ -32,6 +35,7 @@ namespace DocumentIO
 
 				account.Role = invite.Role;
 				account.CreatedAt = DateTime.UtcNow;
+				account.Password = passwordHasher.HashPassword(account, account.Password);
 
 				await databaseContext.Invites.AddAsync(invite);
 			}

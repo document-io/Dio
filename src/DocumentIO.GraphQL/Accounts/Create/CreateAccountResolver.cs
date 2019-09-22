@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace DocumentIO
@@ -7,10 +8,12 @@ namespace DocumentIO
 	public class CreateAccountResolver : IDocumentIOResolver<Account>
 	{
 		private readonly DatabaseContext databaseContext;
+		private readonly IPasswordHasher<Account> passwordHasher;
 
-		public CreateAccountResolver(DatabaseContext databaseContext)
+		public CreateAccountResolver(DatabaseContext databaseContext, IPasswordHasher<Account> passwordHasher)
 		{
 			this.databaseContext = databaseContext;
+			this.passwordHasher = passwordHasher;
 		}
 
 		public async Task<Account> Resolve(DocumentIOResolveFieldContext<object> context)
@@ -26,6 +29,7 @@ namespace DocumentIO
 			account.CreatedAt = DateTime.UtcNow;
 			account.Invite = invite;
 			account.OrganizationId = invite.OrganizationId;
+			account.Password = passwordHasher.HashPassword(account, account.Password);
 
 			await databaseContext.Accounts.AddAsync(account);
 

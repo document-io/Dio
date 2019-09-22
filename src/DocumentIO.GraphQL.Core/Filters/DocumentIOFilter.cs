@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Linq.Expressions;
 
 namespace DocumentIO
 {
@@ -7,24 +8,36 @@ namespace DocumentIO
 	{
 		public int? Page { get; set; }
 		public int? Size { get; set; }
+		public DocumentIOOrderBy? OrderBy { get; set; }
 
-		public virtual IQueryable<TPaginated> Filtered<TPaginated>(
+		public virtual IQueryable<TPaginated> Filtered<TPaginated, TOrderBy>(
 			IQueryable<TEntity> queryable,
-			Func<IQueryable<TEntity>, IQueryable<TPaginated>> query)
+			Func<IQueryable<TEntity>, IQueryable<TPaginated>> query,
+			Expression<Func<TPaginated, TOrderBy>> orderBy)
 		{
-			var paginated = query(queryable);
+			var filtered = query(queryable);
 
 			if (Page != null && Size != null)
 			{
-				paginated = paginated.Skip(Size.Value * Page.Value - 1);
+				filtered = filtered.Skip(Size.Value * Page.Value - 1);
 			}
 
 			if (Size != null)
 			{
-				paginated = paginated.Take(Size.Value);
+				filtered = filtered.Take(Size.Value);
 			}
-			
-			return paginated;
+
+			if (OrderBy != null)
+			{
+				filtered = OrderBy switch
+				{
+					DocumentIOOrderBy.Ascending => filtered.OrderBy(orderBy),
+					DocumentIOOrderBy.Descending => filtered.OrderByDescending(orderBy),
+					_ => filtered
+				};
+			}
+
+			return filtered;
 		}
 	}
 }

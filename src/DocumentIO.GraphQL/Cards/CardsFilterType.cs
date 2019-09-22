@@ -4,10 +4,10 @@ namespace DocumentIO
 	{
 		public CardsFilterType()
 		{
-			Field(x => x.Id, nullable: true);
-			Field(x => x.Name, nullable: true);
-			Field(x => x.Order, nullable: true);
-			Field(x => x.DueDate, nullable: true);
+			NullField(x => x.Id);
+			NullField(x => x.Name);
+			NullField(x => x.Order);
+			NullField(x => x.DueDate);
 		}
 	}
 }

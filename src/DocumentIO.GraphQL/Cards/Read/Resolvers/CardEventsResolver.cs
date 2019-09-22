@@ -27,7 +27,8 @@ namespace DocumentIO
 				async ids =>
 					await filter.Filtered(
 							databaseContext.CardEvents.AsNoTracking(),
-							events => events.Where(@event => ids.Contains(@event.CardId)))
+							query: events => events.Where(@event => ids.Contains(@event.CardId)),
+							orderBy: @event => @event.CreatedAt)
 						.ToListAsync(),
 				cardLabel => cardLabel.CardId);
 

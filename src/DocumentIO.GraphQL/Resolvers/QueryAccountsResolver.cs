@@ -22,7 +22,8 @@ namespace DocumentIO
 			return await filter.Filtered(
 					databaseContext.Accounts.AsNoTracking(),
 					accounts => accounts.Where(
-						account => account.Organization.Accounts.Any(x => x.Id == accountId)))
+						account => account.Organization.Accounts.Any(x => x.Id == accountId)),
+					account => account.CreatedAt)
 				.ToListAsync();
 		}
 	}

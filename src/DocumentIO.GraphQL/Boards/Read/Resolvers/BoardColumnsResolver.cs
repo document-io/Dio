@@ -27,7 +27,8 @@ namespace DocumentIO
 				async ids =>
 					await filter.Filtered(
 							databaseContext.Columns.AsNoTracking(),
-							columns => columns.Where(column => ids.Contains(column.BoardId)))
+							query: columns => columns.Where(column => ids.Contains(column.BoardId)),
+							orderBy: column => column.Order)
 						.ToListAsync(),
 				column => column.BoardId);
 

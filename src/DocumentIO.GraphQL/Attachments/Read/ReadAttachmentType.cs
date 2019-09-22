@@ -7,6 +7,7 @@ namespace DocumentIO
 			Field(x => x.Id);
 			Field(x => x.MimeType);
 			Field(x => x.Content);
+			Field(x => x.CreatedAt);
 
 			DocumentIOField<ReadCardType, Card>("card")
 				.Authorize(Roles.User)

@@ -27,7 +27,8 @@ namespace DocumentIO
 				async ids =>
 					await filter.Filtered(
 							databaseContext.Boards.AsNoTracking(),
-							boards => boards.Where(board => ids.Contains(board.OrganizationId)))
+							boards => boards.Where(board => ids.Contains(board.OrganizationId)),
+							board => board.CreatedAt)
 						.ToListAsync(),
 				board => board.OrganizationId);
 

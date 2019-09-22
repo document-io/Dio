@@ -7,7 +7,7 @@ namespace DocumentIO
 	{
 		public Guid Id { get; set; }
 		public string Name { get; set; }
-		public DateTime CreatedAt { get; set; }
+		public DateTimeOffset CreatedAt { get; set; }
 
 		public Guid OrganizationId { get; set; }
 		public Organization Organization { get; set; }

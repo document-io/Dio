@@ -8,8 +8,8 @@ namespace DocumentIO
 			Field(x => x.Name);
 			Field(x => x.Order);
 			Field(x => x.CreatedAt);
-			Field(x => x.UpdatedAt, nullable: true);
-			Field(x => x.DueDate, nullable: true);
+			NullField(x => x.UpdatedAt);
+			NullField(x => x.DueDate);
 			Field(x => x.Content);
 
 			DocumentIOField<ReadColumnType, Column>("column")

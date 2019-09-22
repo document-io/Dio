@@ -5,8 +5,8 @@ namespace DocumentIO
 		public UpdateColumnType()
 		{
 			Field(x => x.Id);
-			Field(x => x.Name, nullable: true);
-			Field(x => x.Order, nullable: true);
+			NullField(x => x.Name);
+			NullField(x => x.Order);
 		}
 	}
 }

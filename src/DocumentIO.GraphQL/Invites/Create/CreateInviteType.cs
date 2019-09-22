@@ -6,7 +6,7 @@ namespace DocumentIO
 		{
 			Field(x => x.Role);
 			Field(x => x.Description);
-			Field(x => x.DueDate, nullable: true);
+			NullField(x => x.DueDate);
 		}
 	}
 }

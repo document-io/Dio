@@ -27,9 +27,10 @@ namespace DocumentIO
 				async ids =>
 					await filter.Filtered(
 							databaseContext.Cards.AsNoTracking(),
-							cards => cards.SelectMany(card => card.Assignments)
+							query: cards => cards.SelectMany(card => card.Assignments)
 								.Include(cardLabel => cardLabel.Card)
-								.Where(cardLabel => ids.Contains(cardLabel.AccountId)))
+								.Where(cardLabel => ids.Contains(cardLabel.AccountId)),
+							orderBy: assignment => assignment.Card.CreatedAt)
 						.ToListAsync(),
 				cardLabel => cardLabel.AccountId);
 

@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Linq.Expressions;
 
 namespace DocumentIO
 {
@@ -7,10 +8,13 @@ namespace DocumentIO
 	{
 		public Guid? Id { get; set; }
 		public string Content { get; set; }
+		public DateTimeOffset? CreatedAt { get; set; }
+		public DateTimeOffset? UpdatedAt { get; set; }
 
-		public override IQueryable<TPaginated> Filtered<TPaginated>(
+		public override IQueryable<TPaginated> Filtered<TPaginated, TOrderBy>(
 			IQueryable<CardComment> queryable,
-			Func<IQueryable<CardComment>, IQueryable<TPaginated>> query)
+			Func<IQueryable<CardComment>, IQueryable<TPaginated>> query,
+			Expression<Func<TPaginated, TOrderBy>> orderBy)
 		{
 			if (Id != null)
 				queryable = queryable.Where(comment => comment.Id == Id);
@@ -18,7 +22,13 @@ namespace DocumentIO
 			if (Content != null)
 				queryable = queryable.Where(comment => comment.Content.Contains(Content));
 
-			return base.Filtered(queryable, query);
+			if (CreatedAt != null)
+				queryable = queryable.Where(comment => comment.CreatedAt >= CreatedAt);
+
+			if (UpdatedAt != null)
+				queryable = queryable.Where(comment => comment.CreatedAt >= UpdatedAt);
+
+			return base.Filtered(queryable, query, orderBy);
 		}
 	}
 }

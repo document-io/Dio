@@ -26,7 +26,9 @@ namespace DocumentIO
 				"AccountAttachments",
 				async ids => await filter.Filtered(
 						databaseContext.CardAttachments.AsNoTracking(),
-						attachments => attachments.Where(cardLabel => ids.Contains(cardLabel.AccountId)))
+						query: attachments => attachments
+							.Where(cardLabel => ids.Contains(cardLabel.AccountId)),
+						orderBy: attachment => attachment.CreatedAt)
 					.ToListAsync(),
 				cardLabel => cardLabel.AccountId);
 

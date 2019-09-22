@@ -1,3 +1,5 @@
+using GraphQL.Types;
+
 namespace DocumentIO
 {
 	public class DocumentIOQueries : DocumentIOGraphType<object>
@@ -5,6 +7,9 @@ namespace DocumentIO
 		public DocumentIOQueries()
 		{
 			Name = "Queries";
+
+			DocumentIOField<StringGraphType, string>("version")
+				.ResolveAsync<QueryVersionResolver>();
 
 			DocumentIOField<ReadOrganizationType, Organization>("organization")
 				.Authorize(Roles.User)

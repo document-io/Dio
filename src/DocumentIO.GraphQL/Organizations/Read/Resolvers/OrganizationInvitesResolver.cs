@@ -27,7 +27,8 @@ namespace DocumentIO
 				async ids =>
 					await filter.Filtered(
 							databaseContext.Invites.AsNoTracking(),
-							invites => invites.Where(invite => ids.Contains(invite.OrganizationId)))
+							query: invites => invites.Where(invite => ids.Contains(invite.OrganizationId)),
+							orderBy: invite => invite.CreatedAt)
 						.ToListAsync(),
 				invite => invite.OrganizationId);
 
