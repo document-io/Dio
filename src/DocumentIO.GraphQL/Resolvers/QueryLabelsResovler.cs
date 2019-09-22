@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DocumentIO
 {
-	public class QueryLabelsResovler : IDocumentIOResolver<object, IEnumerable<Label>>
+	public class QueryLabelsResovler : IDocumentIOResolver<IEnumerable<Label>>
 	{
 		private readonly DatabaseContext databaseContext;
 

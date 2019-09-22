@@ -10,4 +10,8 @@ namespace DocumentIO
 	{
 		Task<TReturnType> Resolve(DocumentIOResolveFieldContext<TSourceType> context);
 	}
+
+	public interface IDocumentIOResolver<TReturnType> : IDocumentIOResolver<object, TReturnType>
+	{
+	}
 }

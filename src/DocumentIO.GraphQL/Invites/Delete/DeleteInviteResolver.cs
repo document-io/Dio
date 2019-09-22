@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DocumentIO
 {
-	public class DeleteInviteResolver : IDocumentIOResolver<object, Invite>
+	public class DeleteInviteResolver : IDocumentIOResolver<Invite>
 	{
 		private readonly DatabaseContext databaseContext;
 

@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DocumentIO
 {
-	public class LogoutAccountResolver : IDocumentIOResolver<object, Account>
+	public class LogoutAccountResolver : IDocumentIOResolver<Account>
 	{
 		private readonly DatabaseContext databaseContext;
 

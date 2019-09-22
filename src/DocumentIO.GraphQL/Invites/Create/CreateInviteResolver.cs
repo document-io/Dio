@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace DocumentIO
 {
-	public class CreateInviteResolver : IDocumentIOResolver<object, Invite>
+	public class CreateInviteResolver : IDocumentIOResolver<Invite>
 	{
 		private readonly DatabaseContext databaseContext;
 

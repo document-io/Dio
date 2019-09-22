@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DocumentIO
 {
-	public class CreateCardResolver : IDocumentIOResolver<object, Card>
+	public class CreateCardResolver : IDocumentIOResolver<Card>
 	{
 		private readonly DatabaseContext databaseContext;
 

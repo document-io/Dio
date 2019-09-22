@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DocumentIO
 {
-	public class UpdateCardResolver : IDocumentIOResolver<object, Card>
+	public class UpdateCardResolver : IDocumentIOResolver<Card>
 	{
 		private readonly DatabaseContext databaseContext;
 

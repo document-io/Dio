@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DocumentIO
 {
-	public class QueryOrganizationResolver : IDocumentIOResolver<object, Organization>
+	public class QueryOrganizationResolver : IDocumentIOResolver<Organization>
 	{
 		private readonly DatabaseContext databaseContext;
 
