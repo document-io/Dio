@@ -9,11 +9,11 @@ namespace DocumentIO
 			Field(x => x.Content);
 			Field(x => x.CreatedAt);
 
-			DocumentIOField<ReadCardType, Card>("card")
+			NonNullDocumentIOField<ReadCardType, Card>("card")
 				.Authorize(Roles.User)
 				.ResolveAsync<AttachmentCardResolver>();
 
-			DocumentIOField<ReadAccountType, Account>("account")
+			NonNullDocumentIOField<ReadAccountType, Account>("account")
 				.Authorize(Roles.User)
 				.ResolveAsync<AttachmentAccountResolver>();
 		}

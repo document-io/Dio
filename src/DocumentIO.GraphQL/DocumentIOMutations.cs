@@ -81,6 +81,24 @@ namespace DocumentIO
 				.NonNullArgument<UpdateCardType>()
 				.Validate<UpdateCardValidation>()
 				.ResolveAsync<UpdateCardResolver>();
+
+			DocumentIOField<ReadCommentType, CardComment>("createComment")
+				.Authorize(Roles.User)
+				.NonNullArgument<CreateCommentType>()
+				.Validate<CreateCommentValidation>()
+				.ResolveAsync<CreateCommentResolver>();
+
+			DocumentIOField<ReadCommentType, CardComment>("updateComment")
+				.Authorize(Roles.User)
+				.NonNullArgument<UpdateCommentType>()
+				.Validate<UpdateCommentValidation>()
+				.ResolveAsync<UpdateCommentResolver>();
+
+			DocumentIOField<ReadCommentType, CardComment>("deleteComment")
+				.Authorize(Roles.User)
+				.NonNullArgument<GuidGraphType>("id")
+				.Validate<DeleteCommentValidation>()
+				.ResolveAsync<DeleteCommentResolver>();
 		}
 	}
 }
