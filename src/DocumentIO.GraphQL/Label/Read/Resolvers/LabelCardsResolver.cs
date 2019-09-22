@@ -30,7 +30,8 @@ namespace DocumentIO
 							cards => cards
 								.SelectMany(card => card.Labels)
 								.Include(cardLabel => cardLabel.Card)
-								.Where(cardLabel => ids.Contains(cardLabel.LabelId)))
+								.Where(cardLabel => ids.Contains(cardLabel.LabelId)),
+							label => label.CardId)
 						.ToListAsync(),
 				cardLabel => cardLabel.LabelId);
 

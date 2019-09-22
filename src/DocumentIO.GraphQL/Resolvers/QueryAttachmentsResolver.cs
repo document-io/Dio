@@ -22,7 +22,8 @@ namespace DocumentIO
 			return await filter.Filtered(
 					databaseContext.CardAttachments.AsNoTracking(),
 					attachments => attachments.Where(attachment =>
-						attachment.Account.Organization.Accounts.Any(x => x.Id == accountId)))
+						attachment.Account.Organization.Accounts.Any(x => x.Id == accountId)),
+					attachment => attachment.CreatedAt)
 				.ToListAsync();
 		}
 	}

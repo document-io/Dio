@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Linq.Expressions;
 
 namespace DocumentIO
 {
@@ -8,9 +9,10 @@ namespace DocumentIO
 		public Guid? Id { get; set; }
 		public string Name { get; set; }
 
-		public override IQueryable<TPaginated> Filtered<TPaginated>(
+		public override IQueryable<TPaginated> Filtered<TPaginated, TOrderBy>(
 			IQueryable<Board> queryable,
-			Func<IQueryable<Board>, IQueryable<TPaginated>> query)
+			Func<IQueryable<Board>, IQueryable<TPaginated>> query,
+			Expression<Func<TPaginated, TOrderBy>> orderBy)
 		{
 			if (Id != null)
 				queryable = queryable.Where(board => board.Id == Id);
@@ -18,7 +20,7 @@ namespace DocumentIO
 			if (Name != null)
 				queryable = queryable.Where(board => board.Name.Contains(Name));
 
-			return base.Filtered(queryable, query);
+			return base.Filtered(queryable, query, orderBy);
 		}
 	}
 }

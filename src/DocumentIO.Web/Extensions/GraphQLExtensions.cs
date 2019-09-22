@@ -20,6 +20,8 @@ namespace DocumentIO.Web
 			services.AddSingleton<ISchema, DocumentIOSchema>();
 			services.AddSingleton<IDocumentExecuter, DocumentIODocumentExecuter>();
 
+			services.AddSingleton<EnumerationGraphType<DocumentIOOrderBy>, DocumentIOOrderByType>();
+
 			var assembly = typeof(DocumentIOSchema).Assembly;
 			
 			services.AddGraphQL(options =>

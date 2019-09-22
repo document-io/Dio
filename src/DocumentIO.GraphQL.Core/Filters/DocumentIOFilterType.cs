@@ -10,6 +10,7 @@ namespace DocumentIO
 			Field(x => x.Page, nullable: true);
 			Field(x => x.Size, nullable: true)
 				.DefaultValue(20);
+			Field(x => x.OrderBy, nullable: true);
 		}
 	}
 }

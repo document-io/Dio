@@ -22,7 +22,8 @@ namespace DocumentIO
 			return await filter.Filtered(
 					databaseContext.Cards.AsNoTracking(),
 					cards => cards.Where(card =>
-						card.Column.Board.Organization.Accounts.Any(account => account.Id == accountId)))
+						card.Column.Board.Organization.Accounts.Any(account => account.Id == accountId)),
+					card => card.Order)
 				.ToListAsync();
 		}
 	}

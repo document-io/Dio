@@ -21,8 +21,9 @@ namespace DocumentIO
 
 			return await filter.Filtered(
 					databaseContext.CardEvents.AsNoTracking(),
-					events => events.Where(@event =>
-						@event.Account.Organization.Accounts.Any(account => account.Id == accountId)))
+					query: events => events.Where(@event =>
+						@event.Account.Organization.Accounts.Any(account => account.Id == accountId)),
+					orderBy: @event => @event.Id)
 				.ToListAsync();
 		}
 	}

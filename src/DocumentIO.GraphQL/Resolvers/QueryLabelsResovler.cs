@@ -21,7 +21,8 @@ namespace DocumentIO
 
 			return await filter.Filtered(
 					databaseContext.Labels.AsNoTracking(),
-					labels => labels.Where(label => label.Board.Organization.Accounts.Any(account => account.Id == accountId)))
+					labels => labels.Where(label => label.Board.Organization.Accounts.Any(account => account.Id == accountId)),
+					label => label.Id)
 				.ToListAsync();
 		}
 	}

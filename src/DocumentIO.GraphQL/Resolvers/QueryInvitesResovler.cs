@@ -21,7 +21,9 @@ namespace DocumentIO
 
 			return await filter.Filtered(
 					databaseContext.Invites.AsNoTracking(),
-					invites => invites.Where(invite => invite.Organization.Accounts.Any(account => account.Id == accountId)))
+					query: invites => invites
+						.Where(invite => invite.Organization.Accounts.Any(account => account.Id == accountId)),
+					orderBy: invite => invite.CreatedAt)
 				.ToListAsync();
 		}
 	}

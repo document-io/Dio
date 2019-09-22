@@ -27,7 +27,8 @@ namespace DocumentIO
 				async ids => 
 					await filter.Filtered(
 							databaseContext.CardComments.AsNoTracking(),
-							comments => comments.Where(cardLabel => ids.Contains(cardLabel.AccountId)))
+							comments => comments.Where(cardLabel => ids.Contains(cardLabel.AccountId)),
+							comment => comment.CreatedAt)
 						.ToListAsync(),
 				cardLabel => cardLabel.AccountId);
 
