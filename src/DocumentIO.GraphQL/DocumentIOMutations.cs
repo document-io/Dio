@@ -99,6 +99,42 @@ namespace DocumentIO
 				.NonNullArgument<GuidGraphType>("id")
 				.Validate<DeleteCommentValidation>()
 				.ResolveAsync<DeleteCommentResolver>();
+
+			DocumentIOField<ReadCardType, Card>("createAssignment")
+				.Authorize(Roles.User)
+				.NonNullArgument<CreateAssignmentType>()
+				.Validate<CreateAssignmentValidation>()
+				.ResolveAsync<CreateAssignmentResolver>();
+
+			DocumentIOField<ReadCardType, Card>("deteleAssignment")
+				.Authorize(Roles.User)
+				.NonNullArgument<DeleteAssignmentType>()
+				.Validate<DeleteAssignmentValidation>()
+				.ResolveAsync<DeleteAssignmentResolver>();
+
+			DocumentIOField<ReadLabelType, Label>("createLabel")
+				.Authorize(Roles.User)
+				.NonNullArgument<CreateLabelType>()
+				.Validate<CreateLabelValidation>()
+				.ResolveAsync<CreateLabelResolver>();
+
+			DocumentIOField<ReadLabelType, Label>("updateLabel")
+				.Authorize(Roles.User)
+				.NonNullArgument<UpdateLabelType>()
+				.Validate<UpdateLabelValidation>()
+				.ResolveAsync<UpdateLabelResolver>();
+
+			DocumentIOField<ReadCardType, Card>("createCardLabel")
+				.Authorize(Roles.User)
+				.NonNullArgument<CreateCardLabelType>()
+				.Validate<CreateCardLabelValidation>()
+				.ResolveAsync<CreateCardLabelResolver>();
+
+			DocumentIOField<ReadCardType, Card>("deleteCardLabel")
+				.Authorize(Roles.User)
+				.NonNullArgument<DeleteCardLabelType>()
+				.Validate<DeleteCardLabelValidation>()
+				.ResolveAsync<DeleteCardLabelResolver>();
 		}
 	}
 }

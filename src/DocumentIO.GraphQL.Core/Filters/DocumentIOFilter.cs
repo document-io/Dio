@@ -17,16 +17,6 @@ namespace DocumentIO
 		{
 			var filtered = query(queryable);
 
-			if (Page != null && Size != null)
-			{
-				filtered = filtered.Skip(Size.Value * Page.Value - 1);
-			}
-
-			if (Size != null)
-			{
-				filtered = filtered.Take(Size.Value);
-			}
-
 			if (OrderBy != null)
 			{
 				filtered = OrderBy switch
@@ -35,6 +25,16 @@ namespace DocumentIO
 					DocumentIOOrderBy.Descending => filtered.OrderByDescending(orderBy),
 					_ => filtered
 				};
+			}
+
+			if (Page != null && Size != null)
+			{
+				filtered = filtered.Skip(Size.Value * Page.Value - 1);
+			}
+
+			if (Size != null)
+			{
+				filtered = filtered.Take(Size.Value);
 			}
 
 			return filtered;
