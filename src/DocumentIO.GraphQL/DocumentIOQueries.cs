@@ -59,6 +59,11 @@ namespace DocumentIO
 				.Authorize(Roles.User)
 				.Filtered<LabelsFilterType>()
 				.ResolveAsync<QueryLabelsResovler>();
+
+			DocumentIOListField<SearchInterface, Search>("search")
+				.Authorize(Roles.User)
+				.Filtered<SearchFilterType>()
+				.ResolveAsync<SearchResolver>();
 		}
 	}
 }

@@ -3,10 +3,9 @@ using System.Collections.Generic;
 
 namespace DocumentIO
 {
-	public class Column
+	public class Column : Search
 	{
 		public Guid Id { get; set; }
-		public string Name { get; set; }
 		public int Order { get; set; }
 
 		public Guid BoardId { get; set; }

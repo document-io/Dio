@@ -4,6 +4,8 @@ namespace DocumentIO
 	{
 		public ReadCardType()
 		{
+			Interface<SearchInterface>();
+
 			Field(x => x.Id);
 			Field(x => x.Name);
 			Field(x => x.Order);

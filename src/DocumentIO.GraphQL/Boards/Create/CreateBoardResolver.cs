@@ -29,6 +29,7 @@ namespace DocumentIO
 				{
 					Name = "Шаблоны",
 					Order = 0,
+					CreatedAt = DateTime.UtcNow,
 					Cards = new List<Card>
 					{
 						new Card

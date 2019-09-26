@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 
@@ -22,6 +23,7 @@ namespace DocumentIO
 
 			column.Board = board;
 			column.Order = board.Columns.Count + 1;
+			column.CreatedAt = DateTime.UtcNow;
 
 			await databaseContext.Columns.AddAsync(column);
 			await databaseContext.SaveChangesAsync();
