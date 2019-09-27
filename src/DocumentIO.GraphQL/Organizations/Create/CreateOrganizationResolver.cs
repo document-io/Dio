@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 
@@ -19,8 +20,6 @@ namespace DocumentIO
 		{
 			var organization = context.GetArgument<Organization>();
 
-			await databaseContext.Organizations.AddAsync(organization);
-
 			foreach (var account in organization.Accounts)
 			{
 				var invite = new Invite
@@ -39,6 +38,36 @@ namespace DocumentIO
 
 				await databaseContext.Invites.AddAsync(invite);
 			}
+			
+			organization.Boards = new List<Board>
+			{
+				new Board
+				{
+					Name = "Ваша первая доска",
+					CreatedAt = DateTime.UtcNow,
+					Columns = new List<Column>
+					{
+						new Column
+						{
+							Name = "Ваша первая колонка",
+							Order = 1,
+							CreatedAt = DateTime.UtcNow,
+							Cards = new List<Card>
+							{
+								new Card
+								{
+									Name = "Ваша первая карточка",
+									Order = 1,
+									Content = "Ваша первая карточка",
+									CreatedAt = DateTime.UtcNow
+								}
+							}
+						}
+					}
+				}
+			};
+
+			await databaseContext.Organizations.AddAsync(organization);
 
 			await databaseContext.SaveChangesAsync();
 

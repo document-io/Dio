@@ -3,12 +3,10 @@ using System.Collections.Generic;
 
 namespace DocumentIO
 {
-	public class Card
+	public class Card : Search
 	{
 		public Guid Id { get; set; }
-		public string Name { get; set; }
 		public int Order { get; set; }
-		public DateTimeOffset CreatedAt { get; set; }
 		public DateTimeOffset? UpdatedAt { get; set; }
 		public DateTimeOffset? DueDate { get; set; }
 

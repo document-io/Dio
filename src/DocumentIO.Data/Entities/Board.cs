@@ -3,12 +3,9 @@ using System.Collections.Generic;
 
 namespace DocumentIO
 {
-	public class Board
+	public class Board : Search
 	{
 		public Guid Id { get; set; }
-		public string Name { get; set; }
-		public DateTimeOffset CreatedAt { get; set; }
-
 		public Guid OrganizationId { get; set; }
 		public Organization Organization { get; set; }
 
