@@ -27,7 +27,7 @@ namespace DocumentIO
 
 			validationContext.When(model, m => m.AccountId)
 				.IsNot(() => accountExists)
-				.AddError("Аккаунт не найден");
+				.AddValidationError("Аккаунт не найден");
 
 			var cardExists = await databaseContext.Accounts
 				.Where(x => x.Id == accountId)
@@ -39,7 +39,7 @@ namespace DocumentIO
 
 			validationContext.When(model, m => m.AccountId)
 				.IsNot(() => cardExists)
-				.AddError("Карточка не найдена");
+				.AddValidationError("Карточка не найдена");
 
 			if (validationContext.IsValid())
 			{
@@ -49,7 +49,7 @@ namespace DocumentIO
 
 				validationContext.When()
 					.Is(() => assignmentExists)
-					.AddError("Аккаунт уже назначен");
+					.AddValidationError("Аккаунт уже назначен");
 			}
 		}
 	}

@@ -27,13 +27,13 @@ namespace DocumentIO
 
 			validationContext.When("id")
 				.Is(() => invite == null)
-				.AddError("Приглашение не найдено");
+				.AddValidationError("Приглашение не найдено");
 
 			if (validationContext.IsValid("id"))
 			{
 				validationContext.When("id")
 					.Is(() => invite.AccountId != null)
-					.AddError("Нельзя удалить использованное приглашение");
+					.AddValidationError("Нельзя удалить использованное приглашение");
 			}
 		}
 	}
