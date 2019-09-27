@@ -27,18 +27,18 @@ namespace DocumentIO
 
 			validationContext.When("secret")
 				.IsNot(() => inviteExists)
-				.AddError("Приглашение не найдено, либо уже использовано");
+				.AddValidationError("Приглашение не найдено, либо уже использовано");
 
 			await Validate(validationContext, model);
 		}
 
 		public async Task Validate(IValidationContext validationContext, Account model)
 		{
-			validationContext.When(model, m => m.Login)
+			var loginDetail = validationContext.When(model, m => m.Login)
 				.IsNullOrWhitespace()
-				.AddError("Логин не задан");
+				.AddValidationError("Логин не задан");
 
-			if (validationContext.IsValid(model, m => m.Login))
+			if (loginDetail is null)
 			{
 				var loginExists = await databaseContext
 					.Accounts
@@ -46,14 +46,14 @@ namespace DocumentIO
 
 				validationContext.When(model, m => m.Login)
 					.Is(() => loginExists)
-					.AddError("Логин уже используется");
+					.AddValidationError("Логин уже используется");
 			}
 
-			validationContext.When(model, m => m.Email)
+			var emailDetail = validationContext.When(model, m => m.Email)
 				.IsNotEmail()
-				.AddError("Это не email =/");
+				.AddValidationError("Это не email =/");
 
-			if (validationContext.IsValid(model, m => m.Email))
+			if (emailDetail is null)
 			{
 				var accountExists = await databaseContext
 					.Accounts
@@ -61,20 +61,20 @@ namespace DocumentIO
 
 				validationContext.When(model, m => m.Email)
 					.Is(() => accountExists)
-					.AddError("Email уже используется");
+					.AddValidationError("Email уже используется");
 			}
 
 			validationContext.When(model, m => m.Password)
 				.IsNullOrWhitespace()
-				.AddError("Пароль не задан");
+				.AddValidationError("Пароль не задан");
 
 			validationContext.When(model, m => m.FirstName)
 				.IsNullOrWhitespace()
-				.AddError("Имя не задано");
+				.AddValidationError("Имя не задано");
 
 			validationContext.When(model, m => m.LastName)
 				.IsNullOrWhitespace()
-				.AddError("Фамилия не задана");
+				.AddValidationError("Фамилия не задана");
 		}
 	}
 }

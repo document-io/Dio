@@ -22,7 +22,7 @@ namespace DocumentIO
 			{
 				validationContext.When(model, m => m.Login)
 					.IsNullOrWhitespace()
-					.AddError("Логин не задан");
+					.AddValidationError("Логин не задан");
 
 				if (validationContext.IsValid(model, m => m.Login))
 				{
@@ -32,7 +32,7 @@ namespace DocumentIO
 
 					validationContext.When(model, m => m.Login)
 						.Is(() => accountExists)
-						.AddError("Логин уже существует");
+						.AddValidationError("Логин уже существует");
 				}
 			}
 
@@ -40,7 +40,7 @@ namespace DocumentIO
 			{
 				validationContext.When(model, m => m.Email)
 					.IsNotEmail()
-					.AddError("Это не email =/");
+					.AddValidationError("Это не email =/");
 
 				if (validationContext.IsValid(model, m => m.Email))
 				{
@@ -50,35 +50,35 @@ namespace DocumentIO
 
 					validationContext.When(model, m => m.Email)
 						.Is(() => accountExists)
-						.AddError("Email уже используется");
+						.AddValidationError("Email уже используется");
 				}
 
 				if (model.Password != null)
 				{
 					validationContext.When(model, m => m.Password)
 						.IsNullOrWhitespace()
-						.AddError("Пароль не задан");
+						.AddValidationError("Пароль не задан");
 				}
 
 				if (model.FirstName != null)
 				{
 					validationContext.When(model, m => m.FirstName)
 						.IsNullOrWhitespace()
-						.AddError("Имя не задано");
+						.AddValidationError("Имя не задано");
 				}
 
 				if (model.MiddleName != null)
 				{
 					validationContext.When(model, m => m.MiddleName)
 						.IsNullOrWhitespace()
-						.AddError("Отчество не задано");
+						.AddValidationError("Отчество не задано");
 				}
 
 				if (model.LastName != null)
 				{
 					validationContext.When(model, m => m.LastName)
 						.IsNullOrWhitespace()
-						.AddError("Фамилия не задана");
+						.AddValidationError("Фамилия не задана");
 				}
 			}
 		}

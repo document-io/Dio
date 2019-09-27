@@ -28,12 +28,11 @@ namespace DocumentIO
 
 			validationContext.When(model, m => m.Id)
 				.IsNot(() => columnExists)
-				.AddError("Колонка не найдена");
+				.AddValidationError("Колонка не найдена");
 
 			validationContext.When(model, m => m.Name)
-				.IsNotNull()
-				.IsNullOrWhitespace()
-				.AddError("Имя колонки не указано");
+				.IsWhitespace()
+				.AddValidationError("Имя колонки не указано");
 
 			if (validationContext.IsValid(model, m => m.Name) && model.Name != null)
 			{
@@ -44,14 +43,14 @@ namespace DocumentIO
 
 				validationContext.When(model, m => m.Name)
 					.Is(() => columnNameExists)
-					.AddError($"Колонка с именем '{model.Name}' уже сущетсвует");
+					.AddValidationError($"Колонка с именем '{model.Name}' уже сущетсвует");
 			}
 
 			if (model.Order != 0)
 			{
 				validationContext.When(model, x => x.Order)
 					.IsLess(0)
-					.AddError("Порядок не может быть меньше нуля");
+					.AddValidationError("Порядок не может быть меньше нуля");
 
 				var columnsCount = await databaseContext
 					.Columns
@@ -60,7 +59,7 @@ namespace DocumentIO
 
 				validationContext.When(model, m => m.Order)
 					.IsGreater(columnsCount)
-					.AddError($"Порядок не может быть больше {columnsCount}");
+					.AddValidationError($"Порядок не может быть больше {columnsCount}");
 			}
 		}
 	}

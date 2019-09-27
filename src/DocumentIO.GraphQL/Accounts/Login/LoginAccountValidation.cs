@@ -23,11 +23,11 @@ namespace DocumentIO
 
 			validationContext.When(model, m => m.Email)
 				.IsNotEmail()
-				.AddError("Это не email =/");
+				.AddValidationError("Это не email =/");
 
 			validationContext.When(model, m => m.Password)
 				.IsNullOrWhitespace()
-				.AddError("Укажите ваш пароль");
+				.AddValidationError("Укажите ваш пароль");
 
 			if (validationContext.IsValid(model, m => m.Email) && validationContext.IsValid(model, m => m.Password))
 			{
@@ -43,7 +43,7 @@ namespace DocumentIO
 
 				validationContext.When()
 					.IsNot(() => accountExists)
-					.AddError("Email/пароль неверный, либо аккаунт не существует");
+					.AddValidationError("Email/пароль неверный, либо аккаунт не существует");
 			}
 		}
 	}

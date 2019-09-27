@@ -26,12 +26,11 @@ namespace DocumentIO
 
 			validationContext.When(model, m => m.Id)
 				.IsNot(() => boardExists)
-				.AddError("Доска не найдена");
+				.AddValidationError("Доска не найдена");
 
 			validationContext.When(model, m => m.Name)
-				.IsNotNull()
-				.IsNullOrWhitespace()
-				.AddError("Название доски не задано");
+				.IsWhitespace()
+				.AddValidationError("Название доски не задано");
 		}
 	}
 }
