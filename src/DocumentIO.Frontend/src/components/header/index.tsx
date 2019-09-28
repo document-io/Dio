@@ -2,12 +2,16 @@ import React, { PropsWithChildren } from 'react'
 import { Menu, Dropdown, Header } from "semantic-ui-react"
 import { Link } from 'react-router-dom'
 
-export const MenuHeader = (props: PropsWithChildren<{}>) => {
+export interface Props extends PropsWithChildren<{}>{
+	logoUrl: string
+}
+
+export const MenuHeader = (props: Props) => {
 
 	return (
 		<Menu size='small'>
 			<Menu.Item>
-				<Header as={Link} to='/'>
+				<Header as={Link} to={props.logoUrl}>
 					DocumentIO
 				</Header>
 			</Menu.Item>
@@ -23,7 +27,7 @@ export const MenuDropdown = () => (
 	<Menu.Menu position='right'>
 		<Dropdown item text='Аккаунт'>
 			<Dropdown.Menu>
-				<Dropdown.Item>Дашборд</Dropdown.Item>
+				<Dropdown.Item as={Link} to='/dashboard'>Дашборд</Dropdown.Item>
 				<Dropdown.Item>Мои карточки</Dropdown.Item>
 				<Dropdown.Item>Уведомления</Dropdown.Item>
 				<Dropdown.Divider/>

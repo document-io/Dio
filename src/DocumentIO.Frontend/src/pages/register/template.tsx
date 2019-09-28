@@ -1,18 +1,14 @@
-import React, { FormEvent, useState } from "react"
+import React, { FormEvent, useState } from 'react'
+import { RouteChildrenProps } from "react-router"
 import { Button, Form, Grid, Header, Message } from "semantic-ui-react"
-
-import { ApolloError } from 'apollo-boost'
+import { ApolloError } from "apollo-boost"
 import { useMutation } from "@apollo/react-hooks"
-import { CreateOrganizationType } from "./types"
-import { CreateOrganization, CreateOrganizationVariables } from "./mutations"
-import { RouteComponentProps } from "react-router"
+import { CreateAccount, CreateAccountVariables } from "./mutations"
+import { CreateAccountType } from "./types"
 
-export const CreatePageContent = (props: RouteComponentProps) => {
+export const RegisterPageTemplate = (props: RouteChildrenProps<{ secret: string }>) => {
 	const [loading, setLoading] = useState(false)
-	const [success, setSuccess] = useState(false)
-
-	const [name, setName] = useState<string>("")
-	const [nameValidation, setNameValidation] = useState<string>("")
+	const [globalValidation, setGlobalValidation] = useState<string>("")
 
 	const [login, setLogin] = useState<string>("")
 	const [loginValidation, setLoginValidation] = useState<string>("")
@@ -32,32 +28,27 @@ export const CreatePageContent = (props: RouteComponentProps) => {
 	const [confirmPassword, setConfirmPassword] = useState<string>("")
 	const [confirmPasswordValidation, setConfirmPasswordValidation] = useState<string>("")
 
-	const [createOrganization,] = useMutation<CreateOrganizationType,
-		CreateOrganizationVariables>(CreateOrganization)
+	const [createAccount] = useMutation<CreateAccountType, CreateAccountVariables>(CreateAccount)
 
 	const onSubmit = (event: FormEvent<HTMLFormElement>) => {
 		event.preventDefault()
 
 		setLoading(true)
 
-		createOrganization({
+		createAccount({
 			variables: {
-				organization: {
-					name,
-					accounts: [{
-						login,
-						email,
-						password: password === confirmPassword ? password : '',
-						lastName,
-						firstName
-					}]
+				// @ts-ignore
+				secret: props.match.params.secret,
+				account: {
+					login: login,
+					email: email,
+					password: password === confirmPassword ? password : "",
+					firstName: firstName,
+					lastName: lastName
 				}
 			}
 		})
-			.then(value => {
-				setSuccess(true)
-				setTimeout(() => props.history.push('/login'), 200)
-			})
+			.then(() => props.history.push('/login'))
 			.catch((reason: ApolloError) => {
 				reason.graphQLErrors
 					.forEach(error => {
@@ -65,30 +56,31 @@ export const CreatePageContent = (props: RouteComponentProps) => {
 						const {extensions: {code}, message} = error;
 
 						switch (code) {
-							case 'name':
-								setNameValidation(message)
-								break;
 
-							case 'accounts[0].login':
+							case 'login':
 								setLoginValidation(message)
 								break;
 
-							case 'accounts[0].email':
+							case 'email':
 								setEmailValidation(message)
 								break;
 
-							case 'accounts[0].password':
+							case 'password':
 								if (password === confirmPassword) {
 									setPasswordValidation(message)
 								}
 								break;
 
-							case 'accounts[0].firstName':
+							case 'firstName':
 								setFirstNameValidation(message)
 								break;
 
-							case 'accounts[0].lastName':
+							case 'lastName':
 								setLastNameValidation(message)
+								break;
+
+							default:
+								setGlobalValidation(message)
 								break;
 						}
 					})
@@ -105,25 +97,32 @@ export const CreatePageContent = (props: RouteComponentProps) => {
 	}
 
 	return (
-		<Grid centered columns='2'>
-			<Grid.Column>
-				{success ? (
-					<Message
-						success
-						header='Организация создана'
-						content={ `Организация '${ name }' успешно создана` } />) : null}
-
+		<Grid centered>
+			<Grid.Column computer='7' mobile='12'>
+				{
+					globalValidation == ""
+						? null
+						: (
+							<Message
+								error
+								content={ globalValidation }
+							/>
+						)
+				}
 				<Form loading={ loading } onSubmit={ onSubmit }>
-					<Form.Input
-						error={ nameValidation === "" ? null : {content: nameValidation} }
-						icon='building'
-						iconPosition='left'
-						placeholder='Введите название организации'
-						onChange={ (event, data) => {
-							setName(data.value)
-							setNameValidation("")
-						} }
-					/>
+					{
+						globalValidation == ""
+							? (
+								<Form.Field>
+									<Grid>
+										<Grid.Column textAlign='center'>
+											<Header>Регистрация</Header>
+										</Grid.Column>
+									</Grid>
+								</Form.Field>
+							)
+							: null
+					}
 
 					<Form.Input
 						error={ loginValidation === "" ? null : {content: loginValidation} }
@@ -133,6 +132,7 @@ export const CreatePageContent = (props: RouteComponentProps) => {
 						onChange={ (event, data) => {
 							setLogin(data.value)
 							setLoginValidation("")
+							setGlobalValidation("")
 						} }
 					/>
 
@@ -144,6 +144,7 @@ export const CreatePageContent = (props: RouteComponentProps) => {
 						onChange={ (event, data) => {
 							setEmail(data.value)
 							setEmailValidation("")
+							setGlobalValidation("")
 						} }
 					/>
 
@@ -155,6 +156,7 @@ export const CreatePageContent = (props: RouteComponentProps) => {
 						onChange={ (event, data) => {
 							setFirstName(data.value)
 							setFirstNameValidation("")
+							setGlobalValidation("")
 						} }
 					/>
 
@@ -166,6 +168,7 @@ export const CreatePageContent = (props: RouteComponentProps) => {
 						onChange={ (event, data) => {
 							setLastName(data.value)
 							setLastNameValidation("")
+							setGlobalValidation("")
 						} }
 					/>
 
@@ -173,11 +176,13 @@ export const CreatePageContent = (props: RouteComponentProps) => {
 						error={ passwordValidation === "" ? null : {content: passwordValidation} }
 						icon='low vision'
 						iconPosition='left'
+						type='password'
 						placeholder='Введите ваш пароль'
 						onChange={ (event, data) => {
 							setPassword(data.value)
 							setPasswordValidation("")
 							setConfirmPasswordValidation("")
+							setGlobalValidation("")
 						} }
 					/>
 
@@ -185,17 +190,19 @@ export const CreatePageContent = (props: RouteComponentProps) => {
 						error={ confirmPasswordValidation === "" ? null : {content: confirmPasswordValidation} }
 						icon='map signs'
 						iconPosition='left'
+						type='password'
 						placeholder='Повторите ваш пароль'
 						onChange={ (event, data) => {
 							setConfirmPassword(data.value)
 							setConfirmPasswordValidation("")
 							setPasswordValidation("")
+							setGlobalValidation("")
 						} }
 					/>
 
 					<Grid>
 						<Grid.Column textAlign='center'>
-							<Button type='submit' basic color='black'>Создать организацию</Button>
+							<Button type='submit' basic color='black'>Зарегистрироваться</Button>
 						</Grid.Column>
 					</Grid>
 				</Form>

@@ -4,16 +4,16 @@ import { Link } from "react-router-dom"
 import { MenuHeader } from "../../components/header"
 import { RouteComponentProps } from 'react-router'
 
-import { CreatePageContent } from "./content"
+import { CreatePageTemplate } from "./template"
 
 export const CreatePage = (props: RouteComponentProps) => (
 	<React.Fragment>
-		<MenuHeader>
+		<MenuHeader logoUrl='/'>
 			<Menu.Item as={ Link } to='login'>
 				Войти
 			</Menu.Item>
 		</MenuHeader>
 
-		<CreatePageContent {...props} />
+		<CreatePageTemplate {...props} />
 	</React.Fragment>
 )

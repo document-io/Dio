@@ -6,7 +6,7 @@ import { Link } from "react-router-dom"
 export const HomePage = () => {
 	return (
 		<React.Fragment>
-			<MenuHeader>
+			<MenuHeader logoUrl='/'>
 				<Menu.Item as={Link} to='login'>
 					Войти
 				</Menu.Item>

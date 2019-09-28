@@ -47,7 +47,7 @@ namespace DocumentIO
 
 				using (var scope = validationContext.CreateScope(model, m => m.Accounts[index]))
 				{
-					await accountValidation.Validate(scope, account);
+					await accountValidation.ValidateAccount(scope, account);
 				}
 			}
 		}
