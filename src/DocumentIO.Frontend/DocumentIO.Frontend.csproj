@@ -16,4 +16,9 @@
     <None Remove="node_modules\**" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="src\components" />
+    <Folder Include="src\pages" />
+  </ItemGroup>
+
 </Project>
