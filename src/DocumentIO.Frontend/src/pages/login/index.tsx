@@ -12,8 +12,8 @@ export const LoginPage = () => {
 					Создать организацию
 				</Menu.Item>
 			</MenuHeader>
-	
-			<div>Login</div>
+
+			<div>Тут логин</div>
 		</React.Fragment>
 	)
 }

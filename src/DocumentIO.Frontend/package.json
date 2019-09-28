@@ -7,7 +7,10 @@
 		"react-dom": "^16.9.0",
 		"react-router-dom": "^5.0.1",
 		"semantic-ui-css": "^2.4.1",
-		"semantic-ui-react": "^0.88.1"
+		"semantic-ui-react": "^0.88.1",
+		"apollo-boost": "^0.4.4",
+		"@apollo/react-hooks": "^3.1.1",
+		"graphql": "^14.5.8"
 	},
 	"scripts": {
 		"dev": "react-scripts start",
@@ -16,6 +19,7 @@
 		"eject": "react-scripts eject"
 	},
 	"devDependencies": {
+		"@types/graphql": "^14.5.0",
 		"@types/react": "^16.9.2",
 		"@types/react-dom": "^16.9.0",
 		"@types/react-router-dom": "^4.3.5",
