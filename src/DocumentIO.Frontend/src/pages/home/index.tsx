@@ -1,12 +1,12 @@
 import React from 'react'
-import { MenuHeader } from "../../components/header"
+import { DocumentIOMenu } from "../../components/menu"
 import { Menu } from "semantic-ui-react"
 import { Link } from "react-router-dom"
 
 export const HomePage = () => {
 	return (
 		<React.Fragment>
-			<MenuHeader>
+			<DocumentIOMenu logoUrl='/'>
 				<Menu.Item as={Link} to='login'>
 					Войти
 				</Menu.Item>
@@ -14,7 +14,7 @@ export const HomePage = () => {
 				<Menu.Item as={Link} to='create'>
 					Создать организацию
 				</Menu.Item>
-			</MenuHeader>
+			</DocumentIOMenu>
 
 			<div>Home</div>
 		</React.Fragment>

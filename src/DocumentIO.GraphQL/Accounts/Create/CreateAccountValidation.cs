@@ -29,10 +29,10 @@ namespace DocumentIO
 				.IsNot(() => inviteExists)
 				.AddValidationError("Приглашение не найдено, либо уже использовано");
 
-			await Validate(validationContext, model);
+			await ValidateAccount(validationContext, model);
 		}
 
-		public async Task Validate(IValidationContext validationContext, Account model)
+		public async Task ValidateAccount(IValidationContext validationContext, Account model)
 		{
 			var loginDetail = validationContext.When(model, m => m.Login)
 				.IsNullOrWhitespace()

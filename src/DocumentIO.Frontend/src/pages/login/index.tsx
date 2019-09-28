@@ -1,19 +1,20 @@
 import React from 'react'
-import { MenuHeader } from "../../components/header"
+import { DocumentIOMenu } from "../../components/menu"
 import { Menu } from "semantic-ui-react"
-import { Link } from "react-router-dom"
+import { Link, RouteComponentProps } from "react-router-dom"
+import { LoginPageTemplate } from "./template"
 
-export const LoginPage = () => {
+export const LoginPage = (props: RouteComponentProps) => {
 
 	return (
 		<React.Fragment>
-			<MenuHeader>
+			<DocumentIOMenu logoUrl='/'>
 				<Menu.Item as={Link} to='create'>
 					Создать организацию
 				</Menu.Item>
-			</MenuHeader>
+			</DocumentIOMenu>
 
-			<div>Тут логин</div>
+			<LoginPageTemplate {...props}/>
 		</React.Fragment>
 	)
 }
