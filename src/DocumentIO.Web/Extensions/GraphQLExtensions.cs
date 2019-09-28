@@ -26,7 +26,7 @@ namespace DocumentIO.Web
 			
 			services.AddGraphQL(options =>
 				{
-					options.ExposeExceptions = environment.IsDevelopment();
+					options.ExposeExceptions = false; // environment.IsDevelopment();
 					options.EnableMetrics = environment.IsDevelopment();
 				})
 				.AddDataLoader()
