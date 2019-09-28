@@ -1,5 +1,5 @@
 import React from "react"
-import { Grid, Tab } from "semantic-ui-react"
+import { Container, Grid, Tab } from "semantic-ui-react"
 
 import { DocumentIOMenu } from "../../components/menu"
 import { DashboardBoardsTab } from "./boards"
@@ -14,7 +14,9 @@ export const DashboardPage = (props: RouteChildrenProps) => {
 
 			<Grid centered>
 				<Grid.Column textAlign='center'>
-					<Tab menu={ {pointing: true, compact: true} } panes={ panes }/>
+					<Container>
+						<Tab menu={ {pointing: true, compact: true} } panes={ panes }/>
+					</Container>
 				</Grid.Column>
 			</Grid>
 		</React.Fragment>
