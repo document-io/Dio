@@ -1,10 +1,11 @@
 import React, { PropsWithChildren } from 'react'
-import { Menu, Dropdown, Header } from "semantic-ui-react"
+import { Menu, Header } from "semantic-ui-react"
 import { Link } from 'react-router-dom'
 import { DocumentIOMenuDropdown } from "./dropdown"
 import { DocumentIOSearch } from "./search"
+import { RouteChildrenProps } from 'react-router'
 
-export interface Props extends PropsWithChildren<{}>{
+export interface Props extends PropsWithChildren<{}>, RouteChildrenProps {
 	logoUrl: string
 	dropdown?: boolean
 	search?: boolean
@@ -32,7 +33,7 @@ export const DocumentIOMenu = (props: Props) => {
 			<Menu.Menu position='right'>
 				{
 					props.dropdown
-						? <DocumentIOMenuDropdown />
+						? <DocumentIOMenuDropdown {...props}/>
 						: props.children
 				}
 			</Menu.Menu>

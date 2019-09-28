@@ -6,7 +6,7 @@ import { RegisterPageTemplate } from "./template"
 export const RegisterPage = (props: RouteChildrenProps<{secret: string}>) => {
 	return (
 		<div>
-			<DocumentIOMenu logoUrl='/'>
+			<DocumentIOMenu logoUrl='/' {...props}>
 				{/* TODO: */}
 			</DocumentIOMenu>
 

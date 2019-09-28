@@ -3,10 +3,12 @@ import { DocumentIOMenu } from "../../components/menu"
 import { Menu } from "semantic-ui-react"
 import { Link } from "react-router-dom"
 
-export const HomePage = () => {
+import { RouteChildrenProps } from 'react-router'
+
+export const HomePage = (props: RouteChildrenProps) => {
 	return (
 		<React.Fragment>
-			<DocumentIOMenu logoUrl='/'>
+			<DocumentIOMenu logoUrl='/' {...props}>
 				<Menu.Item as={Link} to='login'>
 					Войти
 				</Menu.Item>

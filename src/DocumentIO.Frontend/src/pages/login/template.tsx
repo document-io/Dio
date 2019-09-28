@@ -22,6 +22,8 @@ export const LoginPageTemplate = (props: RouteComponentProps) => {
 	const onSubmit = (event: FormEvent<HTMLFormElement>) => {
 		event.preventDefault()
 
+		setLoading(true)
+
 		loginAccount({
 			variables: {
 				account: {
@@ -53,6 +55,8 @@ export const LoginPageTemplate = (props: RouteComponentProps) => {
 								break;
 						}
 					})
+
+				setLoading(false)
 			})
 	}
 	
@@ -60,7 +64,7 @@ export const LoginPageTemplate = (props: RouteComponentProps) => {
 		<Grid centered>
 			<Grid.Column computer='7' mobile='12'>
 				{
-					globalValidation == ""
+					globalValidation === ""
 						? null
 						: (
 							<Message
@@ -72,7 +76,7 @@ export const LoginPageTemplate = (props: RouteComponentProps) => {
 
 				<Form loading={ loading } onSubmit={ onSubmit }>
 					{
-						globalValidation == ""
+						globalValidation === ""
 							? (
 								<Form.Field>
 									<Grid>
