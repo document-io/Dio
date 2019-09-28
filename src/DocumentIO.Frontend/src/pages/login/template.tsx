@@ -21,7 +21,7 @@ export const LoginPageTemplate = (props: RouteComponentProps) => {
 
 	const onSubmit = (event: FormEvent<HTMLFormElement>) => {
 		event.preventDefault()
-		
+
 		loginAccount({
 			variables: {
 				account: {
@@ -32,8 +32,6 @@ export const LoginPageTemplate = (props: RouteComponentProps) => {
 			.catch((reason: ApolloError) => {
 				reason.graphQLErrors
 					.forEach(error => {
-						console.log(error)
-						
 						if (error.extensions === undefined) {
 							setGlobalValidation(error.message)
 							return;

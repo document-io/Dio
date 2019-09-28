@@ -1,14 +1,14 @@
 import React from 'react'
 import { RouteChildrenProps } from 'react-router'
-import { MenuHeader } from "../../components/header"
+import { DocumentIOMenu } from "../../components/menu"
 import { RegisterPageTemplate } from "./template"
 
 export const RegisterPage = (props: RouteChildrenProps<{secret: string}>) => {
 	return (
 		<div>
-			<MenuHeader logoUrl='/'>
+			<DocumentIOMenu logoUrl='/'>
 				{/* TODO: */}
-			</MenuHeader>
+			</DocumentIOMenu>
 
 			<RegisterPageTemplate {...props}/>
 		</div>

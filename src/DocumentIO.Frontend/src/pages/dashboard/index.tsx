@@ -1,13 +1,11 @@
 import React from "react"
-import { MenuDropdown, MenuHeader } from "../../components/header"
+import { DocumentIOMenu } from "../../components/menu"
 
 export const DashboardPage = () => {
 	return (
 		<React.Fragment>
-			<MenuHeader logoUrl='/dashboard'>
-				<MenuDropdown />
-			</MenuHeader>
-			
+			<DocumentIOMenu logoUrl='/dashboard' search dropdown />
+
 			<div>Dashboard</div>
 		</React.Fragment>
 	)
