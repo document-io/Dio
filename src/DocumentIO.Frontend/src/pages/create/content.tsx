@@ -107,7 +107,6 @@ export const CreatePageContent = (props: RouteComponentProps) => {
 	return (
 		<Grid centered columns='2'>
 			<Grid.Column>
-
 				{success ? (
 					<Message
 						success
