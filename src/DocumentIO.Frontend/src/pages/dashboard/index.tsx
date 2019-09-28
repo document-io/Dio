@@ -5,12 +5,12 @@ import { DocumentIOMenu } from "../../components/menu"
 import { DashboardBoardsTab } from "./boards"
 import { DashboardUsersTab } from "./users"
 import { DashboardInviteTab } from "./invites"
+import { RouteChildrenProps } from 'react-router'
 
-
-export const DashboardPage = () => {
+export const DashboardPage = (props: RouteChildrenProps) => {
 	return (
 		<React.Fragment>
-			<DocumentIOMenu logoUrl='/dashboard' search dropdown/>
+			<DocumentIOMenu logoUrl='/dashboard' search dropdown {...props}/>
 
 			<Grid centered>
 				<Grid.Column textAlign='center'>

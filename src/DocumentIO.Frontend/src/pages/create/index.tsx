@@ -8,7 +8,7 @@ import { CreatePageTemplate } from "./template"
 
 export const CreatePage = (props: RouteComponentProps) => (
 	<React.Fragment>
-		<DocumentIOMenu logoUrl='/'>
+		<DocumentIOMenu logoUrl='/' {...props}>
 			<Menu.Item as={ Link } to='login'>
 				Войти
 			</Menu.Item>

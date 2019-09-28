@@ -8,7 +8,7 @@ export const LoginPage = (props: RouteComponentProps) => {
 
 	return (
 		<React.Fragment>
-			<DocumentIOMenu logoUrl='/'>
+			<DocumentIOMenu logoUrl='/' {...props}>
 				<Menu.Item as={Link} to='create'>
 					Создать организацию
 				</Menu.Item>

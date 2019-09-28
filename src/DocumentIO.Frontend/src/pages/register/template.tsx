@@ -100,7 +100,7 @@ export const RegisterPageTemplate = (props: RouteChildrenProps<{ secret: string 
 		<Grid centered>
 			<Grid.Column computer='7' mobile='12'>
 				{
-					globalValidation == ""
+					globalValidation ===""
 						? null
 						: (
 							<Message
@@ -111,7 +111,7 @@ export const RegisterPageTemplate = (props: RouteChildrenProps<{ secret: string 
 				}
 				<Form loading={ loading } onSubmit={ onSubmit }>
 					{
-						globalValidation == ""
+						globalValidation === ""
 							? (
 								<Form.Field>
 									<Grid>
