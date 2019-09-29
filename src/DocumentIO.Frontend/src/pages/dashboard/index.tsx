@@ -1,13 +1,15 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
+import { RouteChildrenProps } from 'react-router'
 import { Container, Grid, Tab } from "semantic-ui-react"
 
 import { DocumentIOMenu } from "../../components/menu"
 import { DashboardBoardsTab } from "./boards"
 import { DashboardUsersTab } from "./users"
 import { DashboardInviteTab } from "./invites"
-import { RouteChildrenProps } from 'react-router'
 
 export const DashboardPage = (props: RouteChildrenProps) => {
+	const defaultActiveIndex = getDefaultActiveIndex(props.location.search)
+
 	return (
 		<React.Fragment>
 			<DocumentIOMenu logoUrl='/dashboard' search dropdown {...props}/>
@@ -15,7 +17,14 @@ export const DashboardPage = (props: RouteChildrenProps) => {
 			<Grid centered>
 				<Grid.Column textAlign='center'>
 					<Container>
-						<Tab menu={ {pointing: true, compact: true} } panes={ panes }/>
+						<Tab menu={ {pointing: true, compact: true} }
+							panes={ panes }
+							defaultActiveIndex={defaultActiveIndex}
+							onTabChange={(event, data) => {
+								// @ts-ignore
+								props.history.replace({search: `tab=${data.panes[data.activeIndex].menuItem.key}`})
+							}}
+						/>
 					</Container>
 				</Grid.Column>
 			</Grid>
@@ -46,3 +55,17 @@ const panes = [
 			</Tab.Pane>),
 	},
 ]
+
+const getDefaultActiveIndex = (search: string) => {
+
+	const query = new URLSearchParams(search);
+	const tab = query.get('tab')
+
+	for (let i = 0; i < panes.length; i++) {
+		if (panes[i].menuItem.key === tab) {
+			return i
+		}
+	}
+
+	return 0
+}

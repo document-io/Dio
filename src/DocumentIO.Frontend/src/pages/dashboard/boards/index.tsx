@@ -24,8 +24,10 @@ export const DashboardBoardsTab = () => {
 	const items = data.boards
 		.map(board => (
 			<Card key={board.id} centered>
-				<Card.Content header={board.name} />
-				<Card.Content description='Leverage agile frameworks to provide a robust synopsis for high level overviews.' />
+				<Card.Content>
+					<Card.Header>{board.name}</Card.Header>
+					<Card.Description>Leverage agile frameworks to provide a robust synopsis for high level overviews.</Card.Description>
+				</Card.Content>
 				<Card.Content extra>
 					<Icon name='user' />4 Friends
 				</Card.Content>
@@ -33,14 +35,15 @@ export const DashboardBoardsTab = () => {
 		))
 		.concat((
 			<Card key='addBoard' centered>
-				<Card.Content header='Добавить'/>
-				<Card.Content description={(
-					<React.Fragment>
+				
+				<Card.Content>
+					<Card.Header>Добавить</Card.Header>
+					<Card.Description>
 						<Form>
 							<Form.Input fluid placeholder='Введите название'/>
 						</Form>
-					</React.Fragment>
-				)} />
+					</Card.Description>
+				</Card.Content>
 				<Card.Content extra>
 					Нажмите enter
 				</Card.Content>

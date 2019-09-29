@@ -24,9 +24,17 @@ export const DashboardUsersTab = () => {
 	const items = data.accounts
 		.map(account => (
 			<Card key={account.id} centered>
-				<Card.Content header={`ФИО: ${account.firstName} ${account.lastName}`} />
-				<Card.Content description={`Логин: ${account.login}`} />
-				<Card.Content meta={`Роль: ${account.role}`}/>
+				<Card.Content>
+					<Card.Header>
+						Логин: {account.login}
+					</Card.Header>
+					<Card.Meta>
+						Роль: {account.role}
+					</Card.Meta>
+					<Card.Description>
+						ФИО: {account.firstName} {account.lastName}
+					</Card.Description>
+				</Card.Content>
 				<Card.Content extra>
 					<Icon name='at' />{account.email}
 				</Card.Content>
