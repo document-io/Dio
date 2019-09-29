@@ -32,7 +32,7 @@ const panes = [
 			</Tab.Pane>),
 	},
 	{
-		menuItem: {key: 'users', icon: 'users', content: 'Пользователи'},
+		menuItem: {key: 'users', icon: 'users', content: 'Сотрудники'},
 		render: () => (
 			<Tab.Pane attached={ false }>
 				<DashboardUsersTab/>
