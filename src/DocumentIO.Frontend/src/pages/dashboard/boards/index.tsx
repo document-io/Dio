@@ -5,9 +5,7 @@ import { Dimmer, Loader, Message, Card, Icon, Header, Input, Form, Grid } from "
 
 export const DashboardBoardsTab = () => {
 	const [globalValidation, setGlobalValidation] = useState("")
-	
-	
-	
+
 	const { loading, error, data } = useQuery<ReadBoardsResponse>(Boards)
 
 	useEffect(() => {
@@ -22,10 +20,6 @@ export const DashboardBoardsTab = () => {
 		)
 	}
 
-
-	
-	
-	
 	 // @ts-ignore
 	const items = data.boards
 		.map(board => (
