@@ -4,7 +4,7 @@ using System.Linq.Expressions;
 
 namespace DocumentIO
 {
-	public class AttachmentFilter : DocumentIOFilter<CardAttachment>
+	public class AttachmentsFilter : DocumentIOFilter<CardAttachment>
 	{
 		public Guid? Id { get; set; }
 		public string MimeType { get; set; }

@@ -25,13 +25,13 @@ namespace DocumentIO
 
 			validationContext.When("id")
 				.Is(() => comment == null)
-				.AddValidationError("Комментарий не найден");
+				.AddValidationDetail("Комментарий не найден");
 
 			if (comment != null)
 			{
 				validationContext.When()
 					.Is(() => comment.CreatedAt.AddHours(1) < DateTime.UtcNow)
-					.AddValidationError("Комментарий можно удалить только в первый час создания");
+					.AddValidationDetail("Комментарий можно удалить только в первый час создания");
 			}
 		}
 	}

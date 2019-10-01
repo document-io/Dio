@@ -14,30 +14,30 @@ namespace DocumentIO
 			Field(x => x.CreatedAt);
 
 			NonNullDocumentIOField<ReadInviteType, Invite>("invite")
-				.Authorize(Roles.Admin)
+				.AllowAdmin()
 				.ResolveAsync<AccountInviteResolver>();
 
 			NonNullDocumentIOField<ReadOrganizationType, Organization>("organization")
-				.Authorize(Roles.User)
+				.AllowUser()
 				.ResolveAsync<AccountOrganizationResolver>();
 
 			DocumentIOListField<ReadCardType, Card>("assignments")
-				.Authorize(Roles.User)
+				.AllowUser()
 				.Filtered<CardsFilterType>()
 				.ResolveAsync<AccountAssignmentsResolver>();
 
 			DocumentIOListField<ReadCommentType, CardComment>("comments")
-				.Authorize(Roles.User)
+				.AllowUser()
 				.Filtered<CommentsFilterType>()
 				.ResolveAsync<AccountCommentsResolver>();
 
 			DocumentIOListField<ReadAttachmentType, CardAttachment>("attachments")
-				.Authorize(Roles.User)
-				.Filtered<AttachmentFilterType>()
+				.AllowUser()
+				.Filtered<AttachmentsFilterType>()
 				.ResolveAsync<AccountAttachmentsResolver>();
 
 			DocumentIOListField<ReadEventType, CardEvent>("events")
-				.Authorize(Roles.User)
+				.AllowUser()
 				.Filtered<EventsFilterType>()
 				.ResolveAsync<AccountEventsResolver>();
 		}

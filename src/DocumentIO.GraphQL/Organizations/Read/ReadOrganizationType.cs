@@ -8,17 +8,17 @@ namespace DocumentIO
 			Field(x => x.Name);
 
 			DocumentIOListField<ReadAccountType, Account>("accounts")
-				.Authorize(Roles.User)
-				.Filtered<AccountFilterType>()
+				.AllowUser()
+				.Filtered<AccountsFilterType>()
 				.ResolveAsync<OrganizationAccountsResolver>();
 
 			DocumentIOListField<ReadInviteType, Invite>("invites")
-				.Authorize(Roles.Admin)
-				.Filtered<InviteFilterType>()
+				.AllowAdmin()
+				.Filtered<InvitesFilterType>()
 				.ResolveAsync<OrganizationInvitesResolver>();
 
 			DocumentIOListField<ReadBoardType, Board>("boards")
-				.Authorize(Roles.User)
+				.AllowUser()
 				.Filtered<BoardsFilterType>()
 				.ResolveAsync<OrganizationBoardsResolver>();
 		}

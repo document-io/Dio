@@ -12,11 +12,11 @@ namespace DocumentIO
 			Field(x => x.Order);
 
 			NonNullDocumentIOField<ReadBoardType, Board>("board")
-				.Authorize(Roles.User)
+				.AllowUser()
 				.ResolveAsync<ColumnBoardResolver>();
 
 			DocumentIOListField<ReadCardType, Card>("cards")
-				.Authorize(Roles.User)
+				.AllowUser()
 				.Filtered<CardsFilterType>()
 				.ResolveAsync<ColumnCardsResolver>();
 		}

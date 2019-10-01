@@ -20,11 +20,15 @@ namespace DocumentIO
 			this.builder = builder;
 		}
 
-		public DocumentIOFieldBuilder<TSourceType, TReturnType> Authorize(string role)
+		public DocumentIOFieldBuilder<TSourceType, TReturnType> AllowAdmin()
 		{
-			// TODO: AllowAdmin, AllowUser???
-			builder.AuthorizeWith(role);
+			builder.AuthorizeWith(Roles.Admin);
+			return this;
+		}
 
+		public DocumentIOFieldBuilder<TSourceType, TReturnType> AllowUser()
+		{
+			builder.AuthorizeWith(Roles.User);
 			return this;
 		}
 

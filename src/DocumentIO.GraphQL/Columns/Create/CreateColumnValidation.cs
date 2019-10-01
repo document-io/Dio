@@ -27,11 +27,11 @@ namespace DocumentIO
 
 			validationContext.When(model, m => m.BoardId)
 				.IsNot(() => boardExists)
-				.AddValidationError("Доска не найдена");
+				.AddValidationDetail("Доска не найдена");
 
 			validationContext.When(model, m => m.Name)
 				.IsNullOrWhitespace()
-				.AddValidationError("Имя колонки не указано");
+				.AddValidationDetail("Имя колонки не указано");
 
 			if (validationContext.IsValid(model, m => m.Name))
 			{
@@ -42,7 +42,7 @@ namespace DocumentIO
 
 				validationContext.When(model, m => m.Name)
 					.Is(() => columnExists)
-					.AddValidationError("Колонка с таким именем уже сущетсвует");
+					.AddValidationDetail("Колонка с таким именем уже сущетсвует");
 			}
 		}
 	}

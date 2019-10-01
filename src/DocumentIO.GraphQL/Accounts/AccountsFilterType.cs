@@ -1,8 +1,8 @@
 namespace DocumentIO
 {
-	public class AccountFilterType : DocumentIOFilterType<Account, AccountFilter>
+	public class AccountsFilterType : DocumentIOFilterType<Account, AccountFilter>
 	{
-		public AccountFilterType()
+		public AccountsFilterType()
 		{
 			NullField(x => x.Id);
 			NullField(x => x.Login);

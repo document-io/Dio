@@ -15,31 +15,31 @@ namespace DocumentIO
 			Field(x => x.Content);
 
 			NonNullDocumentIOField<ReadColumnType, Column>("column")
-				.Authorize(Roles.User)
+				.AllowUser()
 				.ResolveAsync<CardColumnResolver>();
 
 			DocumentIOListField<ReadLabelType, Label>("labels")
-				.Authorize(Roles.User)
+				.AllowUser()
 				.Filtered<LabelsFilterType>()
 				.ResolveAsync<CardLabelsResolver>();
 
 			DocumentIOListField<ReadAccountType, Account>("assignments")
-				.Authorize(Roles.User)
-				.Filtered<AccountFilterType>()
+				.AllowUser()
+				.Filtered<AccountsFilterType>()
 				.ResolveAsync<CardAssignmentsResolver>();
 
 			DocumentIOListField<ReadCommentType, CardComment>("comments")
-				.Authorize(Roles.User)
+				.AllowUser()
 				.Filtered<CommentsFilterType>()
 				.ResolveAsync<CardCommentsResolver>();
 
 			DocumentIOListField<ReadAttachmentType, CardAttachment>("attachments")
-				.Authorize(Roles.User)
-				.Filtered<AttachmentFilterType>()
+				.AllowUser()
+				.Filtered<AttachmentsFilterType>()
 				.ResolveAsync<CardAttachmentsResolver>();
 
 			DocumentIOListField<ReadEventType, CardEvent>("events")
-				.Authorize(Roles.User)
+				.AllowUser()
 				.Filtered<EventsFilterType>()
 				.ResolveAsync<CardEventsResolver>();
 		}

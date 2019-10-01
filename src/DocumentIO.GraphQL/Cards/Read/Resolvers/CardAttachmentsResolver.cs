@@ -20,7 +20,7 @@ namespace DocumentIO
 
 		public Task<IEnumerable<CardAttachment>> Resolve(DocumentIOResolveFieldContext<Card> context)
 		{
-			var filter = context.GetFilter<AttachmentFilter>();
+			var filter = context.GetFilter<AttachmentsFilter>();
 
 			var loader = accessor.Context.GetOrAddCollectionBatchLoader<Guid, CardAttachment>(
 				"CardAttachment",

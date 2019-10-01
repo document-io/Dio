@@ -22,7 +22,7 @@ namespace DocumentIO
 
 			validationContext.When(model, m => m.Text)
 				.IsNullOrWhitespace()
-				.AddValidationError("Пустой текст");
+				.AddValidationDetail("Пустой текст");
 
 			var cardExists = await databaseContext.Cards
 				.Where(x => x.Column.Board.Organization.Accounts.Any(a => a.Id == accountId))
@@ -30,7 +30,7 @@ namespace DocumentIO
 
 			validationContext.When(model, m => m.CardId)
 				.IsNot(() => cardExists)
-				.AddValidationError("Карточка не найдена");
+				.AddValidationDetail("Карточка не найдена");
 		}
 	}
 }

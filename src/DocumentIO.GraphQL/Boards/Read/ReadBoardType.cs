@@ -11,16 +11,16 @@ namespace DocumentIO
 			Field(x => x.CreatedAt);
 
 			NonNullDocumentIOField<ReadOrganizationType, Organization>("organization")
-				.Authorize(Roles.User)
+				.AllowUser()
 				.ResolveAsync<BoardOrganizationResolver>();
 
 			DocumentIOListField<ReadColumnType, Column>("columns")
-				.Authorize(Roles.User)
+				.AllowUser()
 				.Filtered<ColumnsFilterType>()
 				.ResolveAsync<BoardColumnsResolver>();
 
 			DocumentIOListField<ReadLabelType, Label>("labels")
-				.Authorize(Roles.User)
+				.AllowUser()
 				.Filtered<LabelsFilterType>()
 				.ResolveAsync<BoardLabelsResolver>();
 		}

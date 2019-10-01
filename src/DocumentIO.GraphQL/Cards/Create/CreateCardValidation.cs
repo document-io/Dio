@@ -33,14 +33,14 @@ namespace DocumentIO
 
 			validationContext.When(model, m => m.ColumnId)
 				.IsNot(() => columnExists)
-				.AddValidationError("Колонка не найдена");
+				.AddValidationDetail("Колонка не найдена");
 		}
 
 		public async Task ValidateCardName(IValidationContext validationContext, Card model, Guid accountId)
 		{
 			validationContext.When(model, m => m.Name)
 				.IsNullOrWhitespace()
-				.AddValidationError("Укажите название карточки");
+				.AddValidationDetail("Укажите название карточки");
 
 			if (validationContext.IsValid(model, m => m.Name))
 			{
@@ -53,7 +53,7 @@ namespace DocumentIO
 
 				validationContext.When(model, m => m.Name)
 					.Is(() => cardNameExists)
-					.AddValidationError("Карточка с таким названием уже существует");
+					.AddValidationDetail("Карточка с таким названием уже существует");
 			}
 		}
 	}

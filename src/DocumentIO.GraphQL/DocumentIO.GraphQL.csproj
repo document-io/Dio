@@ -9,5 +9,4 @@
 	  <ProjectReference Include="..\DocumentIO.GraphQL.Core\DocumentIO.GraphQL.Core.csproj" />
 	</ItemGroup>
 
-
 </Project>

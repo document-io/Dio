@@ -17,7 +17,7 @@ namespace DocumentIO
 		public async Task<IEnumerable<Invite>> Resolve(DocumentIOResolveFieldContext<object> context)
 		{
 			var accountId = context.GetAccountId();
-			var filter = context.GetFilter<InviteFilter>();
+			var filter = context.GetFilter<InvitesFilter>();
 
 			return await filter.Filtered(
 					databaseContext.Invites.AsNoTracking(),
