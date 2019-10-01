@@ -22,7 +22,7 @@ namespace DocumentIO
 
 			validationContext.When(model, m => m.Name)
 				.IsNullOrWhitespace()
-				.AddValidationError("Название доски не задано");
+				.AddValidationDetail("Название доски не задано");
 
 			if (validationContext.IsValid(model, m => m.Name))
 			{
@@ -32,7 +32,7 @@ namespace DocumentIO
 
 				validationContext.When(model, m => m.Name)
 					.Is(() => boardExists)
-					.AddValidationError("Доска с таким именем уже существует");
+					.AddValidationDetail("Доска с таким именем уже существует");
 			}
 		}
 	}

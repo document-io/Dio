@@ -35,7 +35,7 @@ namespace DocumentIO
 
 			validationContext.When(model, m => m.Id)
 				.Is(() => card == null)
-				.AddValidationError("Карточка не найдена");
+				.AddValidationDetail("Карточка не найдена");
 
 			return card;
 		}
@@ -44,7 +44,7 @@ namespace DocumentIO
 		{
 			validationContext.When(model, m => m.Name)
 				.IsNullOrWhitespace()
-				.AddValidationError("Укажите название карточки");
+				.AddValidationDetail("Укажите название карточки");
 
 			if (validationContext.IsValid(model, m => m.Name) && validationContext.IsValid(model, m => m.Id))
 			{
@@ -57,7 +57,7 @@ namespace DocumentIO
 
 				validationContext.When(model, m => m.Name)
 					.Is(() => cardNameExists)
-					.AddValidationError("Карточка с таким названием уже существует");
+					.AddValidationDetail("Карточка с таким названием уже существует");
 			}
 		}
 
@@ -67,7 +67,7 @@ namespace DocumentIO
 			{
 				validationContext.When(model, x => x.Order)
 					.IsLess(0)
-					.AddValidationError("Порядок не может быть меньше нуля");
+					.AddValidationDetail("Порядок не может быть меньше нуля");
 
 				var cardsCount = await databaseContext
 					.Columns
@@ -77,7 +77,7 @@ namespace DocumentIO
 
 				validationContext.When(model, m => m.Order)
 					.IsGreater(cardsCount)
-					.AddValidationError($"Порядок не может быть больше {cardsCount}");
+					.AddValidationDetail($"Порядок не может быть больше {cardsCount}");
 			}
 		}
 	}

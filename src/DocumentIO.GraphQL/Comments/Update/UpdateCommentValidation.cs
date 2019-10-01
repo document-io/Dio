@@ -22,20 +22,20 @@ namespace DocumentIO
 
 			validationContext.When(model, m => m.Text)
 				.IsNullOrWhitespace()
-				.AddValidationError("Текст пустой");
+				.AddValidationDetail("Текст пустой");
 
 			var comment = await databaseContext.CardComments
 				.FirstOrDefaultAsync(x => x.Id == model.Id && x.AccountId == accountId);
 
 			validationContext.When(model, m => m.Id)
 				.Is(() => comment == null)
-				.AddValidationError("Комментарий не найден");
+				.AddValidationDetail("Комментарий не найден");
 
 			if (comment != null)
 			{
 				validationContext.When()
 					.Is(() => comment.CreatedAt.AddHours(1) < DateTime.UtcNow)
-					.AddValidationError("Комментарий можно отредактировать только в первый час создания");
+					.AddValidationDetail("Комментарий можно отредактировать только в первый час создания");
 			}
 		}
 	}

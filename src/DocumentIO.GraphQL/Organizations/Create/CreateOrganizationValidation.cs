@@ -24,7 +24,7 @@ namespace DocumentIO
 			
 			validationContext.When(model, m => m.Name)
 				.IsNullOrWhitespace()
-				.AddValidationError("Задайте имя организации");
+				.AddValidationDetail("Задайте имя организации");
 
 			if (validationContext.IsValid(model, m => m.Name))
 			{
@@ -34,12 +34,12 @@ namespace DocumentIO
 
 				validationContext.When(model, m => m.Name)
 					.Is(() => organizationNameExists)
-					.AddValidationError("Имя организации уже используется");
+					.AddValidationDetail("Имя организации уже используется");
 			}
 
 			validationContext.When(model, m => m.Accounts)
 				.IsEmpty()
-				.AddValidationError("Создайте хотя-бы один аккаунт");
+				.AddValidationDetail("Создайте хотя-бы один аккаунт");
 
 			for (var index = 0; index < model.Accounts.Count; index++)
 			{

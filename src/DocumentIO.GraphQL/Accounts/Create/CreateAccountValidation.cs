@@ -27,7 +27,7 @@ namespace DocumentIO
 
 			validationContext.When("secret")
 				.IsNot(() => inviteExists)
-				.AddValidationError("Приглашение не найдено, либо уже использовано");
+				.AddValidationDetail("Приглашение не найдено, либо уже использовано");
 
 			await ValidateAccount(validationContext, model);
 		}
@@ -36,7 +36,7 @@ namespace DocumentIO
 		{
 			var loginDetail = validationContext.When(model, m => m.Login)
 				.IsNullOrWhitespace()
-				.AddValidationError("Логин не задан");
+				.AddValidationDetail("Логин не задан");
 
 			if (loginDetail is null)
 			{
@@ -46,12 +46,12 @@ namespace DocumentIO
 
 				validationContext.When(model, m => m.Login)
 					.Is(() => loginExists)
-					.AddValidationError("Логин уже используется");
+					.AddValidationDetail("Логин уже используется");
 			}
 
 			var emailDetail = validationContext.When(model, m => m.Email)
 				.IsNotEmail()
-				.AddValidationError("Это не email =/");
+				.AddValidationDetail("Это не email =/");
 
 			if (emailDetail is null)
 			{
@@ -61,20 +61,20 @@ namespace DocumentIO
 
 				validationContext.When(model, m => m.Email)
 					.Is(() => accountExists)
-					.AddValidationError("Email уже используется");
+					.AddValidationDetail("Email уже используется");
 			}
 
 			validationContext.When(model, m => m.Password)
 				.IsNullOrWhitespace()
-				.AddValidationError("Пароль не задан");
+				.AddValidationDetail("Пароль не задан");
 
 			validationContext.When(model, m => m.FirstName)
 				.IsNullOrWhitespace()
-				.AddValidationError("Имя не задано");
+				.AddValidationDetail("Имя не задано");
 
 			validationContext.When(model, m => m.LastName)
 				.IsNullOrWhitespace()
-				.AddValidationError("Фамилия не задана");
+				.AddValidationDetail("Фамилия не задана");
 		}
 	}
 }

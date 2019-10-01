@@ -12,11 +12,11 @@ namespace DocumentIO
 
 			validationContext.When(model, m => m.Role)
 				.IsNotIn(Roles.All)
-				.AddValidationError("Неизвестная роль");
+				.AddValidationDetail("Неизвестная роль");
 
 			validationContext.When(model, m => m.Description)
 				.IsNullOrWhitespace()
-				.AddValidationError("Заполните описание");
+				.AddValidationDetail("Заполните описание");
 
 			return Task.CompletedTask;
 		}
