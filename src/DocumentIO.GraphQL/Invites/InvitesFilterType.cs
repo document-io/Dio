@@ -1,8 +1,8 @@
 namespace DocumentIO
 {
-	public class InviteFilterType : DocumentIOFilterType<Invite, InviteFilter>
+	public class InvitesFilterType : DocumentIOFilterType<Invite, InvitesFilter>
 	{
-		public InviteFilterType()
+		public InvitesFilterType()
 		{
 			NullField(x => x.Id);
 			NullField(x => x.Role);

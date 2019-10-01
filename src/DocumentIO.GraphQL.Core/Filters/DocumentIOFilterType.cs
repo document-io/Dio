@@ -6,8 +6,7 @@ namespace DocumentIO
 		protected DocumentIOFilterType()
 		{
 			NullField(x => x.Page);
-			NullField(x => x.Size)
-				.DefaultValue(20);
+			NullField(x => x.Size);
 			NullField(x => x.OrderBy);
 		}
 	}

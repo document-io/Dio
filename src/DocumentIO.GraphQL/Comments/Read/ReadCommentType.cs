@@ -10,11 +10,11 @@ namespace DocumentIO
 			NullField(x => x.UpdatedAt);
 
 			NonNullDocumentIOField<ReadCardType, Card>("card")
-				.Authorize(Roles.User)
+				.AllowUser()
 				.ResolveAsync<CommentCardResolver>();
 
 			NonNullDocumentIOField<ReadAccountType, Account>("account")
-				.Authorize(Roles.User)
+				.AllowUser()
 				.ResolveAsync<CommentAccountResolver>();
 		}
 	}

@@ -4,7 +4,7 @@ using System.Linq.Expressions;
 
 namespace DocumentIO
 {
-	public class InviteFilter : DocumentIOFilter<Invite>
+	public class InvitesFilter : DocumentIOFilter<Invite>
 	{
 		public Guid? Id { get; set; }
 		public string Role { get; set; }

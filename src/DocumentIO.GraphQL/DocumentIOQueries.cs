@@ -12,58 +12,62 @@ namespace DocumentIO
 				.ResolveAsync<QueryVersionResolver>();
 
 			NonNullDocumentIOField<ReadOrganizationType, Organization>("organization")
-				.Authorize(Roles.User)
+				.AllowUser()
 				.ResolveAsync<QueryOrganizationResolver>();
 
 			DocumentIOListField<ReadAccountType, Account>("accounts")
-				.Authorize(Roles.User)
-				.Filtered<AccountFilterType>()
+				.AllowUser()
+				.Filtered<AccountsFilterType>()
 				.ResolveAsync<QueryAccountsResolver>();
 
 			DocumentIOListField<ReadAttachmentType, CardAttachment>("attachments")
-				.Authorize(Roles.User)
-				.Filtered<AttachmentFilterType>()
+				.AllowUser()
+				.Filtered<AttachmentsFilterType>()
 				.ResolveAsync<QueryAttachmentsResolver>();
 
 			DocumentIOListField<ReadBoardType, Board>("boards")
-				.Authorize(Roles.User)
+				.AllowUser()
 				.Filtered<BoardsFilterType>()
 				.ResolveAsync<QueryBoardsResolver>();
 
 			DocumentIOListField<ReadColumnType, Column>("columns")
-				.Authorize(Roles.User)
+				.AllowUser()
 				.Filtered<ColumnsFilterType>()
 				.ResolveAsync<QueryColumnsResolver>();
 
 			DocumentIOListField<ReadCardType, Card>("cards")
-				.Authorize(Roles.User)
+				.AllowUser()
 				.Filtered<CardsFilterType>()
 				.ResolveAsync<QueryCardsResolver>();
 
 			DocumentIOListField<ReadCommentType, CardComment>("comments")
-				.Authorize(Roles.User)
+				.AllowUser()
 				.Filtered<CommentsFilterType>()
 				.ResolveAsync<QueryCommentsResolver>();
 
 			DocumentIOListField<ReadEventType, CardEvent>("events")
-				.Authorize(Roles.User)
+				.AllowUser()
 				.Filtered<EventsFilterType>()
 				.ResolveAsync<QueryEventsResovler>();
 
 			DocumentIOListField<ReadInviteType, Invite>("invites")
-				.Authorize(Roles.Admin)
-				.Filtered<InviteFilterType>()
+				.AllowAdmin()
+				.Filtered<InvitesFilterType>()
 				.ResolveAsync<QueryInvitesResovler>();
 
 			DocumentIOListField<ReadLabelType, Label>("labels")
-				.Authorize(Roles.User)
+				.AllowUser()
 				.Filtered<LabelsFilterType>()
 				.ResolveAsync<QueryLabelsResovler>();
 
 			DocumentIOListField<SearchInterface, Search>("search")
-				.Authorize(Roles.User)
+				.AllowUser()
 				.Filtered<SearchFilterType>()
 				.ResolveAsync<SearchResolver>();
+
+			DocumentIOField<ReadCountType, object>("count")
+				.AllowUser()
+				.ResolveAsync<CountResolver>();
 		}
 	}
 }

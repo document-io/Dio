@@ -20,7 +20,7 @@ namespace DocumentIO
 
 		public Task<IEnumerable<Invite>> Resolve(DocumentIOResolveFieldContext<Organization> context)
 		{
-			var filter = context.GetFilter<InviteFilter>();
+			var filter = context.GetFilter<InvitesFilter>();
 
 			var loader = accessor.Context.GetOrAddCollectionBatchLoader<Guid, Invite>(
 				"OrganizationInvites",

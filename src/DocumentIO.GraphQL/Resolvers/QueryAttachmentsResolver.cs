@@ -17,7 +17,7 @@ namespace DocumentIO
 		public async Task<IEnumerable<CardAttachment>> Resolve(DocumentIOResolveFieldContext<object> context)
 		{
 			var accountId = context.GetAccountId();
-			var filter = context.GetFilter<AttachmentFilter>();
+			var filter = context.GetFilter<AttachmentsFilter>();
 
 			return await filter.Filtered(
 					databaseContext.CardAttachments.AsNoTracking(),
