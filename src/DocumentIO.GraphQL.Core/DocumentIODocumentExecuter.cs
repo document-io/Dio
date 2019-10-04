@@ -1,4 +1,3 @@
-using System;
 using GraphQL;
 using GraphQL.Execution;
 using GraphQL.Language.AST;
@@ -12,9 +11,7 @@ namespace DocumentIO
 			return context.Operation.OperationType switch
 			{
 				OperationType.Query => (IExecutionStrategy)new SerialExecutionStrategy(),
-				OperationType.Mutation => new SerialExecutionStrategy(),
-				OperationType.Subscription => new SubscriptionExecutionStrategy(),
-				_ => throw new InvalidOperationException($"Unexpected OperationType {context.Operation.OperationType}")
+				_ => base.SelectExecutionStrategy(context)
 			};
 		}
 	}
