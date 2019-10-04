@@ -86,33 +86,24 @@ namespace DocumentIO
 		{
 			builder.ResolveAsync(async context =>
 			{
-				try
+				var serviceProvider = context.GetServiceProvider();
+				var validationContext = context.GetValidationContext();
+
+				await EnsureArgumentsValid(context, serviceProvider, validationContext);
+
+				if (!validationContext.IsValid())
 				{
-					var serviceProvider = context.GetServiceProvider();
-					var validationContext = context.GetValidationContext();
-
-					await EnsureArgumentsValid(context, serviceProvider, validationContext);
-
-					if (!validationContext.IsValid())
+					foreach (var (validationKey, validationMessage) in validationContext.ValidationDetails)
 					{
-						foreach (var (validationKey, validationMessage) in validationContext.ValidationDetails)
-						{
-							context.Errors.Add(new ValidationError(null, validationKey, validationMessage));
-						}
-
-						return default;
+						context.Errors.Add(new ValidationError(null, validationKey, validationMessage));
 					}
 
-					var service = serviceProvider.GetRequiredService<TResolver>();
-					
-					return await service
-						.Resolve(new DocumentIOResolveFieldContext<TSourceType>(context));
+					return default;
 				}
-				catch (Exception e)
-				{
-					Console.WriteLine(e);
-					throw;
-				}
+
+				var resolver = serviceProvider.GetRequiredService<TResolver>();
+
+				return await resolver.Resolve(new DocumentIOResolveFieldContext<TSourceType>(context));
 			});
 
 			return this;
