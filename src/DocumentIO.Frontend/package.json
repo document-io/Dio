@@ -1,7 +1,6 @@
 {
-	"name": "documentio",
-	"version": "0.1.0",
-	"private": true,
+	"name": "@document-io/document.io",
+	"version": "0.0.1",
 	"dependencies": {
 		"react": "^16.9.0",
 		"react-dom": "^16.9.0",
@@ -32,6 +31,9 @@
 	"eslintConfig": {
 		"extends": "react-app"
 	},
+	"publishConfig": {
+    "registry":"https://npm.pkg.github.com/"
+  },
 	"browserslist": {
 		"production": [
 			">0.2%",
