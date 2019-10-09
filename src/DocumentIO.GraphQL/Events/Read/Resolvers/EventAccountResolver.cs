@@ -16,7 +16,7 @@ namespace DocumentIO
 			this.accessor = accessor;
 			this.databaseContext = databaseContext;
 		}
-		
+
 		public Task<Account> Resolve(DocumentIOResolveFieldContext<CardEvent> context)
 		{
 			var loader = accessor.Context.GetOrAddBatchLoader<Guid, Account>(

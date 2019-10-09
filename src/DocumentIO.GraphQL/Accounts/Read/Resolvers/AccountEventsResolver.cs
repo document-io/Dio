@@ -17,7 +17,7 @@ namespace DocumentIO
 			this.accessor = accessor;
 			this.databaseContext = databaseContext;
 		}
-		
+
 		public Task<IEnumerable<CardEvent>> Resolve(DocumentIOResolveFieldContext<Account> context)
 		{
 			var filter = context.GetFilter<EventsFilter>();

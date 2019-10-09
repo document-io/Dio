@@ -20,7 +20,7 @@ namespace DocumentIO
 				.SingleAsync(x => x.AccountId == model.AccountId && x.CardId == model.CardId);
 
 			databaseContext.CardAssignments.Remove(assignment);
-			
+
 			await databaseContext.SaveChangesAsync();
 
 			return await databaseContext.Cards.SingleAsync(x => x.Id == model.CardId);

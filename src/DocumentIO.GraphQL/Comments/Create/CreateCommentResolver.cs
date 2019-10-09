@@ -1,5 +1,7 @@
 using System;
+using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace DocumentIO
 {
@@ -19,6 +21,19 @@ namespace DocumentIO
 
 			comment.AccountId = accountId;
 			comment.CreatedAt = DateTime.UtcNow;
+
+			var card = await databaseContext.Cards
+				.Include(x => x.Assignments)
+				.FirstOrDefaultAsync(x => x.Id == comment.CardId);
+
+			await databaseContext.CardEvents.AddRangeAsync(card.Assignments
+				.Select(x => new CardEvent
+				{
+					Card = card,
+					AccountId = x.AccountId,
+					CreatedAt = DateTime.UtcNow,
+					Content = $"К карточке '{card.Name}' добавлен комментарий"
+				}));
 
 			await databaseContext.CardComments.AddAsync(comment);
 			await databaseContext.SaveChangesAsync();

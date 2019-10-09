@@ -25,7 +25,8 @@ namespace DocumentIO
 			return DocumentIOField<NonNullGraphType<TGraphType>, TReturnType>(name);
 		}
 
-		public DocumentIOFieldBuilder<TSourceType, IEnumerable<TReturnType>> DocumentIOListField<TGraphType, TReturnType>(string name)
+		public DocumentIOFieldBuilder<TSourceType, IEnumerable<TReturnType>> DocumentIOListField<TGraphType, TReturnType>(
+			string name)
 			where TGraphType : GraphType
 		{
 			return new DocumentIOFieldBuilder<TSourceType, IEnumerable<TReturnType>>(

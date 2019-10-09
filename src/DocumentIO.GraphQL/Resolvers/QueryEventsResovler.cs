@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 namespace DocumentIO
 {
 	public class QueryEventsResovler : IDocumentIOResolver<IEnumerable<CardEvent>>
-	{		
+	{
 		private readonly DatabaseContext databaseContext;
 
 		public QueryEventsResovler(DatabaseContext databaseContext)

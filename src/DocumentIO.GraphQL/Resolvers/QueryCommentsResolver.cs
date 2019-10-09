@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 namespace DocumentIO
 {
 	public class QueryCommentsResolver : IDocumentIOResolver<IEnumerable<CardComment>>
-	{		
+	{
 		private readonly DatabaseContext databaseContext;
 
 		public QueryCommentsResolver(DatabaseContext databaseContext)

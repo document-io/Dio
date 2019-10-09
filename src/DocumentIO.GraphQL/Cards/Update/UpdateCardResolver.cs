@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -18,7 +19,9 @@ namespace DocumentIO
 		{
 			var model = context.GetArgument<Card>();
 
-			var card = await databaseContext.Cards.SingleAsync(x => x.Id == model.Id);
+			var card = await databaseContext.Cards
+				.Include(x => x.Assignments)
+				.SingleAsync(x => x.Id == model.Id);
 
 			if (model.Name != null)
 			{
@@ -45,11 +48,20 @@ namespace DocumentIO
 				card.Content = model.Content;
 			}
 
+			await databaseContext.CardEvents.AddRangeAsync(card.Assignments
+				.Select(x => new CardEvent
+				{
+					Card = card,
+					AccountId = x.AccountId,
+					CreatedAt = DateTime.UtcNow,
+					Content = $"Карточка '{card.Name}' была отредактирована"
+				}));
+
 			await databaseContext.SaveChangesAsync();
 
 			return card;
 		}
-		
+
 		public void UpdateCardsOrder(ICollection<Card> cards, Card model)
 		{
 			cards = cards.OrderBy(x => x.Order).ToList();

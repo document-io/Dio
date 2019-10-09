@@ -38,7 +38,7 @@ namespace DocumentIO
 
 				await databaseContext.Invites.AddAsync(invite);
 			}
-			
+
 			organization.Boards = new List<Board>
 			{
 				new Board

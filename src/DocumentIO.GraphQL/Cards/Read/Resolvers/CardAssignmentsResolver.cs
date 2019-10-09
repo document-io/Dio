@@ -24,7 +24,7 @@ namespace DocumentIO
 
 			var loader = accessor.Context.GetOrAddCollectionBatchLoader<Guid, CardAssignment>(
 				"CardAssignments",
-				async ids => 
+				async ids =>
 					await filter.Filtered(
 							databaseContext.Accounts.AsNoTracking(),
 							query: accounts => accounts.SelectMany(account => account.Assignments)

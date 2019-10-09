@@ -26,6 +26,14 @@ namespace DocumentIO
 			card.CreatedAt = DateTime.UtcNow;
 
 			await databaseContext.Cards.AddAsync(card);
+
+			await databaseContext.CardAssignments
+				.AddAsync(new CardAssignment
+				{
+					Card = card,
+					AccountId = context.GetAccountId()
+				});
+
 			await databaseContext.SaveChangesAsync();
 
 			return card;

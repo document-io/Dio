@@ -27,16 +27,16 @@ namespace DocumentIO
 
 			if (Role != null)
 				queryable = queryable.Where(account => account.Role == Role);
-			
+
 			if (Email != null)
 				queryable = queryable.Where(account => account.Email == Email);
-			
+
 			if (FirstName != null)
 				queryable = queryable.Where(account => account.FirstName.Contains(FirstName));
 
 			if (MiddleName != null)
 				queryable = queryable.Where(account => account.MiddleName.Contains(MiddleName));
-			
+
 			if (LastName != null)
 				queryable = queryable.Where(account => account.LastName.Contains(LastName));
 

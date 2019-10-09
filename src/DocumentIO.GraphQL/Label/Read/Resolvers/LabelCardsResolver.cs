@@ -24,7 +24,7 @@ namespace DocumentIO
 
 			var loader = accessor.Context.GetOrAddCollectionBatchLoader<Guid, CardLabel>(
 				"LabelCards",
-				async ids => 
+				async ids =>
 					await filter.Filtered(
 							databaseContext.Cards.AsNoTracking(),
 							cards => cards

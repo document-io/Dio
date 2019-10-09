@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 namespace DocumentIO
 {
 	public class QueryInvitesResovler : IDocumentIOResolver<IEnumerable<Invite>>
-	{		
+	{
 		private readonly DatabaseContext databaseContext;
 
 		public QueryInvitesResovler(DatabaseContext databaseContext)

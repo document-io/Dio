@@ -56,19 +56,19 @@ namespace DocumentIO
 			var filter = new TFilterType();
 
 			builder.Configure(q =>
+			{
+				foreach (var field in filter.Fields)
 				{
-					foreach (var field in filter.Fields)
+					q.Arguments.Add(new QueryArgument(field.Type)
 					{
-						q.Arguments.Add(new QueryArgument(field.Type)
-						{
-							Description = field.Description,
-							Name = field.Name,
-							DefaultValue = field.DefaultValue,
-							Metadata = field.Metadata,
-							ResolvedType = field.ResolvedType
-						});
-					}
-				});
+						Description = field.Description,
+						Name = field.Name,
+						DefaultValue = field.DefaultValue,
+						Metadata = field.Metadata,
+						ResolvedType = field.ResolvedType
+					});
+				}
+			});
 
 			return this;
 		}
@@ -135,9 +135,9 @@ namespace DocumentIO
 				return;
 			}
 
-			await (Task) validationType
+			await (Task)validationType
 				.GetMethod("Validate", BindingFlags.Instance | BindingFlags.Public)
-				.Invoke(validation, new object[]{ new DocumentIOResolveFieldContext<TSourceType>(context), validationContext });
+				.Invoke(validation, new object[] {new DocumentIOResolveFieldContext<TSourceType>(context), validationContext});
 		}
 	}
 }

@@ -18,7 +18,7 @@ namespace DocumentIO
 		{
 			if (Id != null)
 				queryable = queryable.Where(comment => comment.Id == Id);
-			
+
 			if (Content != null)
 				queryable = queryable.Where(comment => comment.Text.Contains(Content));
 

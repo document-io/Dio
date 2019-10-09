@@ -21,7 +21,7 @@ namespace DocumentIO
 		public async Task Validate(DocumentIOResolveFieldContext<object> context, IValidationContext validationContext)
 		{
 			var model = context.GetArgument<Organization>();
-			
+
 			validationContext.When(model, m => m.Name)
 				.IsNullOrWhitespace()
 				.AddValidationDetail("Задайте имя организации");

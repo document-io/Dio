@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 namespace DocumentIO
 {
 	public class QueryAccountsResolver : IDocumentIOResolver<IEnumerable<Account>>
-	{		
+	{
 		private readonly DatabaseContext databaseContext;
 
 		public QueryAccountsResolver(DatabaseContext databaseContext)

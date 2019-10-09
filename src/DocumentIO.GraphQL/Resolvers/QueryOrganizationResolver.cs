@@ -11,7 +11,7 @@ namespace DocumentIO
 		{
 			this.databaseContext = databaseContext;
 		}
-		
+
 		public async Task<Organization> Resolve(DocumentIOResolveFieldContext<object> context)
 		{
 			var accountId = context.GetAccountId();

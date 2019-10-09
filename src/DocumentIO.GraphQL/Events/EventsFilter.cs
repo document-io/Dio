@@ -10,7 +10,7 @@ namespace DocumentIO
 		public string Content { get; set; }
 
 		public override IQueryable<TPaginated> Filtered<TPaginated, TOrderBy>(
-			IQueryable<CardEvent> queryable, 
+			IQueryable<CardEvent> queryable,
 			Func<IQueryable<CardEvent>, IQueryable<TPaginated>> query,
 			Expression<Func<TPaginated, TOrderBy>> orderBy)
 		{

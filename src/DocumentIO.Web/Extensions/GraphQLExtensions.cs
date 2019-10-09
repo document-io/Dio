@@ -14,7 +14,9 @@ namespace DocumentIO.Web
 {
 	public static class GraphQLExtensions
 	{
-		public static IServiceCollection AddDocumentIOGraphQL(this IServiceCollection services, IWebHostEnvironment environment)
+		public static IServiceCollection AddDocumentIOGraphQL(
+			this IServiceCollection services,
+			IWebHostEnvironment environment)
 		{
 			services.AddHttpContextAccessor();
 			services.AddSingleton<ISchema, DocumentIOSchema>();
@@ -23,7 +25,7 @@ namespace DocumentIO.Web
 			services.AddSingleton<EnumerationGraphType<DocumentIOOrderBy>, DocumentIOOrderByType>();
 
 			var assembly = typeof(DocumentIOSchema).Assembly;
-			
+
 			services.AddGraphQL(options =>
 				{
 					options.ExposeExceptions = false; // environment.IsDevelopment();

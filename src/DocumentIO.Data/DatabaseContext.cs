@@ -32,7 +32,7 @@ namespace DocumentIO
 				.HasKey(cardLabel => new {cardLabel.CardId, cardLabel.LabelId});
 
 			modelBuilder.Entity<CardAssignment>()
-				.HasKey(cardAssignment => new { cardAssignment.AccountId, cardAssignment.CardId });
+				.HasKey(cardAssignment => new {cardAssignment.AccountId, cardAssignment.CardId});
 		}
 	}
 }

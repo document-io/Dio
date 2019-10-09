@@ -33,7 +33,7 @@ namespace DocumentIO
 				Order = 1
 			};
 
-			var columns = new[] { column1, column2 };
+			var columns = new[] {column1, column2};
 
 			resolver.UpdateColumnsOrder(columns, model);
 
@@ -62,7 +62,7 @@ namespace DocumentIO
 				Order = 2
 			};
 
-			var columns = new[] { column1, column2 };
+			var columns = new[] {column1, column2};
 
 			resolver.UpdateColumnsOrder(columns, model);
 
@@ -103,7 +103,7 @@ namespace DocumentIO
 				Order = 3
 			};
 
-			var columns = new[] { column1, column2, column3, column4 };
+			var columns = new[] {column1, column2, column3, column4};
 
 			resolver.UpdateColumnsOrder(columns, model);
 
@@ -112,7 +112,7 @@ namespace DocumentIO
 			Assert.Equal(2, column3.Order);
 			Assert.Equal(4, column4.Order);
 		}
-		
+
 		[Fact]
 		public void MoveMiddleToForward()
 		{
@@ -140,7 +140,7 @@ namespace DocumentIO
 				Order = 3
 			};
 
-			var columns = new[] { column1, column2, column3 };
+			var columns = new[] {column1, column2, column3};
 
 			resolver.UpdateColumnsOrder(columns, model);
 
@@ -182,7 +182,7 @@ namespace DocumentIO
 				Order = 4
 			};
 
-			var columns = new[] { column1, column2, column3, column4 };
+			var columns = new[] {column1, column2, column3, column4};
 
 			resolver.UpdateColumnsOrder(columns, model);
 
@@ -212,7 +212,7 @@ namespace DocumentIO
 				Id = Guid.NewGuid(),
 				Order = 3
 			};
-			
+
 			var column4 = new Column
 			{
 				Id = Guid.NewGuid(),
@@ -225,7 +225,7 @@ namespace DocumentIO
 				Order = 2
 			};
 
-			var columns = new[] { column1, column2, column3, column4 };
+			var columns = new[] {column1, column2, column3, column4};
 
 			resolver.UpdateColumnsOrder(columns, model);
 
@@ -234,7 +234,7 @@ namespace DocumentIO
 			Assert.Equal(2, column3.Order);
 			Assert.Equal(4, column4.Order);
 		}
-		
+
 		[Fact]
 		public void MoveBackwardToStart()
 		{
@@ -255,7 +255,7 @@ namespace DocumentIO
 				Id = Guid.NewGuid(),
 				Order = 3
 			};
-			
+
 			var column4 = new Column
 			{
 				Id = Guid.NewGuid(),
@@ -268,7 +268,7 @@ namespace DocumentIO
 				Order = 1
 			};
 
-			var columns = new[] { column1, column2, column3, column4 };
+			var columns = new[] {column1, column2, column3, column4};
 
 			resolver.UpdateColumnsOrder(columns, model);
 

@@ -9,7 +9,7 @@ namespace DocumentIO
 	{
 		public static async Task<Organization> GetByAccountId(this IQueryable<Organization> organizations, Guid accountId)
 		{
-			return await  organizations
+			return await organizations
 				.SingleAsync(organization =>
 					organization.Accounts.Any(
 						account => account.Id == accountId));

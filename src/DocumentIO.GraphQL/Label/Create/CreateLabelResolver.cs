@@ -10,7 +10,7 @@ namespace DocumentIO
 		{
 			this.databaseContext = databaseContext;
 		}
-	
+
 		public async Task<Label> Resolve(DocumentIOResolveFieldContext<object> context)
 		{
 			var label = context.GetArgument<Label>();

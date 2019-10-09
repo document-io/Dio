@@ -11,7 +11,7 @@ namespace DocumentIO
 		{
 			this.configuration = configuration;
 		}
-		
+
 		public Task<string> Resolve(DocumentIOResolveFieldContext<object> context)
 		{
 			return Task.FromResult(configuration.GetValue<string>("Version"));

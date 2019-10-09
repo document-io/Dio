@@ -24,7 +24,7 @@ namespace DocumentIO
 
 			var loader = accessor.Context.GetOrAddCollectionBatchLoader<Guid, Card>(
 				"ColumnCards",
-				async ids => 
+				async ids =>
 					await filter.Filtered(
 							databaseContext.Cards.AsNoTracking(),
 							query: cards => cards.Where(card => ids.Contains(card.ColumnId)),
