@@ -17,7 +17,7 @@ namespace DocumentIO
 			this.accessor = accessor;
 			this.databaseContext = databaseContext;
 		}
-		
+
 		public async Task<IEnumerable<Card>> Resolve(DocumentIOResolveFieldContext<Account> context)
 		{
 			var filter = context.GetFilter<CardsFilter>();

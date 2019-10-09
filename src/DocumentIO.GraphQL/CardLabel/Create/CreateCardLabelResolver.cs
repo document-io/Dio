@@ -24,7 +24,7 @@ namespace DocumentIO
 
 			var label = await databaseContext.Labels
 				.FirstAsync(x => x.Id == cardLabel.LabelId);
-			
+
 			await databaseContext.CardEvents.AddRangeAsync(card.Assignments
 				.Select(x => new CardEvent
 				{
@@ -33,7 +33,7 @@ namespace DocumentIO
 					CreatedAt = DateTime.UtcNow,
 					Content = $"К карточке '{card.Name}'' добавлена метка '{label.Name}'"
 				}));
-			
+
 			await databaseContext.CardLabels.AddAsync(cardLabel);
 
 			await databaseContext.SaveChangesAsync();

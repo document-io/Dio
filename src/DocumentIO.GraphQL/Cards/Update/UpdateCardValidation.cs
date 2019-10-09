@@ -61,7 +61,7 @@ namespace DocumentIO
 			}
 		}
 
-		public async Task ValidateCardOrder(IValidationContext validationContext, Card card,  Card model)
+		public async Task ValidateCardOrder(IValidationContext validationContext, Card card, Card model)
 		{
 			if (model.Order != 0)
 			{

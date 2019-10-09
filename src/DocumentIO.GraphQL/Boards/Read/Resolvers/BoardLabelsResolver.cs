@@ -17,7 +17,7 @@ namespace DocumentIO
 			this.accessor = accessor;
 			this.databaseContext = databaseContext;
 		}
-		
+
 		public Task<IEnumerable<Label>> Resolve(DocumentIOResolveFieldContext<Board> context)
 		{
 			var filter = context.GetFilter<LabelsFilter>();

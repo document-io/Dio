@@ -17,14 +17,14 @@ namespace DocumentIO
 			this.accessor = accessor;
 			this.databaseContext = databaseContext;
 		}
-		
+
 		public Task<IEnumerable<CardComment>> Resolve(DocumentIOResolveFieldContext<Account> context)
 		{
 			var filter = context.GetFilter<CommentsFilter>();
 
 			var loader = accessor.Context.GetOrAddCollectionBatchLoader<Guid, CardComment>(
 				"AccountComments",
-				async ids => 
+				async ids =>
 					await filter.Filtered(
 							databaseContext.CardComments.AsNoTracking(),
 							comments => comments.Where(cardLabel => ids.Contains(cardLabel.AccountId)),

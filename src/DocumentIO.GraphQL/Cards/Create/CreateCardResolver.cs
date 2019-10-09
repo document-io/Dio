@@ -33,7 +33,7 @@ namespace DocumentIO
 					Card = card,
 					AccountId = context.GetAccountId()
 				});
-			
+
 			await databaseContext.SaveChangesAsync();
 
 			return card;

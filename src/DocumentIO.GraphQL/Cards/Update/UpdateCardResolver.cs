@@ -61,7 +61,7 @@ namespace DocumentIO
 
 			return card;
 		}
-		
+
 		public void UpdateCardsOrder(ICollection<Card> cards, Card model)
 		{
 			cards = cards.OrderBy(x => x.Order).ToList();

@@ -3,22 +3,22 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace DocumentIO.Migrations
 {
-    public partial class AddCreatedAtOnColumn : Migration
-    {
-        protected override void Up(MigrationBuilder migrationBuilder)
-        {
-            migrationBuilder.AddColumn<DateTime>(
-                name: "CreatedAt",
-                table: "Columns",
-                nullable: false,
-                defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
-        }
+	public partial class AddCreatedAtOnColumn : Migration
+	{
+		protected override void Up(MigrationBuilder migrationBuilder)
+		{
+			migrationBuilder.AddColumn<DateTime>(
+				name: "CreatedAt",
+				table: "Columns",
+				nullable: false,
+				defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
+		}
 
-        protected override void Down(MigrationBuilder migrationBuilder)
-        {
-            migrationBuilder.DropColumn(
-                name: "CreatedAt",
-                table: "Columns");
-        }
-    }
+		protected override void Down(MigrationBuilder migrationBuilder)
+		{
+			migrationBuilder.DropColumn(
+				name: "CreatedAt",
+				table: "Columns");
+		}
+	}
 }

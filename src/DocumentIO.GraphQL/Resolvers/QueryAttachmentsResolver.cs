@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 namespace DocumentIO
 {
 	public class QueryAttachmentsResolver : IDocumentIOResolver<IEnumerable<CardAttachment>>
-	{		
+	{
 		private readonly DatabaseContext databaseContext;
 
 		public QueryAttachmentsResolver(DatabaseContext databaseContext)

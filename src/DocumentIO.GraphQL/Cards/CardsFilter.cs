@@ -11,7 +11,7 @@ namespace DocumentIO
 		public int? Order { get; set; }
 
 		public DateTimeOffset? DueDate { get; set; }
-		
+
 		public override IQueryable<TPaginated> Filtered<TPaginated, TOrderBy>(
 			IQueryable<Card> queryable,
 			Func<IQueryable<Card>, IQueryable<TPaginated>> query,
@@ -19,10 +19,10 @@ namespace DocumentIO
 		{
 			if (Id != null)
 				queryable = queryable.Where(card => card.Id == Id);
-			
+
 			if (Name != null)
 				queryable = queryable.Where(card => card.Name.Contains(Name));
-			
+
 			if (Order != null)
 				queryable = queryable.Where(card => card.Order == Order);
 

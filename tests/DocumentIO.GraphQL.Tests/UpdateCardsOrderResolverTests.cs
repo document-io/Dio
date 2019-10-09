@@ -33,7 +33,7 @@ namespace DocumentIO
 				Order = 1
 			};
 
-			var cards = new[] { card1, card2 };
+			var cards = new[] {card1, card2};
 
 			resolver.UpdateCardsOrder(cards, model);
 
@@ -62,7 +62,7 @@ namespace DocumentIO
 				Order = 2
 			};
 
-			var cards = new[] { card1, card2 };
+			var cards = new[] {card1, card2};
 
 			resolver.UpdateCardsOrder(cards, model);
 
@@ -103,7 +103,7 @@ namespace DocumentIO
 				Order = 3
 			};
 
-			var cards = new[] { card1, card2, card3, card4 };
+			var cards = new[] {card1, card2, card3, card4};
 
 			resolver.UpdateCardsOrder(cards, model);
 
@@ -112,7 +112,7 @@ namespace DocumentIO
 			Assert.Equal(2, card3.Order);
 			Assert.Equal(4, card4.Order);
 		}
-		
+
 		[Fact]
 		public void MoveMiddleToForward()
 		{
@@ -140,7 +140,7 @@ namespace DocumentIO
 				Order = 3
 			};
 
-			var cards = new[] { card1, card2, card3 };
+			var cards = new[] {card1, card2, card3};
 
 			resolver.UpdateCardsOrder(cards, model);
 
@@ -182,7 +182,7 @@ namespace DocumentIO
 				Order = 4
 			};
 
-			var cards = new[] { card1, card2, card3, card4 };
+			var cards = new[] {card1, card2, card3, card4};
 
 			resolver.UpdateCardsOrder(cards, model);
 
@@ -212,7 +212,7 @@ namespace DocumentIO
 				Id = Guid.NewGuid(),
 				Order = 3
 			};
-			
+
 			var card4 = new Card
 			{
 				Id = Guid.NewGuid(),
@@ -225,7 +225,7 @@ namespace DocumentIO
 				Order = 2
 			};
 
-			var cards = new[] { card1, card2, card3, card4 };
+			var cards = new[] {card1, card2, card3, card4};
 
 			resolver.UpdateCardsOrder(cards, model);
 
@@ -234,7 +234,7 @@ namespace DocumentIO
 			Assert.Equal(2, card3.Order);
 			Assert.Equal(4, card4.Order);
 		}
-		
+
 		[Fact]
 		public void MoveBackwardToStart()
 		{
@@ -255,7 +255,7 @@ namespace DocumentIO
 				Id = Guid.NewGuid(),
 				Order = 3
 			};
-			
+
 			var card4 = new Card
 			{
 				Id = Guid.NewGuid(),
@@ -268,7 +268,7 @@ namespace DocumentIO
 				Order = 1
 			};
 
-			var cards = new[] { card1, card2, card3, card4 };
+			var cards = new[] {card1, card2, card3, card4};
 
 			resolver.UpdateCardsOrder(cards, model);
 

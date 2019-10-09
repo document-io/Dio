@@ -29,7 +29,7 @@ namespace DocumentIO
 				new ClaimsPrincipal(new ClaimsIdentity(new[]
 				{
 					new Claim(ClaimTypes.Name, account.Id.ToString()),
-					new Claim(ClaimTypes.Role, account.Role) 
+					new Claim(ClaimTypes.Role, account.Role)
 				})));
 
 			return account;

@@ -26,7 +26,7 @@ namespace DocumentIO
 
 			var account = await databaseContext.Accounts
 				.FirstAsync(x => x.Id == assigmnemt.AccountId);
-			
+
 			await databaseContext.CardEvents.AddRangeAsync(card.Assignments
 				.Select(x => new CardEvent
 				{

@@ -20,21 +20,22 @@ namespace DocumentIO
 			var filter = context.GetFilter<SearchFilter>();
 
 			var boards = await filter.Filtered(
-				databaseContext.Boards.Where(x => x.Organization.Accounts.Any(account => account.Id == accountId)),
-				x => x,
-				search => search.CreatedAt)
+					databaseContext.Boards.Where(x => x.Organization.Accounts.Any(account => account.Id == accountId)),
+					x => x,
+					search => search.CreatedAt)
 				.ToListAsync();
 
 			var columns = await filter.Filtered(
-				databaseContext.Columns.Where(x => x.Board.Organization.Accounts.Any(account => account.Id == accountId)),
-				x => x,
-				search => search.CreatedAt)
+					databaseContext.Columns.Where(x => x.Board.Organization.Accounts.Any(account => account.Id == accountId)),
+					x => x,
+					search => search.CreatedAt)
 				.ToListAsync();
 
 			var cards = await filter.Filtered(
-				databaseContext.Cards.Where(x => x.Column.Board.Organization.Accounts.Any(account => account.Id == accountId)),
-				x => x,
-				search => search.CreatedAt)
+					databaseContext.Cards.Where(x =>
+						x.Column.Board.Organization.Accounts.Any(account => account.Id == accountId)),
+					x => x,
+					search => search.CreatedAt)
 				.ToListAsync();
 
 			return boards.Concat(columns).Concat(cards);

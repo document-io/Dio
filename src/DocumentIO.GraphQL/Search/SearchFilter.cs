@@ -9,7 +9,10 @@ namespace DocumentIO
 		public string Name { get; set; }
 		public DateTime? CreatedAt { get; set; }
 
-		public override IQueryable<TPaginated> Filtered<TPaginated, TOrderBy>(IQueryable<Search> queryable, Func<IQueryable<Search>, IQueryable<TPaginated>> query, Expression<Func<TPaginated, TOrderBy>> orderBy)
+		public override IQueryable<TPaginated> Filtered<TPaginated, TOrderBy>(
+			IQueryable<Search> queryable,
+			Func<IQueryable<Search>, IQueryable<TPaginated>> query,
+			Expression<Func<TPaginated, TOrderBy>> orderBy)
 		{
 			if (Name != null)
 				queryable = queryable.Where(x => x.Name.Contains(Name));

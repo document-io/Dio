@@ -16,7 +16,7 @@ namespace DocumentIO
 			this.databaseContext = databaseContext;
 			this.accessor = accessor;
 		}
-		
+
 		public Task<Board> Resolve(DocumentIOResolveFieldContext<Column> context)
 		{
 			var loader = accessor.Context.GetOrAddBatchLoader<Guid, Board>(

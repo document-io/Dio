@@ -14,7 +14,7 @@ namespace DocumentIO
 			this.databaseContext = databaseContext;
 		}
 
-		public async  Task Validate(DocumentIOResolveFieldContext<object> context, IValidationContext validationContext)
+		public async Task Validate(DocumentIOResolveFieldContext<object> context, IValidationContext validationContext)
 		{
 			var accountId = context.GetAccountId();
 			var model = context.GetArgument<CardAssignment>();
