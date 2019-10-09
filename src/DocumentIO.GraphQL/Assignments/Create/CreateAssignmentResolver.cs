@@ -24,13 +24,16 @@ namespace DocumentIO
 				.Include(x => x.Assignments)
 				.FirstOrDefaultAsync(x => x.Id == assigmnemt.CardId);
 
+			var account = await databaseContext.Accounts
+				.FirstAsync(x => x.Id == assigmnemt.AccountId);
+			
 			await databaseContext.CardEvents.AddRangeAsync(card.Assignments
 				.Select(x => new CardEvent
 				{
 					Card = card,
 					AccountId = x.AccountId,
 					CreatedAt = DateTime.UtcNow,
-					Content = $"Вы присоединились к карточке ''{card.Name}'"
+					Content = $"'{account.FirstName} {account.LastName}' присоединился к карточке '{card.Name}'"
 				}));
 
 			await databaseContext.CardAssignments.AddAsync(assigmnemt);
