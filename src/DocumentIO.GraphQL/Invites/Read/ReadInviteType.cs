@@ -11,7 +11,7 @@ namespace DocumentIO
 			Field(x => x.CreatedAt);
 			NullField(x => x.DueDate);
 
-			NonNullDocumentIOField<ReadAccountType, Account>("account")
+			DocumentIOField<ReadAccountType, Account>("account")
 				.AllowUser()
 				.ResolveAsync<InviteAccountResolver>();
 
