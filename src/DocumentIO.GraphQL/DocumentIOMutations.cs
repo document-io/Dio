@@ -70,6 +70,12 @@ namespace DocumentIO
 				.Validate<UpdateColumnValidation>()
 				.ResolveAsync<UpdateColumnResolver>();
 
+			DocumentIOField<ReadColumnType, Column>("deleteColumn")
+				.AllowUser()
+				.NonNullArgument<DeleteColumnType>()
+				.Validate<DeleteColumnValidation>()
+				.ResolveAsync<DeleteColumnResolver>();
+
 			DocumentIOField<ReadCardType, Card>("createCard")
 				.AllowUser()
 				.NonNullArgument<CreateCardType>()
@@ -81,6 +87,12 @@ namespace DocumentIO
 				.NonNullArgument<UpdateCardType>()
 				.Validate<UpdateCardValidation>()
 				.ResolveAsync<UpdateCardResolver>();
+
+			DocumentIOField<ReadCardType, Card>("deleteCard")
+				.AllowUser()
+				.NonNullArgument<DeleteCardType>()
+				.Validate<DeleteCardValidation>()
+				.ResolveAsync<DeleteCardResolver>();
 
 			DocumentIOField<ReadCommentType, CardComment>("createComment")
 				.AllowUser()

@@ -30,7 +30,7 @@ namespace DocumentIO
 			where TGraphType : GraphType
 		{
 			return new DocumentIOFieldBuilder<TSourceType, IEnumerable<TReturnType>>(
-				Field<NonNullGraphType<ListGraphType<NonNullGraphType<TGraphType>>>, IEnumerable<TReturnType>>(name));
+				Field<ListGraphType<TGraphType>, IEnumerable<TReturnType>>(name));
 		}
 	}
 }
