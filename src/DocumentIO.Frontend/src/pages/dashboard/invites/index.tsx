@@ -7,8 +7,9 @@ import { Invite } from './invite'
 import { InviteType } from './types'
 import { CreateInvite, CreateInviteVariables } from './mutations'
 import { Invites, ReadInvitesResponse } from './queries'
+import { RouteChildrenProps } from 'react-router'
 
-export const DashboardInviteTab = () => {
+export const DashboardInviteTab = (props: RouteChildrenProps) => {
   const { loading, error, data, refetch } = useQuery<ReadInvitesResponse>(Invites)
 
   const [isLoading, setLoading] = useState(false)
