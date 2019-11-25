@@ -116,6 +116,8 @@ export const Board = (props: RouteChildrenProps) => {
                 data={updatedData}
                 editable
                 canAddLanes
+                laneDraggable={false}
+                cardDraggable={false}
                 onLaneAdd={onLaneAdd}
                 onCardAdd={onCardAdd}
                 onCardDelete={onCardDelete}
