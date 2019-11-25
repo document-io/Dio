@@ -38,6 +38,13 @@ namespace DocumentIO
 				UpdateCardsOrder(cards, model);
 			}
 
+			if (model.ColumnId != Guid.Empty)
+			{
+				var column = await databaseContext.Columns.FirstAsync(x => x.Id == model.ColumnId);
+
+				card.Column = column;
+			}
+
 			if (model.DueDate != null)
 			{
 				card.DueDate = model.DueDate;

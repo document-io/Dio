@@ -5,6 +5,7 @@ namespace DocumentIO
 		public UpdateCardType()
 		{
 			Field(x => x.Id);
+			NullField(x => x.ColumnId);
 			NullField(x => x.Name);
 			NullField(x => x.Order);
 			NullField(x => x.DueDate);
