@@ -17,6 +17,9 @@ namespace DocumentIO
 		{
 			var userContext = context.GetUserContext();
 
+			if (userContext.User?.Identity?.Name == null)
+				return Guid.Empty;
+
 			return Guid.TryParse(userContext.User.Identity.Name, out var accountId)
 				? accountId
 				: Guid.Empty;

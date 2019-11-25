@@ -1,3 +1,4 @@
+using System;
 using GraphQL.Types;
 
 namespace DocumentIO
@@ -10,6 +11,9 @@ namespace DocumentIO
 
 			NonNullDocumentIOField<StringGraphType, string>("version")
 				.ResolveAsync<QueryVersionResolver>();
+
+			DocumentIOField<GuidGraphType, Guid?>("accountId")
+				.ResolveAsync<QueryAccountIdResolver>();
 
 			NonNullDocumentIOField<ReadOrganizationType, Organization>("organization")
 				.AllowUser()

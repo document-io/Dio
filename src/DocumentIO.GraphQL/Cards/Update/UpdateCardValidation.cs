@@ -25,6 +25,19 @@ namespace DocumentIO
 
 			await ValidateCardName(validationContext, card, model, accountId);
 			await ValidateCardOrder(validationContext, card, model);
+
+			if (model.ColumnId != Guid.Empty)
+			{
+				var columnExists = await databaseContext.Columns
+					.AnyAsync(x => x.Board
+						.Columns
+						.Any(column => 
+							column.Cards.Any(c => c == card)));
+
+				validationContext.When(model, m => m.Id)
+					.IsNot(() => columnExists)
+					.AddValidationDetail("Колонка не найдена");
+			}
 		}
 
 		public async Task<Card> ValidateCardExists(IValidationContext validationContext, Card model, Guid accountId)

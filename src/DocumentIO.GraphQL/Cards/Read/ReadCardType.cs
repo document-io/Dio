@@ -12,7 +12,8 @@ namespace DocumentIO
 			Field(x => x.CreatedAt);
 			NullField(x => x.UpdatedAt);
 			NullField(x => x.DueDate);
-			Field(x => x.Content);
+			NullField(x => x.Content);
+			NullField(x => x.Description);
 
 			NonNullDocumentIOField<ReadColumnType, Column>("column")
 				.AllowUser()
