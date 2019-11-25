@@ -1,77 +1,101 @@
 import React from 'react'
-import { RouteChildrenProps } from 'react-router'
+import {RouteChildrenProps} from 'react-router'
 // @ts-ignore
 import TrelloBoard from 'react-trello'
-import { DocumentIOMenu } from '../../components/menu'
-import { useMutation, useQuery } from '@apollo/react-hooks'
-import { CreateCard, CreateCardVariables, CreateColumn, CreateColumnVariables } from './mutations'
-import { CreateCardType, CreateColumnType } from './types'
-import { Columns, ReadColumnsVariables } from './queries'
+import {DocumentIOMenu} from '../../components/menu'
+import {useMutation, useQuery} from '@apollo/react-hooks'
+import {
+    CreateCard,
+    CreateCardVariables,
+    CreateColumn,
+    CreateColumnVariables,
+    DeleteCard, DeleteCardVariables,
+    DeleteColumn, DeleteColumnVariables
+} from './mutations'
+import {CreateCardType, CreateColumnType} from './types'
+import {Columns, ReadBoardsVariables} from './queries'
 
-export const Board = (props: RouteChildrenProps) => {
-  // @ts-ignore
-  const boardId = props.match.params.boardId
+export const BoardPage = (props: RouteChildrenProps) => {
+    // @ts-ignore
+    const boardId = props.match.params.boardId
 
-  const { data, loading, refetch, error } = useQuery<ReadColumnsVariables>(Columns)
-  const initialData = {
-    lanes: []
-  }
-  let updatedData = initialData
-  if (!loading) {
-    updatedData = {
-      // @ts-ignore
-      lanes: data!.columns.map(({ cards, id, name }) => ({
-        id,
-        title: name,
-        cards: cards.map(({ name, content, id }) => ({
-          id,
-          title: name,
-          description: content
-        }))
-      }))
-    }
-  }
-  console.log(updatedData)
-
-  const [createColumn] = useMutation<CreateColumnType, CreateColumnVariables>(CreateColumn)
-  const [createCard] = useMutation<CreateCardType, CreateCardVariables>(CreateCard)
-
-
-  const onLaneAdd = async ({ title }: { title: string }) => {
-    try {
-      await createColumn({
+    const {data, loading, refetch, error} = useQuery<ReadBoardsVariables>(Columns, {
         variables: {
-          column: {
-            boardId,
-            name: title
-          }
+            boardId
         }
-      })
-      await refetch()
-    } catch (e) {
-
+    })
+    const initialData = {
+        lanes: []
     }
-  }
-
-  const onLaneDelete = ({ title }: { title: string }) => {
-    // TODO
-  }
-
-  const onCardAdd = async ({ title }: { title: string }, laneId: any) => {
-    console.log(title, laneId)
-    try {
-      await createCard({
-        variables: {
-          card: {
-            columnId: laneId,
-            name: title
-          }
+    let updatedData = initialData
+    if (!loading) {
+        updatedData = {
+            // @ts-ignore
+            lanes: data!.boards[0].columns.map(({cards, id, name}) => ({
+                id,
+                title: name,
+                cards: cards.map(({name, content, id}) => ({
+                    id,
+                    title: name,
+                    description: content
+                }))
+            }))
         }
-      })
-      await refetch()
-    } catch (e) {
     }
-  }
+
+    console.log(updatedData)
+
+    const [createColumn] = useMutation<CreateColumnType, CreateColumnVariables>(CreateColumn)
+    const [createCard] = useMutation<CreateCardType, CreateCardVariables>(CreateCard)
+    const [deleteColumn] = useMutation<{ id: string }, DeleteColumnVariables>(DeleteColumn)
+    const [deleteCard] = useMutation<{ id: string }, DeleteCardVariables>(DeleteCard)
+
+
+    const onLaneAdd = async ({title}: { title: string }) => {
+        try {
+            await createColumn({
+                variables: {
+                    column: {
+                        boardId,
+                        name: title
+                    }
+                }
+            })
+            await refetch()
+        } catch (e) {
+
+        }
+    }
+
+    const onLaneDelete = async (laneId: string) => {
+        try {
+            await deleteColumn({
+                variables: {
+                    column: {
+                        id: laneId
+                    }
+                }
+            })
+            await refetch()
+        } catch (e) {
+
+        }
+    }
+
+    const onCardAdd = async ({title}: { title: string }, laneId: any) => {
+        try {
+            await createCard({
+                variables: {
+                    card: {
+                        columnId: laneId,
+                        name: title
+                    }
+                }
+            })
+            await refetch()
+        } catch (e) {
+        }
+    }
 
     const onCardDelete = async (cardId: string) => {
         try {
