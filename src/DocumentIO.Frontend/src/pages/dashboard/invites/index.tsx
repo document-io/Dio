@@ -87,7 +87,7 @@ export const DashboardInviteTab = (props: RouteChildrenProps) => {
             </Form.Button>
           </Form.Group>
         </Form>
-        {filteredData!.invites.map((invite) => <Invite key={invite.id} invite={invite} refresh={refreshData}/>)}
+        {filteredData!.invites.map((invite) => <Invite key={invite.id} invite={invite} refresh={refreshData} {...props}/>)}
       </Grid.Column>
     </Grid>
   )

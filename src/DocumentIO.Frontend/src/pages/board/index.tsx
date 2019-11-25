@@ -9,18 +9,20 @@ import {
     CreateCardVariables,
     CreateColumn,
     CreateColumnVariables,
-    DeleteCard,
-    DeleteCardVariables, DeleteColumn, DeleteColumnVariables
+    DeleteCard, DeleteCardVariables,
+    DeleteColumn, DeleteColumnVariables
 } from './mutations'
 import {CreateCardType, CreateColumnType} from './types'
 import {Columns, ReadBoardsVariables} from './queries'
 
-export const Board = (props: RouteChildrenProps) => {
+export const BoardPage = (props: RouteChildrenProps) => {
     // @ts-ignore
-    const boardId: string = props.match.params.boardId
+    const boardId = props.match.params.boardId
 
-    const {data, loading, refetch} = useQuery<ReadBoardsVariables>(Columns, {
-        variables: {boardId}
+    const {data, loading, refetch, error} = useQuery<ReadBoardsVariables>(Columns, {
+        variables: {
+            boardId
+        }
     })
     const initialData = {
         lanes: []
@@ -41,10 +43,12 @@ export const Board = (props: RouteChildrenProps) => {
         }
     }
 
+    console.log(updatedData)
+
     const [createColumn] = useMutation<CreateColumnType, CreateColumnVariables>(CreateColumn)
     const [createCard] = useMutation<CreateCardType, CreateCardVariables>(CreateCard)
-    const [deleteCard] = useMutation<{ id: string }, DeleteCardVariables>(DeleteCard)
     const [deleteColumn] = useMutation<{ id: string }, DeleteColumnVariables>(DeleteColumn)
+    const [deleteCard] = useMutation<{ id: string }, DeleteCardVariables>(DeleteCard)
 
 
     const onLaneAdd = async ({title}: { title: string }) => {
@@ -79,7 +83,6 @@ export const Board = (props: RouteChildrenProps) => {
     }
 
     const onCardAdd = async ({title}: { title: string }, laneId: any) => {
-        console.log(title, laneId)
         try {
             await createCard({
                 variables: {

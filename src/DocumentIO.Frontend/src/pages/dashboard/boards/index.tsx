@@ -7,6 +7,7 @@ import { ReadBoardType } from './types'
 import { RouteChildrenProps } from 'react-router'
 
 export const DashboardBoardsTab = (props: RouteChildrenProps) => {
+    console.log(props)
   const [globalValidation, setGlobalValidation] = useState('')
   const [boardName, setBoardName] = useState('')
 
@@ -44,7 +45,7 @@ export const DashboardBoardsTab = (props: RouteChildrenProps) => {
   // @ts-ignore
   const items = data.boards
     .map(board => (
-      <Card key={board.id} centered onClick={() => props.history.push(`/dashboard/board/${board.id}`)}>
+      <Card key={board.id} centered onClick={() => props.history.push(`/dashboard/boards/${board.id}`)}>
         <Card.Content>
           <Card.Header>{board.name}</Card.Header>
           <Card.Description>Leverage agile frameworks to provide a robust synopsis for high level
