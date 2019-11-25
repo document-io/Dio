@@ -6,6 +6,7 @@ import { LoginPage } from './pages/login'
 import { CreatePage } from './pages/create'
 import { DashboardPage } from './pages/dashboard'
 import { RegisterPage } from './pages/register'
+import { Board } from './pages/board'
 
 export const Router = () => (
   <Switch>
@@ -13,6 +14,7 @@ export const Router = () => (
     <Route exact path='/login' component={LoginPage}/>
     <Route exact path='/create' component={CreatePage}/>
     <Route exact path='/dashboard' component={DashboardPage}/>
+    <Route exact path='/dashboard/board/:boardId' component={Board}/>
     <Route exact path='/register/:secret' component={RegisterPage}/>
   </Switch>
 )

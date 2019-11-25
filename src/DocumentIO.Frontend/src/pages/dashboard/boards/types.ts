@@ -1,4 +1,8 @@
 export interface ReadBoardType {
-	id: string;
-	name: string;
+  id: string;
+  name: string;
+}
+
+export interface CreateBoardType {
+  name: string
 }
