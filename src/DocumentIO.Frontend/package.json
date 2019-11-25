@@ -21,6 +21,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
+  "proxy": "http://documentio.fvds.ru",
   "devDependencies": {
     "@types/graphql": "^14.5.0",
     "@types/lodash": "^4.14.141",
