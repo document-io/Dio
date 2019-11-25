@@ -1,20 +1,21 @@
 import { gql } from 'apollo-boost'
-import { ReadColumns } from './types'
+import { ReadBoards } from './types'
 
 export const Columns = gql`
-query ReadColumns{
-  columns {
-    id,
-    name,
-    cards {
+query ReadColumns($boardId: ID){
+  boards(id: $boardId) {  
+    columns {
       id,
       name,
-      content
+      cards {
+        id,
+        name
+      }
     }
   }
 }
 `
 
-export interface ReadColumnsVariables {
-  columns: ReadColumns[]
+export interface ReadBoardsVariables {
+  boards: ReadBoards[]
 }

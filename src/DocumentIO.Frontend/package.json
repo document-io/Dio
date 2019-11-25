@@ -1,52 +1,53 @@
 {
-	"name": "@document-io/document.io",
-	"version": "0.0.1",
-	"dependencies": {
-      "@apollo/react-hooks": "^3.1.1",
-      "apollo-boost": "^0.4.4",
-      "dayjs": "^1.8.16",
-      "graphql": "^14.5.8",
-      "lodash": "^4.17.15",
-		"react": "^16.9.0",
-		"react-dom": "^16.9.0",
-		"react-router-dom": "^5.0.1",
-      "react-semantic-ui-datepickers": "^1.12.0",
-      "react-trello": "^2.2.3",
-		"semantic-ui-css": "^2.4.1",
-      "semantic-ui-react": "^0.88.1"
-	},
-	"scripts": {
-		"dev": "react-scripts start",
-		"build": "react-scripts build",
-		"test": "react-scripts test",
-		"eject": "react-scripts eject"
-	},
-	"devDependencies": {
-		"@types/graphql": "^14.5.0",
-		"@types/lodash": "^4.14.141",
-		"@types/react": "^16.9.2",
-		"@types/react-dom": "^16.9.0",
-		"@types/react-router-dom": "^4.3.5",
-		"node-sass": "^4.12.0",
-		"react-scripts": "3.1.2",
-		"typescript": "3.6.3"
-	},
-	"eslintConfig": {
-		"extends": "react-app"
-	},
-	"publishConfig": {
-      "registry": "https://npm.pkg.github.com/"
-    },
-	"browserslist": {
-		"production": [
-			">0.2%",
-			"not dead",
-			"not op_mini all"
-		],
-		"development": [
-			"last 1 chrome version",
-			"last 1 firefox version",
-			"last 1 safari version"
-		]
-	}
+  "name": "@document-io/document.io",
+  "version": "0.0.1",
+  "dependencies": {
+    "@apollo/react-hooks": "^3.1.1",
+    "apollo-boost": "^0.4.4",
+    "dayjs": "^1.8.16",
+    "graphql": "^14.5.8",
+    "lodash": "^4.17.15",
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0",
+    "react-router-dom": "^5.0.1",
+    "react-semantic-ui-datepickers": "^1.12.0",
+    "react-trello": "^2.2.3",
+    "semantic-ui-css": "^2.4.1",
+    "semantic-ui-react": "^0.88.1"
+  },
+  "scripts": {
+    "dev": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "proxy": "http://documentio.fvds.ru",
+  "devDependencies": {
+    "@types/graphql": "^14.5.0",
+    "@types/lodash": "^4.14.141",
+    "@types/react": "^16.9.2",
+    "@types/react-dom": "^16.9.0",
+    "@types/react-router-dom": "^4.3.5",
+    "node-sass": "^4.12.0",
+    "react-scripts": "3.1.2",
+    "typescript": "3.6.3"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
 }
