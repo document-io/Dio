@@ -5,6 +5,7 @@ namespace DocumentIO
 		public CreateCardType()
 		{
 			Field(x => x.Name);
+			Field(x => x.Description);
 			Field(x => x.ColumnId);
 		}
 	}

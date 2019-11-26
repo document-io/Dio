@@ -23,6 +23,10 @@ namespace DocumentIO
 
 			await ValidateColumnExists(validationContext, model, accountId);
 			await ValidateCardName(validationContext, model, accountId);
+
+			validationContext.When(model, m => m.Description)
+				.IsNullOrWhitespace()
+				.AddValidationDetail("Описание не задано");
 		}
 
 		public async Task ValidateColumnExists(IValidationContext validationContext, Card model, Guid accountId)
