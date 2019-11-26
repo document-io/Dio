@@ -5,11 +5,12 @@ export const Columns = gql`
 query ReadColumns($boardId: ID){
   boards(id: $boardId) {  
     columns {
-      id,
-      name,
+      id
+      name
       cards {
-        id,
+        id
         name
+        description
       }
     }
   }

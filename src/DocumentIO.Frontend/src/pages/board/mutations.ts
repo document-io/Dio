@@ -1,5 +1,5 @@
-import {gql} from 'apollo-boost'
-import {CreateCardType, CreateColumnType} from './types'
+import { gql } from 'apollo-boost'
+import { CreateCardType, CreateColumnType } from './types'
 
 export const CreateColumn = gql`
 	mutation CreateColumn($column: CreateColumnType!) {
@@ -8,6 +8,7 @@ export const CreateColumn = gql`
 		}
 	}
 `
+
 export const CreateCard = gql`
 	mutation CreateCard($card: CreateCardType!) {
 		createCard(input: $card) {
@@ -15,6 +16,7 @@ export const CreateCard = gql`
 		}
 	}
 `
+
 export const DeleteCard = gql`
 	mutation DeleteCard($card: DeleteCardType!) {
 		deleteCard(input: $card) {
@@ -22,6 +24,7 @@ export const DeleteCard = gql`
 		}
 	}
 `
+
 export const DeleteColumn = gql`
 	mutation DeleteColumn($column: DeleteColumnType!) {
 		deleteColumn(input: $column) {
@@ -30,23 +33,37 @@ export const DeleteColumn = gql`
 	}
 `
 
+export const UpdateCard = gql`
+  mutation UpdateCard($card: UpdateCardType!){
+    updateCard(input: $card){
+      content
+    }
+  }
+`
 
 export interface CreateColumnVariables {
-    column: CreateColumnType
+  column: CreateColumnType
 }
 
 export interface CreateCardVariables {
-    card: CreateCardType
+  card: CreateCardType
 }
 
 export interface DeleteCardVariables {
-    card: {
-        id: string
-    }
+  card: {
+    id: string
+  }
 }
 
 export interface DeleteColumnVariables {
-    column: {
-        id: string
-    }
+  column: {
+    id: string
+  }
+}
+
+export interface UpdateCardVariables {
+  card: {
+    id: string
+    content: string
+  }
 }
