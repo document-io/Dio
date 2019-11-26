@@ -1,9 +1,9 @@
-import React from "react";
-import {DocumentIOMenu} from "../../components/menu";
-import {RouteChildrenProps} from "react-router";
-import {Container, Grid, ImageGroup, ItemImage, SegmentGroup, Card} from "semantic-ui-react";
-import {useQuery} from "@apollo/react-hooks";
-import {ReadProfile, ReadProfileVariables} from "./queries";
+import React from 'react'
+import { DocumentIOMenu } from '../../components/menu'
+import { RouteChildrenProps } from 'react-router'
+import { Card, Container, Grid, ItemImage, SegmentGroup } from 'semantic-ui-react'
+import { useQuery } from '@apollo/react-hooks'
+import { ReadProfile, ReadProfileVariables } from './queries'
 
 export const ProfilePage = (props: RouteChildrenProps) => {
     // @ts-ignore

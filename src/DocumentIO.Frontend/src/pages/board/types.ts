@@ -15,7 +15,7 @@ export interface ReadBoards {
         cards: Array<{
             id: string
             name: string
-            content: string
+            description: string
         }>
     }>
 }
