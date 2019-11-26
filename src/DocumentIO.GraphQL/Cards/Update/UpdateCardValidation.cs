@@ -34,7 +34,7 @@ namespace DocumentIO
 						.Any(column => 
 							column.Cards.Any(c => c == card)));
 
-				validationContext.When(model, m => m.Id)
+				validationContext.When(model, m => m.ColumnId)
 					.IsNot(() => columnExists)
 					.AddValidationDetail("Колонка не найдена");
 			}
