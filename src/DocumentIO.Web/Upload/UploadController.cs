@@ -17,14 +17,14 @@ namespace DocumentIO.Web
 			this.databaseContext = databaseContext;
 		}
 
-		[HttpPost("{fileId}")]
-		public async Task UploadFile(Guid fileId, [FromForm(Name = "file")] IFormFile formFile)
+		[HttpPost("attachment/{attachmentId}")]
+		public async Task UploadFile(Guid attachmentId, [FromForm(Name = "file")] IFormFile formFile)
 		{
 			await using (var memory = new MemoryStream())
 			{
 				await formFile.CopyToAsync(memory);
 
-				var file = await databaseContext.Files.FirstAsync(x => x.Id == fileId);
+				var file = await databaseContext.CardAttachments.FirstAsync(x => x.Id == attachmentId);
 
 				file.FileName = formFile.FileName;
 				file.ContentType = formFile.ContentType;
@@ -36,10 +36,10 @@ namespace DocumentIO.Web
 			}
 		}
 
-		[HttpGet("{fileId}")]
-		public async Task<IActionResult> DownloadFile(Guid fileId)
+		[HttpGet("attachment/{attachmentId}")]
+		public async Task<IActionResult> DownloadFile(Guid attachmentId)
 		{
-			var file = await databaseContext.Files.FirstAsync(x => x.Id == fileId);
+			var file = await databaseContext.CardAttachments.FirstAsync(x => x.Id == attachmentId);
 
 			return File(file.Content, file.ContentType, file.FileName);
 		}
