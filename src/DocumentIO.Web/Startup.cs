@@ -35,6 +35,8 @@ namespace DocumentIO.Web
 			services.AddValidation(options =>
 				options.ValidationPartResolver = ValidationPartResolvers.CamelCase);
 
+			services.AddControllers();
+
 			services.AddSpaStaticFiles(options =>
 			{
 				options.RootPath = configuration.GetValue<string>("Spa:RootPath");
@@ -47,12 +49,18 @@ namespace DocumentIO.Web
 
 			app.UseHttpsRedirection();
 
+			app.UseRouting();
 			app.UseAuthentication();
 			app.UseAuthorization();
 
 			app.UseGraphQL<ISchema>();
 			app.UseGraphiQLServer();
 			app.UseGraphQLVoyager();
+
+			app.UseEndpoints(builder =>
+			{
+				builder.MapControllers();
+			});
 
 			app.UseSpaStaticFiles();
 			app.UseSpa(spa =>

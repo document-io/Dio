@@ -151,10 +151,22 @@ namespace DocumentIO.Migrations
                     b.Property<byte[]>("Content")
                         .HasColumnType("bytea");
 
+                    b.Property<string>("ContentDisposition")
+                        .HasColumnType("text");
+
+                    b.Property<string>("ContentType")
+                        .HasColumnType("text");
+
                     b.Property<DateTimeOffset>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<string>("MimeType")
+                    b.Property<string>("FileName")
+                        .HasColumnType("text");
+
+                    b.Property<long?>("Length")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Name")
                         .HasColumnType("text");
 
                     b.HasKey("Id");

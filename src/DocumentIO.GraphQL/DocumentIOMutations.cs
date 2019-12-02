@@ -124,6 +124,21 @@ namespace DocumentIO
 				.Validate<DeleteAssignmentValidation>()
 				.ResolveAsync<DeleteAssignmentResolver>();
 
+			DocumentIOField<ReadAttachmentType, CardAttachment>("createAttachment")
+				.AllowUser()
+				.NonNullArgument<CreateCardAttachmentType>()
+				.ResolveAsync<CreateCardAttachmentResolver>();
+
+			DocumentIOField<ReadAttachmentType, CardAttachment>("updateAttachment")
+				.AllowUser()
+				.NonNullArgument<UpdateAttachmentType>()
+				.ResolveAsync<UpdateCardAttachmentResolver>();
+
+			DocumentIOField<ReadAttachmentType, CardAttachment>("deleteAttachment")
+				.AllowUser()
+				.NonNullArgument<DeleteCardAttachmentType>()
+				.ResolveAsync<DeleteCardAttachmentResolver>();
+
 			DocumentIOField<ReadLabelType, Label>("createLabel")
 				.AllowUser()
 				.NonNullArgument<CreateLabelType>()
