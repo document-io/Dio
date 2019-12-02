@@ -5,8 +5,6 @@ namespace DocumentIO
 		public ReadAttachmentType()
 		{
 			Field(x => x.Id);
-			Field(x => x.MimeType);
-			Field(x => x.Content);
 			Field(x => x.CreatedAt);
 
 			NonNullDocumentIOField<ReadCardType, Card>("card")
@@ -16,6 +14,10 @@ namespace DocumentIO
 			NonNullDocumentIOField<ReadAccountType, Account>("account")
 				.AllowUser()
 				.ResolveAsync<AttachmentAccountResolver>();
+
+			DocumentIOListField<ReadFileType, File>("files")
+				.AllowUser()
+				.ResolveAsync<AttachmentFilesResolver>();
 		}
 	}
 }

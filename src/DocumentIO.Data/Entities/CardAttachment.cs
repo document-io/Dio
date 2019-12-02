@@ -1,12 +1,11 @@
 using System;
+using System.Collections.Generic;
 
 namespace DocumentIO
 {
 	public class CardAttachment
 	{
 		public Guid Id { get; set; }
-		public string MimeType { get; set; }
-		public byte[] Content { get; set; }
 		public DateTimeOffset CreatedAt { get; set; }
 
 		public Guid CardId { get; set; }
@@ -14,5 +13,7 @@ namespace DocumentIO
 
 		public Guid AccountId { get; set; }
 		public Account Account { get; set; }
+
+		public ICollection<File> Files { get; set; }
 	}
 }

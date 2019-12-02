@@ -69,6 +69,11 @@ namespace DocumentIO
 				.Filtered<SearchFilterType>()
 				.ResolveAsync<SearchResolver>();
 
+			DocumentIOListField<ReadFileType, File>("files")
+				.AllowUser()
+				.Filtered<FilesFilterType>()
+				.ResolveAsync<QueryFilesResolver>();
+
 			DocumentIOField<ReadCountType, object>("count")
 				.AllowUser()
 				.ResolveAsync<CountResolver>();

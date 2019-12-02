@@ -25,6 +25,8 @@ namespace DocumentIO
 		public DbSet<CardAttachment> CardAttachments { get; set; }
 		public DbSet<CardEvent> CardEvents { get; set; }
 
+		public DbSet<File> Files { get; set; }
+
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
 			// TODO: EntityConfigurations

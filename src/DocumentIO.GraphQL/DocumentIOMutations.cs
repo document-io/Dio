@@ -147,6 +147,21 @@ namespace DocumentIO
 				.NonNullArgument<DeleteCardLabelType>()
 				.Validate<DeleteCardLabelValidation>()
 				.ResolveAsync<DeleteCardLabelResolver>();
+
+			DocumentIOField<ReadFileType, File>("createFile")
+				.AllowUser()
+				.NonNullArgument<CreateFileType>()
+				.ResolveAsync<CreateFileResolver>();
+
+			DocumentIOField<ReadFileType, File>("updateFile")
+				.AllowUser()
+				.NonNullArgument<UpdateFileType>()
+				.ResolveAsync<UpdateFileResolver>();
+
+			DocumentIOField<ReadFileType, File>("deleteFile")
+				.AllowUser()
+				.NonNullArgument<DeleteFileType>()
+				.ResolveAsync<DeleteFileResolver>();
 		}
 	}
 }

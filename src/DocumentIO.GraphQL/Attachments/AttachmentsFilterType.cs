@@ -5,7 +5,6 @@ namespace DocumentIO
 		public AttachmentsFilterType()
 		{
 			NullField(x => x.Id);
-			NullField(x => x.MimeType);
 		}
 	}
 }
