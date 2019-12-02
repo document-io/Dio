@@ -8,6 +8,7 @@ import {DashboardPage} from './pages/dashboard'
 import {RegisterPage} from './pages/register'
 import {ProfilePage} from "./pages/profile";
 import {BoardPage} from './pages/board'
+import {CardsPage} from "./pages/cards";
 
 export const Router = () => (
     <Switch>
@@ -17,6 +18,7 @@ export const Router = () => (
         <Route exact path='/dashboard/boards/:boardId' component={BoardPage}/>
         <Route exact path='/profile/:profileId' component={ProfilePage}/>
         <Route exact path='/dashboard' component={DashboardPage}/>
-        <Route exact path='/register/:secret' component={RegisterPage}/>
+            <Route exact path='/register/:secret' component={RegisterPage}/>
+            <Route exact path='/cards' component={CardsPage}/>
     </Switch>
 )

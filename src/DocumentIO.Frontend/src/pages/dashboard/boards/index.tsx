@@ -1,19 +1,19 @@
-import React, { useEffect, useState } from 'react'
-import { useMutation, useQuery } from '@apollo/react-hooks'
-import { Boards, ReadBoardsResponse } from './queries'
-import { Card, Dimmer, Form, Icon, Loader, Message } from 'semantic-ui-react'
-import { CreateBoard, CreateBoardVariables } from './mutations'
-import { ReadBoardType } from './types'
-import { RouteChildrenProps } from 'react-router'
+import React, {useEffect, useState} from 'react'
+import {useMutation, useQuery} from '@apollo/react-hooks'
+import {Boards, ReadBoardsResponse} from './queries'
+import {Card, Dimmer, Form, Icon, Loader, Message} from 'semantic-ui-react'
+import {CreateBoard, CreateBoardVariables} from './mutations'
+import {ReadBoardType} from './types'
+import {RouteChildrenProps} from 'react-router'
 
 export const DashboardBoardsTab = (props: RouteChildrenProps) => {
     console.log(props)
-  const [globalValidation, setGlobalValidation] = useState('')
-  const [boardName, setBoardName] = useState('')
+    const [globalValidation, setGlobalValidation] = useState('')
+    const [boardName, setBoardName] = useState('')
 
-  const { loading, error, data, refetch } = useQuery<ReadBoardsResponse>(Boards)
+    const {loading, error, data, refetch} = useQuery<ReadBoardsResponse>(Boards)
 
-  const [createBoard] = useMutation<ReadBoardType, CreateBoardVariables>(CreateBoard)
+    const [createBoard] = useMutation<ReadBoardType, CreateBoardVariables>(CreateBoard)
 
   useEffect(() => {
     setGlobalValidation(error ? error.graphQLErrors[0].message : '')
@@ -46,14 +46,14 @@ export const DashboardBoardsTab = (props: RouteChildrenProps) => {
   const items = data.boards
     .map(board => (
       <Card key={board.id} centered onClick={() => props.history.push(`/dashboard/boards/${board.id}`)}>
-        <Card.Content>
-          <Card.Header>{board.name}</Card.Header>
-          <Card.Description>Leverage agile frameworks to provide a robust synopsis for high level
-            overviews.</Card.Description>
-        </Card.Content>
-        <Card.Content extra>
-          <Icon name='user'/>4 Friends
-        </Card.Content>
+          <Card.Content>
+              <Card.Header>{board.name}</Card.Header>
+              <Card.Description>Leverage agile frameworks to provide a robust synopsis for high level
+                  overviews.</Card.Description>
+          </Card.Content>
+          <Card.Content extra>
+              <Icon name='user'/>{board.columns.flatMap(value => value.cards).length} карточек
+          </Card.Content>
       </Card>
     ))
     .concat((

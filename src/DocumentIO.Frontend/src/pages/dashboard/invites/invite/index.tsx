@@ -69,11 +69,11 @@ export const Invite: FunctionComponent<InviteProps> =
                         <Grid.Column computer={6}>
                             {!account && (
                                 <>
-                                    <Button basic color='black' onClick={copyInviteUrl}>Copy invite</Button>
-                                    <Button basic color='black' onClick={onDeleteInvite}>Delete invite</Button>
+                                    <Button basic color='black' onClick={copyInviteUrl}>Скопировать приглашение</Button>
+                                    <Button basic color='black' onClick={onDeleteInvite}>Удалить приглашение</Button>
                                 </>
                             )}
-                            {account && <Button basic color='black' onClick={onProfileView}>Profile</Button>}
+                            {account && <Button basic color='black' onClick={onProfileView}>Профиль</Button>}
                         </Grid.Column>
                     </Grid.Row>
                 </Grid>
