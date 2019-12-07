@@ -3,11 +3,6 @@
   "version": "0.0.1",
   "dependencies": {
     "@apollo/react-hooks": "^3.1.1",
-    "@graphql-codegen/cli": "^1.9.1",
-    "@graphql-codegen/introspection": "^1.9.1",
-    "@graphql-codegen/typescript": "^1.9.1",
-    "@graphql-codegen/typescript-operations": "^1.9.1",
-    "@graphql-codegen/typescript-react-apollo": "^1.9.1",
     "apollo-boost": "^0.4.4",
     "dayjs": "^1.8.16",
     "font-awesome": "^4.7.0",
@@ -28,11 +23,16 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "generate": "graphql-codegen --config graphqlCodegenConfig.js"
+    "generate": "graphql-codegen --config graphql.js"
   },
   "devDependencies": {
     "@types/graphql": "^14.5.0",
     "@types/lodash": "^4.14.141",
+    "@graphql-codegen/cli": "^1.9.1",
+    "@graphql-codegen/introspection": "^1.9.1",
+    "@graphql-codegen/typescript": "^1.9.1",
+    "@graphql-codegen/typescript-operations": "^1.9.1",
+    "@graphql-codegen/typescript-react-apollo": "^1.9.1",
     "@types/react": "^16.9.2",
     "@types/react-dom": "^16.9.0",
     "@types/react-router-dom": "^4.3.5",
