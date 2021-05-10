@@ -9,7 +9,7 @@
     "for-editor": "^0.3.4",
     "froala-editor": "^3.0.6",
     "graphql": "^14.5.8",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.21",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
     "react-router-dom": "^5.0.1",
